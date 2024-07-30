@@ -1,8 +1,17 @@
 import { Button } from "@/components/ui/button";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { Form } from "@remix-run/react";
+import { Form, MetaFunction } from "@remix-run/react";
 import { authenticator } from "~/services/auth.server";
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "GL1 - Login" },
+    {
+      name: "Green Lending 1 - Login",
+      content: "GL1 suppoerts the green transition of your mortgage portfolio.",
+    },
+  ];
+};
 // First we create our UI with the form doing a POST and the inputs with the
 // names we are going to use in the strategy
 export default function Screen() {

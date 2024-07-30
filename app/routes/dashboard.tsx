@@ -3,7 +3,13 @@ import { type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { authenticator } from "~/services/auth.server";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "GL1 - Platform" }, { name: "description", content: "GL1" }];
+  return [
+    { title: "GL1 - Platform" },
+    {
+      name: "Green Lending 1 - Platform",
+      content: "GL1 suppoerts the green transition of your mortgage portfolio.",
+    },
+  ];
 };
 
 export default function Index() {
