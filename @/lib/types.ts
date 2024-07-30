@@ -8,3 +8,10 @@ export type LoginForm = {
   username: string;
   password: string;
 };
+
+export type Cred = {
+  username: string;
+  passwordHash: string;
+  createdAt: string;
+  userId: string;
+};

@@ -9,16 +9,15 @@ export default $config({
     };
   },
   async run() {
-    const tableUser = new sst.aws.Dynamo("Credentials", {
+    const tableCreds = new sst.aws.Dynamo("Creds", {
       fields: {
-        userId: "string",
         username: "string",
       },
       primaryIndex: { hashKey: "username" },
     });
 
     const webRemix = new sst.aws.Remix("GL1", {
-      link: [tableUser],
+      link: [tableCreds],
     });
 
     return {
