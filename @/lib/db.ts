@@ -27,23 +27,35 @@ const get = async (key: string, keyValue: string, tableName: string) => {
   console.log("Item", res);
   return res?.Item;
 };
-
-const create = async (data: any, tableName: string) => {
-  await client.send(
-    new PutCommand({
-      TableName: tableName,
-      Item: data,
-    })
-  );
+type createType = Cred;
+type returnCreateType =
+  | { data: createType; status: "ok" }
+  | { error: string; status: "error" };
+const create = async (
+  data: createType,
+  tableName: string
+): Promise<returnCreateType> => {
+  try {
+    await client.send(
+      new PutCommand({
+        TableName: tableName,
+        Item: data,
+      })
+    );
+    return { data, status: "ok" };
+  } catch (error) {
+    console.log("Error", error);
+    return { error: JSON.stringify(error) || "Error", status: "error" };
+  }
 };
 
 const db = {
   cred: {
-    get: async (username: string): Promise<Cred> => {
-      return get("username", username, Resource.Creds.name);
+    get: async (email: string): Promise<Cred | undefined> => {
+      return get("email", email, Resource.Credentials.name) as Promise<Cred>;
     },
     create: async (data: Cred) => {
-      return create(data, Resource.Creds.name);
+      return create(data, Resource.Credentials.name);
     },
   },
 };

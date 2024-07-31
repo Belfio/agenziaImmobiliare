@@ -46,14 +46,15 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               id="password"
               name="password"
               placeholder="Password"
-              type="email"
+              type="password"
               autoCapitalize="none"
               autoComplete="current-password"
               autoCorrect="off"
               disabled={isLoading}
             />
+            <input type="hidden" name="register" value="true" />
           </div>
-          <Button disabled={isLoading}>
+          <Button disabled={isLoading} onSubmit={onSubmit}>
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}

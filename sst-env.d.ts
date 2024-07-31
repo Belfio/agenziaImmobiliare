@@ -3,7 +3,7 @@
 import "sst"
 declare module "sst" {
   export interface Resource {
-    Creds: {
+    Credentials: {
       name: string
       type: "sst.aws.Dynamo"
     }

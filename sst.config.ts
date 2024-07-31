@@ -9,15 +9,19 @@ export default $config({
     };
   },
   async run() {
-    const tableCreds = new sst.aws.Dynamo("Creds", {
+    const AUTH_SECRET = "yyc4ysfXKZVuj35h62X9qhjEP73BVqhRtxe/kLa44ok=";
+    const tableCreds = new sst.aws.Dynamo("Credentials", {
       fields: {
-        username: "string",
+        email: "string",
       },
-      primaryIndex: { hashKey: "username" },
+      primaryIndex: { hashKey: "email" },
     });
 
     const webRemix = new sst.aws.Remix("GL1", {
       link: [tableCreds],
+      environment: {
+        AUTH_SECRET: AUTH_SECRET,
+      },
     });
 
     return {

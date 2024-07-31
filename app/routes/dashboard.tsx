@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
+import {
+  ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  type MetaFunction,
+} from "@remix-run/node";
+import { Form, Outlet } from "@remix-run/react";
+
 import { authenticator } from "~/services/auth.server";
 
 export const meta: MetaFunction = () => {
@@ -15,8 +21,11 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div className="font-sans p-4">
-      <h1 className="text-3xl">GL1 Dashboard</h1>
-      <Button>Sign In</Button>
+      <h1 className="text-3xl">Sciabola</h1>
+      <Form method="post" className="bg-gray-200">
+        <Button>Sign Out</Button>
+        <Outlet />
+      </Form>
     </div>
   );
 }
@@ -28,4 +37,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
   });
 
   return {};
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  return await authenticator.logout(request, {
+    redirectTo: "/logout",
+  });
 }
