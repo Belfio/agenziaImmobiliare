@@ -5,7 +5,6 @@ import {
   type MetaFunction,
 } from "@remix-run/node";
 import { Form, Outlet } from "@remix-run/react";
-import DashboardLayout from "~/pages/dashboardLayout";
 
 import { authenticator } from "~/services/auth.server";
 
@@ -20,7 +19,11 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  return <DashboardLayout />;
+  return (
+    <div className="font-sans p-4">
+      <h1 className="text-3xl">Dentro </h1>
+    </div>
+  );
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
