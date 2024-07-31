@@ -4,20 +4,22 @@ import { LucideIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import { Link } from "@remix-run/react";
+import { Link, useLocation } from "@remix-run/react";
 import { buttonVariants } from "./ui/button";
 
 interface NavProps {
   isCollapsed: boolean;
   links: {
     title: string;
-    label?: string;
+    url: string;
     icon: LucideIcon;
-    variant: "default" | "ghost";
   }[];
 }
 
 export function Nav({ links, isCollapsed }: NavProps) {
+  const url = useLocation();
+  const path = url.pathname;
+  console.log(path);
   return (
     <div
       data-collapsed={isCollapsed}
@@ -29,9 +31,12 @@ export function Nav({ links, isCollapsed }: NavProps) {
             <Tooltip key={index} delayDuration={0}>
               <TooltipTrigger asChild>
                 <Link
-                  to="#"
+                  to={link.url}
                   className={cn(
-                    buttonVariants({ variant: link.variant, size: "icon" }),
+                    buttonVariants({
+                      variant: link.url === path ? "default" : "ghost",
+                      size: "icon",
+                    }),
                     "h-9 w-9",
                     link.variant === "default" &&
                       "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
@@ -48,9 +53,12 @@ export function Nav({ links, isCollapsed }: NavProps) {
           ) : (
             <Link
               key={index}
-              to="#"
+              to={link.url}
               className={cn(
-                buttonVariants({ variant: link.variant, size: "icon" }),
+                buttonVariants({
+                  variant: link.url === path ? "default" : "ghost",
+                  size: "icon",
+                }),
                 link.variant === "default" &&
                   "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                 "justify-start w-full p-4"

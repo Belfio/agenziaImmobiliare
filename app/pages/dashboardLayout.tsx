@@ -30,39 +30,33 @@ export default function DashboardLayout() {
               links={[
                 {
                   title: "Overview",
-                  label: "128",
+                  url: "/dashboard",
                   icon: LayoutDashboard,
-                  variant: "default",
                 },
                 {
                   title: "Portfolio",
-                  label: "9",
+                  url: "/dashboard/portfolio",
                   icon: ChartPie,
-                  variant: "ghost",
                 },
                 {
                   title: "Propreties",
-                  label: "",
+                  url: "/dashboard/properties",
                   icon: House,
-                  variant: "ghost",
                 },
                 {
                   title: "Decarbonization Model",
-                  label: "23",
+                  url: "/dashboard/decarbonization",
                   icon: ChartNetwork,
-                  variant: "ghost",
                 },
                 {
                   title: "Data and Reports",
-                  label: "",
+                  url: "/dashboard/data",
                   icon: TextSearch,
-                  variant: "ghost",
                 },
                 {
                   title: "Monitoring",
-                  label: "",
+                  url: "/dashboard/monitoring",
                   icon: Activity,
-                  variant: "ghost",
                 },
               ]}
             />
@@ -72,15 +66,13 @@ export default function DashboardLayout() {
               links={[
                 {
                   title: "Settings",
-                  label: "972",
+                  url: "/dashboard/settings",
                   icon: Settings,
-                  variant: "ghost",
                 },
                 {
                   title: "Support",
-                  label: "342",
+                  url: "/dashboard/support",
                   icon: Headset,
-                  variant: "ghost",
                 },
               ]}
             />
