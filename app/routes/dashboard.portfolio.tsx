@@ -1,3 +1,4 @@
+import { PieChartUI } from "@/components/PieChart";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
@@ -20,6 +21,7 @@ export default function Index() {
   return (
     <div className="font-sans p-4">
       <h1 className="text-3xl">Portfolio </h1>
+      <PieChartUI className="mt-8" />
     </div>
   );
 }
