@@ -4,6 +4,7 @@ import {
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
+import PortfolioPage from "~/pages/portfolio";
 
 import { authenticator } from "~/services/auth.server";
 
@@ -20,8 +21,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div className="font-sans p-4">
-      <h1 className="text-3xl">Portfolio </h1>
-      <PieChartUI className="mt-8" />
+      <PortfolioPage />
     </div>
   );
 }

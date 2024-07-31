@@ -1,5 +1,3 @@
-"use client";
-
 import { Pie, PieChart, ResponsiveContainer, Sector, Cell } from "recharts";
 
 const data = [
@@ -17,7 +15,6 @@ const renderCustomizedLabel = ({
   innerRadius,
   outerRadius,
   percent,
-  index,
 }: {
   cx: number;
   cy: number;
@@ -25,7 +22,6 @@ const renderCustomizedLabel = ({
   innerRadius: number;
   outerRadius: number;
   percent: number;
-  index: number;
 }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
