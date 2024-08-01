@@ -1,7 +1,7 @@
-import db from "@/lib/db";
-import { Cred, LoginForm } from "@/lib/types";
+import db from "~/@/lib/db";
+import { Cred, LoginForm } from "~/@/lib/types";
 
-import argon2 from "argon2";
+import bcryptjs from "bcryptjs";
 
 export async function login(
   email: string,
@@ -11,7 +11,7 @@ export async function login(
   const user = await db.cred.get(email);
   if (!user) return null;
   // const isCorrectPassword = true;
-  const isCorrectPassword = await argon2.verify(user.passwordHash, password);
+  const isCorrectPassword = await bcryptjs.compare(password, user.passwordHash);
   if (!isCorrectPassword) {
     console.log("password incorrect");
     return null;
@@ -25,7 +25,7 @@ export async function register({
 }: LoginForm): Promise<{ status: "ok" } | { status: "error"; error: string }> {
   console.log("registering user", email, password);
 
-  const passwordHash = await argon2.hash(password);
+  const passwordHash = await bcryptjs.hash(password, 10);
   try {
     await db.cred.create({
       email,

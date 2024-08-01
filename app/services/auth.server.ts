@@ -1,7 +1,7 @@
 import { Authenticator } from "remix-auth";
 import { FormStrategy } from "remix-auth-form";
 import { sessionStorage } from "~/services/session.server";
-import { Cred } from "@/lib/types";
+import { Cred } from "~/@/lib/types";
 import { login, register } from "./login.server";
 
 // Create an instance of the authenticator, pass a generic with what

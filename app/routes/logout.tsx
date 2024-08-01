@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "~/@/components/ui/button";
 import type { ActionFunctionArgs } from "@remix-run/node";
 import { Form, MetaFunction } from "@remix-run/react";
 import { authenticator } from "~/services/auth.server";

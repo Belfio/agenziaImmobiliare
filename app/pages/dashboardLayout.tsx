@@ -1,6 +1,6 @@
-import DashHeader from "@/components/DashHeader";
-import { Nav } from "@/components/DashNav";
-import { Separator } from "@/components/ui/separator";
+import DashHeader from "~/@/components/DashHeader";
+import { Nav } from "~/@/components/DashNav";
+import { Separator } from "~/@/components/ui/separator";
 import { Outlet } from "@remix-run/react";
 import {
   Activity,

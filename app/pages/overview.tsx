@@ -1,8 +1,6 @@
-"use client";
-
-import MainKpi from "@/components/MainKpi";
-import PortfolioOverviwew from "@/components/PortfolioOverview";
-import Tile from "@/components/Tiles";
+import MainKpi from "~/@/components/MainKpi";
+import PortfolioOverviwew from "~/@/components/PortfolioOverview";
+import Tile from "~/@/components/Tiles";
 
 export default function OverviewPage() {
   return (

@@ -1,18 +1,24 @@
-"use client";
-
-import { DataTable } from "@/components/DataTable";
-import { columns } from "@/components/DataTable/columns";
-import { MultiBarChartUI } from "@/components/MultiBarChart";
-import { PieChartUI } from "@/components/PieChart";
-import { StackBarChartUI } from "@/components/StackBarChart";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Emissions, EPCrating, StackDataEmissionsVsEPC } from "@/data/data";
-import { tasks } from "@/data/tableData";
+import { DataTable } from "~/@/components/DataTable";
+import { columns } from "~/@/components/DataTable/columns";
+import { MultiBarChartUI } from "~/@/components/MultiBarChart";
+import { PieChartUI } from "~/@/components/PieChart";
+import { StackBarChartUI } from "~/@/components/StackBarChart";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "~/@/components/ui/tabs";
+import { Emissions, EPCrating, StackDataEmissionsVsEPC } from "~/@/data/data";
+import { tasks } from "~/@/data/tableData";
 
 export default function PortfolioPage() {
   return (
     <div className="font-sans p-4">
       <h1 className="text-3xl">Portfolio </h1>
+      <p className="text-sm text-gray-500">
+        Explore your portfolio and get insights on your properties.
+      </p>
       <Tabs defaultValue="Emissions" className="space-y-4 mt-8">
         <TabsList>
           <TabsTrigger value="Emissions">Emissions</TabsTrigger>
@@ -23,7 +29,7 @@ export default function PortfolioPage() {
         <TabsContent value="Emissions" className="space-y-4">
           <h1 className="text-xl">Emissions </h1>
           <div className="flex">
-            <PieChartUI className="mt-8 w-[400px]" data={Emissions} />
+            <PieChartUI className=" w-[400px]" data={Emissions} />
             <StackBarChartUI
               className="mt-8 w-[200px]"
               data={StackDataEmissionsVsEPC}
@@ -47,6 +53,11 @@ export default function PortfolioPage() {
         </TabsContent>
       </Tabs>
       <div className="mt-8">
+        <p className="text-sm text-gray-500 my-8 max-w-[600px]">
+          By clicking on the charts on top, you can filter the properties listed
+          below. i.e. you click 60% which represents emissions between 70-90,
+          and only the properties in that bracket will be shown below.
+        </p>
         <DataTable data={tasks} columns={columns} />
       </div>
     </div>

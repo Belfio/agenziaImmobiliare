@@ -17,15 +17,11 @@ export default $config({
       primaryIndex: { hashKey: "email" },
     });
 
-    const webRemix = new sst.aws.Remix("GL1", {
+    new sst.aws.Remix("GL1", {
       link: [tableCreds],
       environment: {
         AUTH_SECRET: AUTH_SECRET,
       },
     });
-
-    return {
-      remix: webRemix.url,
-    };
   },
 });

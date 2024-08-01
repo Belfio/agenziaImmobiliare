@@ -1,5 +1,3 @@
-"use client";
-
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,

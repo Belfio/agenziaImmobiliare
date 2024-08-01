@@ -1,4 +1,4 @@
-import { UserAuthForm } from "@/components/UserAuthForm";
+import { UserAuthForm } from "~/@/components/UserAuthForm";
 import { Link } from "@remix-run/react";
 import {
   Card,
@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "~/@/components/ui/card";
 
 export default function LoginPage() {
   return (
