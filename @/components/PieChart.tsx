@@ -1,11 +1,4 @@
-import { Pie, PieChart, ResponsiveContainer, Sector, Cell } from "recharts";
-
-const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-];
+import { Pie, PieChart, ResponsiveContainer, Cell, Legend } from "recharts";
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -40,26 +33,44 @@ const renderCustomizedLabel = ({
   );
 };
 
-export function PieChartUI({ className }: { className: string }) {
+type PieDataType = {
+  name: string;
+  value: number;
+}[];
+export function PieChartUI({
+  className,
+  data,
+  minWidth = 500,
+  radius = 210,
+}: {
+  className?: string;
+  data: PieDataType;
+  minWidth?: number;
+  radius?: number;
+}) {
   return (
-    <ResponsiveContainer width={450} height={450} className={className}>
-      <PieChart width={600} height={600}>
+    <ResponsiveContainer
+      width={600}
+      height={360}
+      className={className}
+      minWidth={minWidth}
+    >
+      <PieChart>
         <Pie
           data={data}
-          cx="50%"
+          cx="40%"
           cy="50%"
           labelLine={false}
           label={renderCustomizedLabel}
           fill="#8884d8"
           dataKey="value"
-          height={1400}
-          width={1400}
-          outerRadius={180}
+          outerRadius={radius}
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={"#000"} />
           ))}
         </Pie>
+        <Legend layout="vertical" align="right" verticalAlign="middle" />
       </PieChart>
     </ResponsiveContainer>
   );

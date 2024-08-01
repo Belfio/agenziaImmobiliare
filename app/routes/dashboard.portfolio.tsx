@@ -1,4 +1,3 @@
-import { PieChartUI } from "@/components/PieChart";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,

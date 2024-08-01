@@ -3,6 +3,7 @@ import {
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
+import PropertiesPage from "~/pages/properties";
 
 import { authenticator } from "~/services/auth.server";
 
@@ -19,7 +20,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div className="font-sans p-4">
-      <h1 className="text-3xl">Properties </h1>
+      <PropertiesPage />
     </div>
   );
 }

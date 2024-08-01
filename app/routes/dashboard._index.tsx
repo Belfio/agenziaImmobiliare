@@ -1,9 +1,11 @@
-import MainKpi from "@/components/MainKpi";
+"use client";
+
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
+import OverviewPage from "~/pages/overview";
 
 import { authenticator } from "~/services/auth.server";
 
@@ -20,8 +22,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div className="font-sans p-4">
-      <h1 className="text-3xl">Overview </h1>
-      <MainKpi />
+      <OverviewPage />
     </div>
   );
 }

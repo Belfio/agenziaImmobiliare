@@ -1,7 +1,10 @@
+"use client";
+
 import { Link } from "@remix-run/react";
-import { BarChartUI } from "./BarChart";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { LineChartUI } from "./LineChart";
+import { EmissionsTrend } from "@/data/data";
 
 export default function MainKpi() {
   return (
@@ -14,7 +17,7 @@ export default function MainKpi() {
           </p>
         </CardHeader>
         <CardContent className="pl-2 grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-          <BarChartUI className="col-span-4" />
+          <LineChartUI className="col-span-4" series={EmissionsTrend} />
           <div className="col-span-3 relative pl-8">
             <div className="absolute top-[-80px]">
               <h1 className="text-8xl font-black">

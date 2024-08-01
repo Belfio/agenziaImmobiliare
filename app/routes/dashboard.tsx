@@ -32,6 +32,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export async function action({ request }: ActionFunctionArgs) {
+  console.log("action in the dashboard");
   return await authenticator.logout(request, {
     redirectTo: "/logout",
   });

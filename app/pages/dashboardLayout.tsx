@@ -40,7 +40,7 @@ export default function DashboardLayout() {
                     icon: ChartPie,
                   },
                   {
-                    title: "Propreties",
+                    title: "Properties",
                     url: "/dashboard/properties",
                     icon: House,
                   },
