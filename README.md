@@ -1,40 +1,54 @@
-# Welcome to Remix!
+# GL1
 
-- 📖 [Remix docs](https://remix.run/docs)
+## Product Architecture
 
-## Development
+### Goal
 
-Run the dev server:
+The GL1 team needs to develop a production ready MVP that will allow to showcase their initial system to a list of stakeholders.
 
-```shellscript
-npm run dev
-```
+The requirements are:
 
-## Deployment
+- flexible system for quick iterations
+- system that can be scaled to a fully compliant professional tool
+- system that will allow a clean connection with the data models and data pipeline
+- low cost
 
-First, build your app for production:
+### Stack
 
-```sh
-npm run build
-```
+I selected the following stack:
 
-Then run the app in production mode:
+- AWS for the IaaS and its serverless services
+- React + Remix.run for the FE development
+- Shadcn UI for the FE components library
+- SST Ion for the deployment system and the orchestration of the AS services
 
-```sh
-npm start
-```
+### Architecture
 
-Now you'll need to pick a host to deploy it to.
+Web platform designed for Desktop but reponsive (desktop-first).
+Served through Cloudflare CDN or AWS CDN via https.
+Remix is a server side FE framework - each call to the domain triggers a AWS lambda function connected to the CDN.
+Remix has access to the AWS services that will handle the business logics - databases, lambda function, cron jobs, etc..
 
-### DIY
+At the moment Remix main interface with the GL1 models is through a database that the Data team can access and modify.
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+Eventually, a set of data service will be deployed on AWS.
 
-Make sure to deploy the output of `npm run build`
+### Development
 
-- `build/server`
-- `build/client`
+SST manages the local and serverside deployment.
 
-## Styling
+To start developing, in the command line run:
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+`bun install // or npm install`
+
+`npx sst dev `
+
+SST will deploy in a AWS account a development environment that is accessible in the local machine and gives access to AWS services like a database.
+
+Alternatively, to only develop the FE without running AWS services, in the command line run:
+
+`bun run dev`
+
+When the system is ready to be deployed, SST manages the deployment in the different environments via the command:
+
+`npx sst deploy --stage production`
