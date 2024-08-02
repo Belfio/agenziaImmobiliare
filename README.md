@@ -1,61 +1,136 @@
-# GL1
+# GL1 Product Architecture
 
-## Product Architecture
+## Goal
 
-### Goal
+The GL1 team aims to develop a production-ready Minimum Viable Product (MVP) to showcase their initial system to key stakeholders. This MVP must meet the following critical requirements:
 
-The GL1 team needs to develop a production ready MVP that will allow to showcase their initial system to a list of stakeholders.
+1. Flexibility for rapid iterations
+2. Scalability to evolve into a fully compliant professional tool
+3. Clean integration with data models and pipelines
+4. Cost-effectiveness
 
-The requirements are:
+Notes:
 
-- flexible system for quick iterations
-- system that can be scaled to a fully compliant professional tool
-- system that will allow a clean connection with the data models and data pipeline
-- low cost
+- No-code tools are avoided as they are not well-suited for unique use-cases like a retrofit mortgage platform, and they don't necessarily increase development speed for this project.
+- Vercel is not considered due to concerns about the reliability of their cost billing system. An error in the code could potentially lead to significant unexpected costs for the company.
 
-### Stack
+These considerations have led to the selection of a more customizable and cost-controllable tech stack, as detailed in the following sections.
 
-I selected the following stack:
+## Technology Stack
 
-- AWS for the IaaS and its serverless services
-- React + Remix.run for the FE development
-- Shadcn UI for the FE components library
-- SST Ion for the deployment system and the orchestration of the AS services
+After careful consideration of the project requirements, we've selected the following technology stack:
 
-### Architecture
+### Infrastructure and Backend
 
-Web platform designed for Desktop but reponsive (desktop-first).
-Served through Cloudflare CDN or AWS CDN via https.
-Remix is a server side FE framework - each call to the domain triggers a AWS lambda function connected to the CDN.
-Remix has access to the AWS services that will handle the business logics - databases, lambda function, cron jobs, etc..
+- **Amazon Web Services (AWS)**: Chosen for its comprehensive suite of IaaS and serverless offerings, providing scalability, reliability, and cost-effectiveness.
+  - Key services: Lambda, API Gateway, DynamoDB, RDS, S3, CloudFront
 
-At the moment Remix main interface with the GL1 models is through a database that the Data team can access and modify.
+### Frontend
 
-Eventually, a set of data service will be deployed on AWS.
+- **React**: A popular, efficient JavaScript library for building user interfaces.
+- **Remix.run**: A full-stack web framework that leverages React's component model for both client and server-side rendering, offering improved performance and SEO capabilities.
+- **Shadcn UI**: A collection of re-usable components built with Radix UI and Tailwind CSS, chosen for its accessibility, customizability, and design consistency.
 
-### Databases
+### Deployment and DevOps
 
-The platform has 2 main kinds of data structures:
+- **SST (Serverless Stack)**: An open-source framework for building and deploying serverless applications on AWS, selected for its seamless integration with AWS services and developer-friendly workflows.
 
-- SaaS functional data (userProfiles, settings, companyProfile) that can be served with a fast NoSQL database. Each retrieval can be done with the main key of userId
-- Property and emission data. This is in the form of transactional data and due to the SQL ability to quickly filters and merge data, it is better served with a relational database.
+## Detailed Architecture
 
-### Development
+### Web Application
 
-SST manages the local and serverside deployment.
+- **Design Philosophy**: Desktop-first, with responsive design to ensure usability across various devices.
+- **Content Delivery**:
+  - Primary: AWS CloudFront CDN
+  - Alternative: Cloudflare CDN (for potential multi-CDN strategy)
+- **HTTPS**: Enforced for all connections to ensure data security and integrity.
 
-To start developing, in the command line run:
+### Server-Side Rendering with Remix
 
-`bun install // or npm install`
+- Each request to the domain triggers an AWS Lambda function.
+- Remix handles both server-side rendering and client-side navigation, improving initial load times and SEO.
+- The Remix application has direct access to AWS services, allowing for efficient handling of business logic without the need for a separate API layer.
 
-`npx sst dev `
+### Data Flow
 
-SST will deploy in a AWS account a development environment that is accessible in the local machine and gives access to AWS services like a database.
+1. User requests reach CloudFront CDN.
+2. Requests are forwarded to AWS Lambda running the Remix application.
+3. Remix handles the request, interacting with necessary AWS services (e.g., databases, other Lambda functions).
+4. The response is sent back through CloudFront to the user.
 
-Alternatively, to only develop the FE without running AWS services, in the command line run:
+### AWS Services Integration
 
-`bun run dev`
+- **API Gateway**: Manages and secures API endpoints for any external integrations.
+- **Lambda**: Executes Remix application code and handles specific backend tasks.
+- **DynamoDB**: Stores SaaS functional data (user profiles, settings, etc.).
+- **RDS (PostgreSQL)**: Manages property and emission data, leveraging SQL capabilities for complex queries.
+- **S3**: Stores static assets and potentially acts as a data lake for analytics.
+- **EventBridge**: Orchestrates cron jobs and event-driven processes.
 
-When the system is ready to be deployed, SST manages the deployment in the different environments via the command:
+### Data Model Interface
 
-`npx sst deploy --stage production`
+- Currently, Remix interfaces with GL1 models primarily through database access.
+- Future plans include developing dedicated data services on AWS to enhance modularity and scalability.
+
+## Database Architecture
+
+### NoSQL Database (DynamoDB)
+
+- Purpose: Store SaaS functional data (user profiles, settings, company profiles)
+- Justification: Fast read/write operations, scalability, and efficient key-based data retrieval
+- Data Model: Designed around the userId as the primary key for optimal performance
+
+### Relational Database (RDS - PostgreSQL)
+
+- Purpose: Store property and emission data
+- Justification: Complex relationships between data points, need for ACID transactions, and powerful querying capabilities
+- Data Model: Normalized schema design to minimize data redundancy and ensure data integrity
+
+## Development Workflow
+
+### Local Development
+
+1. Install dependencies:
+   ```
+   bun install  # or npm install
+   ```
+2. Start the SST development environment:
+
+   ```
+   npx sst dev
+   ```
+
+   This command:
+
+   - Deploys a development stack to your AWS account
+   - Sets up local emulation of AWS services
+   - Enables hot reloading for rapid development
+
+3. For frontend-only development:
+   ```
+   bun run dev
+   ```
+   This runs Remix in development mode without AWS service integration.
+
+### Deployment Process
+
+1. Development deployments are automated through the SST development workflow.
+2. For production and other environments:
+   ```
+   npx sst deploy --stage <environment>
+   ```
+   This command:
+   - Builds the application
+   - Packages all resources
+   - Deploys to the specified AWS environment using CloudFormation
+
+## Scalability and Future Considerations
+
+- The serverless architecture allows for automatic scaling based on demand.
+- The separation of frontend and backend concerns enables independent scaling and updates.
+- Future enhancements may include:
+  - Implementing GraphQL for more efficient data fetching
+  - Adopting a microservices architecture for specific high-load components
+  - Integrating machine learning models for predictive analytics
+
+This architecture provides a solid foundation for the GL1 MVP, balancing immediate needs with future scalability and feature expansion. The use of modern, cloud-native technologies ensures that the system can evolve to meet changing business requirements while maintaining performance and cost-effectiveness.
