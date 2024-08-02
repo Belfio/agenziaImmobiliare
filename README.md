@@ -33,6 +33,13 @@ At the moment Remix main interface with the GL1 models is through a database tha
 
 Eventually, a set of data service will be deployed on AWS.
 
+### Databases
+
+The platform has 2 main kinds of data structures:
+
+- SaaS functional data (userProfiles, settings, companyProfile) that can be served with a fast NoSQL database. Each retrieval can be done with the main key of userId
+- Property and emission data. This is in the form of transactional data and due to the SQL ability to quickly filters and merge data, it is better served with a relational database.
+
 ### Development
 
 SST manages the local and serverside deployment.
