@@ -6,6 +6,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import "./globals.css";
+import "@/assets/fonts/Arial_Nova/Arial_Nova.ttf";
+import "@/assets/fonts/Poppins/Poppins-Regular.ttf";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

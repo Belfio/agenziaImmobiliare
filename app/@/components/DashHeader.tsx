@@ -1,4 +1,4 @@
-import { Search } from "./SearchNav";
+// import { Search } from "./SearchNav";
 import { UserNav } from "./UserNav";
 
 export default function DashHeader() {
@@ -9,7 +9,7 @@ export default function DashHeader() {
           <h1 className="text-xl font-semibold">GL1</h1>
         </div>
         <div className="ml-auto flex items-center space-x-4">
-          <Search />
+          {/* <Search /> */}
           <UserNav />
         </div>
       </div>

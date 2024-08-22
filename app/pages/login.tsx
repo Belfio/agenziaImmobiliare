@@ -18,9 +18,9 @@ export default function LoginPage() {
           <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
         </CardTitle>
         <CardDescription>
-          <p className="text-sm text-muted-foreground">
+          {/* <p className="text-sm text-muted-foreground">
             Enter your email below to create your account
-          </p>
+          </p> */}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -34,7 +34,7 @@ export default function LoginPage() {
       <CardFooter>
         <div className="m-auto">
           <Link to="/register" className="text-sm text-primary-500">
-            Create an account
+            Sign in
           </Link>
         </div>
       </CardFooter>

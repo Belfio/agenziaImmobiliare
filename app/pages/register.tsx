@@ -48,8 +48,8 @@ export default function RegisterPage() {
                 Enter your email below to create your account
               </p>
             </div>
-            <UserAuthForm />
-            <p className="px-8 text-center text-sm text-muted-foreground">
+            <UserAuthForm signup={true} />
+            {/* <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link
                 to="/terms"
@@ -65,7 +65,7 @@ export default function RegisterPage() {
                 Privacy Policy
               </Link>
               .
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

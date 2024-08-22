@@ -67,3 +67,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+  font-family: "Arial Nova";
+  src: local("Arial_Nova"), url("@/assets/fonts/Arial_Nova/Arial_Nova.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  src: local("Poppins"), url("@/assets/fonts/Poppins/Poppins-Regular.ttf");
+}
+
+body {
+  font-family: "Arial Nova", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
+}
