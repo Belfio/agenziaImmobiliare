@@ -1,8 +1,12 @@
 import {
   ActionFunctionArgs,
+  redirect,
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import pp from "~/@/lib/propertyProcessing";
+import { PropertyData } from "~/@/lib/types";
 import PropertiesPage from "~/pages/properties";
 
 import { authenticator } from "~/services/auth.server";
@@ -18,20 +22,42 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const { propertyData, property, addressOptions } =
+    useLoaderData<typeof loader>();
   return (
     <div className="font-sans p-4">
-      <PropertiesPage />
+      <PropertiesPage properties={propertyData.properties} />
     </div>
   );
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
   console.log("loader in the dashboard");
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
 
-  return {};
+  const propertyData: PropertyData = await pp.loadProperties(500);
+  if (!propertyData) {
+    return {};
+  }
+  console.log(propertyData.properties[0]);
+  const property = propertyData.properties.find(
+    (property) =>
+      property.propertyAttributes.address.toLowerCase() ===
+      url.searchParams.get("address")?.toLowerCase()
+  );
+  if (property) {
+    pp.postProcessProperty(property);
+  }
+  // await new Promise(resolve => setTimeout(resolve, 200))
+
+  return {
+    propertyData,
+    property,
+    addressOptions: propertyData.addressOptions,
+  };
 }
 
 export async function action({ request }: ActionFunctionArgs) {

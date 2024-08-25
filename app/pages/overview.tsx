@@ -5,9 +5,9 @@ import Tile from "~/@/components/Tiles";
 export default function OverviewPage() {
   return (
     <div className="font-sans p-4">
-      <h1 className="text-3xl">Overview </h1>
+      {/* <h1 className="text-3xl">Overview </h1> */}
 
-      <div className="mt-8">
+      <div className="mt-0">
         <MainKpi />
         <div className="flex justify-center gap-8 mt-8">
           <Tile
