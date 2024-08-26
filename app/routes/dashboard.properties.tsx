@@ -1,6 +1,5 @@
 import {
   ActionFunctionArgs,
-  redirect,
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
@@ -22,7 +21,9 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const { propertyData } = useLoaderData<typeof loader>();
+  const { propertyData } = useLoaderData<typeof loader>() as {
+    propertyData: PropertyData;
+  };
   return (
     <div className="font-sans p-4">
       <PropertiesPage properties={propertyData} />

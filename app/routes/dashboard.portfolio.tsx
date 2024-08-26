@@ -5,7 +5,7 @@ import {
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import pp from "~/@/lib/propertyProcessing";
-import { Property, PropertyData } from "~/@/lib/types";
+import { PropertyData } from "~/@/lib/types";
 import PortfolioPage from "~/pages/portfolio";
 
 import { authenticator } from "~/services/auth.server";
@@ -21,7 +21,9 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const { propertyData } = useLoaderData<typeof loader>();
+  const { propertyData } = useLoaderData<typeof loader>() as {
+    propertyData: PropertyData;
+  };
   return (
     <div className="font-sans p-4">
       <PortfolioPage properties={propertyData} />
