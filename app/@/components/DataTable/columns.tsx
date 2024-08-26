@@ -2,12 +2,17 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "./dataTableColumnHeader";
-import { labels, priorities, statuses, TaskType } from "~/@/data/tableData";
+import {
+  labels,
+  priorities,
+  statuses,
+  PropertyTableColumnsType,
+} from "~/@/data/tableData";
 import { Badge } from "../ui/badge";
 import { DataTableRowActions } from "./dataTableRowActions";
 import { Checkbox } from "../ui/checkbox";
 
-export const columns: ColumnDef<TaskType>[] = [
+export const columns: ColumnDef<PropertyTableColumnsType>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -42,9 +47,9 @@ export const columns: ColumnDef<TaskType>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "title",
+    accessorKey: "address",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
+      <DataTableColumnHeader column={column} title="Address" />
     ),
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label);
@@ -53,7 +58,7 @@ export const columns: ColumnDef<TaskType>[] = [
         <div className="flex space-x-2">
           {label && <Badge variant="outline">{label.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+            {row.getValue("address")}
           </span>
         </div>
       );

@@ -22,11 +22,10 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const { propertyData, property, addressOptions } =
-    useLoaderData<typeof loader>();
+  const { propertyData } = useLoaderData<typeof loader>();
   return (
     <div className="font-sans p-4">
-      <PropertiesPage properties={propertyData.properties} />
+      <PropertiesPage properties={propertyData} />
     </div>
   );
 }

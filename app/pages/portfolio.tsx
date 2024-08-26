@@ -10,9 +10,16 @@ import {
   TabsTrigger,
 } from "~/@/components/ui/tabs";
 import { Emissions, EPCrating, StackDataEmissionsVsEPC } from "~/@/data/data";
-import { tasks } from "~/@/data/tableData";
+import { PropertyData } from "~/@/lib/types";
+import { parsePropertyForTable } from "~/@/lib/utils";
 
-export default function PortfolioPage() {
+export default function PortfolioPage({
+  properties,
+}: {
+  properties: PropertyData;
+}) {
+  const propertyTableParsed = parsePropertyForTable(properties);
+
   return (
     <div className="font-sans p-4">
       <h1 className="text-3xl">Portfolio </h1>
@@ -58,7 +65,7 @@ export default function PortfolioPage() {
           below. i.e. you click 60% which represents emissions between 70-90,
           and only the properties in that bracket will be shown below.
         </p>
-        <DataTable data={tasks} columns={columns} />
+        <DataTable data={propertyTableParsed} columns={columns} />
       </div>
     </div>
   );

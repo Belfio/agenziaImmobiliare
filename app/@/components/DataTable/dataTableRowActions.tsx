@@ -1,6 +1,6 @@
 "use client";
 
-import { taskSchema, labels } from "~/@/data/tableData";
+import { PropertyTableColumnsSchema, labels } from "~/@/data/tableData";
 import { Row } from "@tanstack/react-table";
 import { Button } from "../ui/button";
 import {
@@ -25,7 +25,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const task = taskSchema.parse(row.original);
+  const task = PropertyTableColumnsSchema.parse(row.original);
 
   return (
     <DropdownMenu>
