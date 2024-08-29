@@ -11,6 +11,7 @@ import {
 import { Badge } from "../ui/badge";
 import { DataTableRowActions } from "./dataTableRowActions";
 import { Checkbox } from "../ui/checkbox";
+import { Link } from "@remix-run/react";
 
 export const columns: ColumnDef<PropertyTableColumnsType>[] = [
   {
@@ -40,9 +41,15 @@ export const columns: ColumnDef<PropertyTableColumnsType>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
+      <DataTableColumnHeader column={column} title="Ref number" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    cell: ({ row }) => (
+      <div className="w-[80px] underline">
+        <Link to={`/properties/${row.getValue("id")}`}>
+          {row.getValue("id")}
+        </Link>
+      </div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },

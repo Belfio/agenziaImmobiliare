@@ -33,7 +33,7 @@ export default function Index() {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
-  console.log("loader in the dashboard");
+  console.log("loader in the properties index");
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
@@ -42,7 +42,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!propertyData) {
     return {};
   }
-  console.log(propertyData.properties[0]);
   const property = propertyData.properties.find(
     (property) =>
       property.propertyAttributes.address.toLowerCase() ===

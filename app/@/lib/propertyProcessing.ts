@@ -397,19 +397,180 @@ async function loadProperties(limit?: number) {
   const propertiesWithLandRegistryData = properties.filter(
     (property: Property) => property.landRegistryData?.[0]?.price_paid
   );
-  console.log(
-    "propertiesWithLandRegistryData",
-    propertiesWithLandRegistryData.length
-  );
 
   propertyData.properties = properties;
   propertyData.addressOptions = addressOptions;
   propertyData.propertiesWithLandRegistryData = propertiesWithLandRegistryData;
   return propertyData;
 }
+
+async function loadProperty(buildingRefNum: string) {
+  const limit = 500;
+  const USE_SERVER = false;
+  const SAVE_TO_FILE = false;
+
+  // let addressOptions = [
+  //     "159 Baldwins Lane B28 0PY",
+  //     "10 Cranley Place SW7 3AB",
+  //     "68 Springbank Road, Gildersome, Morley LS27 7DJ",
+  //     // "65 St. Anns Road W11 4SH",
+  //     "62 College Park Close SE13 5HA",
+  //     "10 Cromwell Road SO15 2JF",
+  //     // "1 PARKSIDE DRIVE, SEACROFT LS14 6FP",
+  //     "16 Charleville Road B19 1DA",
+  //     "1 Mead Way LS15 9JP",
+  //     "54 Finch Road B19 1HR",
+  //     "9 Heath Villas, Vale Of Health NW3 1AW",
+  //     "77 Belper Street LE4 6EB",
+  //     "96 Plumstead Common Road SE18 3RE",
+  //     // "56 Gowers Walk E1 8BS",
+  //     // "7 Reizel Close, Stamford Hill N16 5GY"
+  // ]
+  // .slice(0, 1) // for testing purposes, only use the first address;
+
+  // addressOptions = addressOptions.filter(address => properties.find(property => property.propertyAttributes.address === address)?.landRegistryData[0].price_paid)
+  // sleep for 1 second to simulate loading time
+  // }
+
+  let properties;
+  if (USE_SERVER) {
+    // property = await fetch(`http://127.0.0.1:5000/epc_recommendations/${encodeURIComponent(params.address)}`)
+    // .then(r => r.json())
+
+    if (SAVE_TO_FILE) {
+      const propertiesWithoutLandRegistryData = JSON5.parse(propertiesRaw);
+      console.log(
+        "propertiesWithoutLandRegistryData.length",
+        propertiesWithoutLandRegistryData.length
+      );
+      // actually let's store all the objects in a properties array and write that to properties.json
+      // const properties = await Promise.all(propertiesWithoutLandRegistryData.map(async property => {
+      properties = [];
+      for (const property of propertiesWithoutLandRegistryData) {
+        const address = property.propertyAttributes.address;
+        // return fetch(`http://127.0.0.1:5000/epc_recommendations/${encodeURIComponent(address)}`)
+        // .then(r => r.json()).then(async property => {
+        console.log(property);
+
+        // split address into house number, street name and postcode
+        const addressParts = address.split(" ");
+        const houseNumber = addressParts[0];
+        const streetName = addressParts.slice(1, -2).join(" ");
+        const postcode = addressParts.slice(-2).join(" ");
+
+        // retrieve data from https://landregistry.data.gov.uk/app/ppd/ppd_data.csv?et%5B%5D=lrcommon%3Afreehold&et%5B%5D=lrcommon%3Aleasehold&limit=100&nb%5B%5D=true&nb%5B%5D=false&paon=159+&postcode=B28+0PY&ptype%5B%5D=lrcommon%3Adetached&ptype%5B%5D=lrcommon%3Asemi-detached&ptype%5B%5D=lrcommon%3Aterraced&ptype%5B%5D=lrcommon%3Aflat-maisonette&ptype%5B%5D=lrcommon%3AotherPropertyType&street=Baldwins+Lane+&tc%5B%5D=ppd%3AstandardPricePaidTransaction&tc%5B%5D=ppd%3AadditionalPricePaidTransaction
+        // and store it in properties.json
+
+        const landRegistryDataUrl = `https://landregistry.data.gov.uk/app/ppd/ppd_data.csv?header=true&et%5B%5D=lrcommon%3Afreehold&et%5B%5D=lrcommon%3Aleasehold&limit=100&nb%5B%5D=true&nb%5B%5D=false&paon=${encodeURIComponent(
+          houseNumber
+        )}+&postcode=${encodeURIComponent(
+          postcode
+        )}&ptype%5B%5D=lrcommon%3Adetached&ptype%5B%5D=lrcommon%3Asemi-detached&ptype%5B%5D=lrcommon%3Aterraced&ptype%5B%5D=lrcommon%3Aflat-maisonette&ptype%5B%5D=lrcommon%3AotherPropertyType&street=${encodeURIComponent(
+          streetName
+        )}&tc%5B%5D=ppd%3AstandardPricePaidTransaction&tc%5B%5D=ppd%3AadditionalPricePaidTransaction`;
+        console.log("landRegistryDataUrl", landRegistryDataUrl);
+        const res = await fetch(landRegistryDataUrl);
+        const data = await res.text();
+        console.log("ppd_data", data, "from", landRegistryDataUrl);
+        // parse the csv
+        const parsedData = Papa.parse(data, {
+          header: true,
+          skipEmptyLines: true,
+        });
+        console.log(parsedData, "from", landRegistryDataUrl);
+
+        property.landRegistryData = parsedData.data;
+
+        properties.push(property);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        // })
+        // }))
+      }
+      console.log("writing output to file");
+      fs.writeFileSync(
+        "@/data/demo_property_recommendations_leicester_highestCO2reduction_1000_with_land_registry_data.json",
+        JSON.stringify(properties, null, 2)
+      );
+      console.log("done writing output to file");
+      if (properties.length > 0) {
+        propertyData.properties = properties;
+      }
+    }
+  } else {
+    // const properties = fs.readFileSync('properties.json').toString()
+    // actually let's import
+    // console.log("properties", propertiesRaw)
+    // const properties = JSON.parse(propertiesRaw)
+    properties = JSON5.parse(propertiesRawWithLandRegistryData);
+    properties = properties.map((property: Property) => {
+      const { LandRegistry, ...rest } = property;
+      return {
+        ...rest,
+        landRegistryData: Array.isArray(LandRegistry)
+          ? LandRegistry
+          : [LandRegistry],
+      };
+    });
+    console.log("properties", properties.length);
+
+    const propertiesWithLandRegistryData = properties.filter(
+      (property: Property) => property.landRegistryData?.[0]?.price_paid
+    );
+    console.log(
+      "propertiesWithLandRegistryData",
+      propertiesWithLandRegistryData.length
+    );
+
+    // addressOptions = properties.filter(property => property.landRegistryData[0]?.price_paid).map(property => property.propertyAttributes.address)
+  }
+  if (limit) {
+    properties = properties.slice(0, limit);
+  }
+  const addressOptions = properties.map((property: Property) =>
+    formatAddress(property.propertyAttributes.address)
+  );
+  console.log("addressOptions", addressOptions.length);
+
+  const propertiesWithLandRegistryData = properties.filter(
+    (property: Property) => property.landRegistryData?.[0]?.price_paid
+  );
+
+  propertyData.properties = properties;
+  propertyData.addressOptions = addressOptions;
+  propertyData.propertiesWithLandRegistryData = propertiesWithLandRegistryData;
+
+  const prop = properties.find(
+    (p: Property) =>
+      p.propertyAttributes.BUILDING_REFERENCE_NUMBER === buildingRefNum
+  );
+  return prop;
+}
+
+export function getEnergyRating(score: number) {
+  if (score >= 92) {
+    return "A";
+  } else if (score >= 81 && score <= 91) {
+    return "B";
+  } else if (score >= 69 && score <= 80) {
+    return "C";
+  } else if (score >= 55 && score <= 68) {
+    return "D";
+  } else if (score >= 39 && score <= 54) {
+    return "E";
+  } else if (score >= 21 && score <= 38) {
+    return "F";
+  } else if (score >= 1 && score <= 20) {
+    return "G";
+  } else {
+    return "Invalid score";
+  }
+}
+
 const pp = {
+  getEnergyRating,
   postProcessProperty,
   loadProperties,
+  loadProperty,
   calculateMonthlyPayment,
   LOAN_DURATION_MONTHS: loanDurationMonths,
 };

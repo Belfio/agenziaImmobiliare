@@ -3,7 +3,7 @@ import {
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
-import { Outlet, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import pp from "~/@/lib/propertyProcessing";
 import { PropertyData } from "~/@/lib/types";
 import DecarboPage from "~/pages/decarbo";
@@ -26,9 +26,7 @@ export default function Index() {
   };
   return (
     <div className="font-sans p-4">
-      <DecarboPage properties={propertyData}>
-        <Outlet />
-      </DecarboPage>
+      <DecarboPage properties={propertyData} />
     </div>
   );
 }
