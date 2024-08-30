@@ -1,6 +1,8 @@
 import {
   ActionFunctionArgs,
   defer,
+  HeadersFunction,
+  json,
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
@@ -12,6 +14,25 @@ import PropertiesPage from "~/pages/properties";
 import { authenticator } from "~/services/auth.server";
 
 import { Suspense } from "react";
+export const headers: HeadersFunction = ({ loaderHeaders, parentHeaders }) => {
+  // const loaderCache = parseCacheControl(
+  //   loaderHeaders.get("Cache-Control")
+  // );
+  // const parentCache = parseCacheControl(
+  //   parentHeaders.get("Cache-Control")
+  // );
+
+  // // take the most conservative between the parent and loader, otherwise
+  // // we'll be too aggressive for one of them.
+  // const maxAge = Math.min(
+  //   loaderCache["max-age"],
+  //   parentCache["max-age"]
+  // );
+
+  return {
+    "Cache-Control": `max-age=3600`,
+  };
+};
 
 export const meta: MetaFunction = () => {
   return [
@@ -54,7 +75,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   });
 
   const propertyData: Promise<PropertyData> = pp.loadProperties(500);
-  return defer({ propertyData });
+  return defer(
+    json({ propertyData }, { headers: { "Cache-Control": "max-age=300" } })
+  );
 }
 
 export async function action({ request }: ActionFunctionArgs) {
