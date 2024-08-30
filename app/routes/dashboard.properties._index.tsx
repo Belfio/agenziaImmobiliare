@@ -1,14 +1,17 @@
 import {
   ActionFunctionArgs,
+  defer,
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Await, useLoaderData } from "@remix-run/react";
 import pp from "~/@/lib/propertyProcessing";
 import { PropertyData } from "~/@/lib/types";
 import PropertiesPage from "~/pages/properties";
 
 import { authenticator } from "~/services/auth.server";
+
+import { Suspense, useEffect } from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,43 +23,49 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+const propDummy: PropertyData = {
+  properties: [],
+  addressOptions: [],
+  propertiesWithLandRegistryData: [],
+};
 export default function Index() {
-  const { propertyData } = useLoaderData<typeof loader>() as {
-    propertyData: PropertyData;
-  };
+  const { propertyData } = useLoaderData<{ propertyData: PropertyData }>();
+
+  useEffect(() => {
+    console.log("propertyData prop", propertyData);
+  }, [propertyData]);
+
   return (
     <div className="font-sans p-4">
-      <PropertiesPage properties={propertyData} />
+      <Suspense
+        fallback={
+          <>
+            <PropertiesPage properties={propDummy} />
+          </>
+        }
+      >
+        <Await resolve={propertyData}>
+          {(propertyData) => <PropertiesPage properties={propertyData} />}
+        </Await>
+      </Suspense>
     </div>
   );
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const url = new URL(request.url);
   console.log("loader in the properties index");
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
 
-  const propertyData: PropertyData = await pp.loadProperties(500);
-  if (!propertyData) {
-    return {};
-  }
-  const property = propertyData.properties.find(
-    (property) =>
-      property.propertyAttributes.address.toLowerCase() ===
-      url.searchParams.get("address")?.toLowerCase()
-  );
-  if (property) {
-    pp.postProcessProperty(property);
-  }
-  // await new Promise(resolve => setTimeout(resolve, 200))
+  const propertyData: Promise<PropertyData> = pp.loadProperties(500);
+  // const propertyData = await getPropertyData();
+  return defer({ propertyData });
 
-  return {
-    propertyData,
-    property,
-    addressOptions: propertyData.addressOptions,
-  };
+  // return {
+  //   propertyData,
+  //   addressOptions: propertyData.addressOptions,
+  // };
 }
 
 export async function action({ request }: ActionFunctionArgs) {

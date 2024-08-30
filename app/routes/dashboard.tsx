@@ -4,6 +4,10 @@ import {
   type MetaFunction,
 } from "@remix-run/node";
 
+import { createContext } from "react";
+
+import { PropertyData } from "~/@/lib/types";
+
 import DashboardLayout from "~/pages/dashboardLayout";
 
 import { authenticator } from "~/services/auth.server";
@@ -17,9 +21,14 @@ export const meta: MetaFunction = () => {
     },
   ];
 };
+export const PropContext = createContext<PropertyData | undefined>(undefined);
 
 export default function Index() {
-  return <DashboardLayout />;
+  return (
+    <>
+      <DashboardLayout />
+    </>
+  );
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -27,7 +36,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
-
   return {};
 }
 

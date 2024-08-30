@@ -45,7 +45,7 @@ export const columns: ColumnDef<PropertyTableColumnsType>[] = [
     ),
     cell: ({ row }) => (
       <div className="w-[80px] underline">
-        <Link to={`/properties/${row.getValue("id")}`}>
+        <Link to={`/dashboard/properties/${row.getValue("id")}`}>
           {row.getValue("id")}
         </Link>
       </div>

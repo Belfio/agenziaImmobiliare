@@ -6,7 +6,7 @@ import { parsePropertyForTable } from "~/@/lib/utils";
 export default function PropertiesPage({
   properties,
 }: {
-  properties: PropertyData;
+  properties: PropertyData | undefined;
 }) {
   const propertyTableParsed = parsePropertyForTable(properties);
   return (

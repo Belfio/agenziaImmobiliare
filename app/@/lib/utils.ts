@@ -8,8 +8,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function parsePropertyForTable(
-  propertiesData: PropertyData
+  propertiesData: PropertyData | undefined
 ): PropertyTableColumnsType[] {
+  if (!propertiesData) {
+    return [];
+  }
   const { properties } = propertiesData;
   return properties.map((property) => {
     return {
