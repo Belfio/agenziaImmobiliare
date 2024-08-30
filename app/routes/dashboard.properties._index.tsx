@@ -11,7 +11,7 @@ import PropertiesPage from "~/pages/properties";
 
 import { authenticator } from "~/services/auth.server";
 
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -30,13 +30,8 @@ const propDummy: PropertyData = {
 };
 export default function Index() {
   const { propertyData } = useLoaderData<{ propertyData: PropertyData }>();
-
-  useEffect(() => {
-    console.log("propertyData prop", propertyData);
-  }, [propertyData]);
-
   return (
-    <div className="font-sans p-4">
+    <div className="">
       <Suspense
         fallback={
           <>
@@ -59,13 +54,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   });
 
   const propertyData: Promise<PropertyData> = pp.loadProperties(500);
-  // const propertyData = await getPropertyData();
   return defer({ propertyData });
-
-  // return {
-  //   propertyData,
-  //   addressOptions: propertyData.addressOptions,
-  // };
 }
 
 export async function action({ request }: ActionFunctionArgs) {
