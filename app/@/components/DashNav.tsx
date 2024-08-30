@@ -31,6 +31,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
             <Tooltip key={index} delayDuration={0}>
               <TooltipTrigger asChild>
                 <Link
+                  prefetch="intent"
                   to={link.url}
                   className={cn(
                     buttonVariants({
@@ -54,6 +55,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
             <Link
               key={index}
               to={link.url}
+              prefetch="intent"
               className={cn(
                 buttonVariants({
                   variant: link.url === path ? "default" : "ghost",
