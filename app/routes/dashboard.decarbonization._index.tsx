@@ -21,12 +21,9 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const { propertyData } = useLoaderData<typeof loader>() as {
-    propertyData: PropertyData;
-  };
   return (
     <div className="font-sans p-4">
-      <DecarboPage properties={propertyData} />
+      <DecarboPage />
     </div>
   );
 }
@@ -37,16 +34,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     failureRedirect: "/login",
   });
 
-  const propertyData: PropertyData = await pp.loadProperties(500);
-  if (!propertyData) {
-    return {};
-  }
-  console.log(propertyData.properties[0]);
-
-  return {
-    propertyData,
-    addressOptions: propertyData.addressOptions,
-  };
+  return {};
 }
 
 export async function action({ request }: ActionFunctionArgs) {

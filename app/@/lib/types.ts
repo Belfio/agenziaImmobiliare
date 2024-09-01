@@ -29,6 +29,7 @@ export const PropertySchema = z.object({
     citytown: z.string(),
     BUILDING_REFERENCE_NUMBER: z.string(),
     potential_epc_band: z.string(),
+
     current_epc_rating: z.string(),
   }),
   valueDetails: z.object({
@@ -51,6 +52,22 @@ export const PropertySchema = z.object({
       date_of_transfer: z.string(),
     })
   ),
+  maxCashback: z.number().optional(),
+  maxAPR: z.number().optional(),
+  retrofitOptions: z.array(
+    z.object({
+      option: z.string(),
+      currentValue: z.number(),
+      checked: z.boolean(),
+      retrofittable: z.boolean(),
+    })
+  ),
+  retrofitVariables: z.object({
+    option: z.string(),
+    currentValue: z.number(),
+    checked: z.boolean(),
+    retrofittable: z.boolean(),
+  }),
 });
 
 export type Property = z.infer<typeof PropertySchema>;

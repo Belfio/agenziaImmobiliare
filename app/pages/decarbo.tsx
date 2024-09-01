@@ -1,7 +1,5 @@
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { useNavigate } from "@remix-run/react";
-import { DataTable } from "~/@/components/DataTable";
-import { columns } from "~/@/components/DataTable/columns";
 import { LineChartUI } from "~/@/components/LineChart";
 import { Button } from "~/@/components/ui/button";
 import {
@@ -11,17 +9,9 @@ import {
   CardTitle,
 } from "~/@/components/ui/card";
 import { EmissionsTrend } from "~/@/data/data";
-import { PropertyData } from "~/@/lib/types";
-import { parsePropertyForTable } from "~/@/lib/utils";
 
-export default function DecarboPage({
-  properties,
-}: {
-  properties: PropertyData;
-}) {
+export default function DecarboPage() {
   const navigate = useNavigate();
-
-  const propertyTableParsed = parsePropertyForTable(properties);
 
   return (
     <div className="font-sans p-4">
@@ -88,9 +78,7 @@ export default function DecarboPage({
             </p>
           </CardContent>
         </Card>
-        <DataTable data={propertyTableParsed} columns={columns} />
       </>
-      <div className="mt-8">Models and graphs and input spaces.</div>
     </div>
   );
 }
