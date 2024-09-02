@@ -1,4 +1,8 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
+import type {
+  ActionFunctionArgs,
+  HeadersFunction,
+  LoaderFunctionArgs,
+} from "@remix-run/node";
 import { MetaFunction } from "@remix-run/react";
 import { authenticator } from "~/services/auth.server";
 import LoginPage from "~/pages/login";
@@ -11,6 +15,12 @@ export const meta: MetaFunction = () => {
     },
   ];
 };
+export const headers: HeadersFunction = () => {
+  return {
+    "Cache-Control": `max-age=3600`,
+  };
+};
+
 export default function Screen() {
   return <LoginPage />;
 }

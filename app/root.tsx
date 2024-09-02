@@ -8,6 +8,13 @@ import {
 import "./globals.css";
 import "@/assets/fonts/Arial_Nova/Arial_Nova.ttf";
 import "@/assets/fonts/Poppins/Poppins-Regular.ttf";
+import { HeadersFunction } from "@remix-run/node";
+
+export const headers: HeadersFunction = () => {
+  return {
+    "Cache-Control": `max-age=3600`,
+  };
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
