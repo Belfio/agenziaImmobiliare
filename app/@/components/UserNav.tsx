@@ -1,5 +1,5 @@
 import { Form } from "@remix-run/react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -8,52 +8,49 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  // DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-export function UserNav() {
+import { useEffect, useState } from "react";
+
+export function UserNav({ user }: { user: { email: string } }) {
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated || !user) {
+    return null; // or a loading spinner, or a placeholder
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            {/* <AvatarImage src="/avatars/01.png" alt="@shadcn" /> */}
-            <AvatarFallback>SC</AvatarFallback>
+            <AvatarFallback>{user.email[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
+        <DropdownMenuLabel className="font-normal my-2">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">shadcn</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              m@example.com
-            </p>
+            <p className="text-xs font-medium leading-none">{user.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            {/* <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut> */}
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            {/* <DropdownMenuShortcut>⌘B</DropdownMenuShortcut> */}
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            {/* <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> */}
-          </DropdownMenuItem>
-          <DropdownMenuItem>New Team</DropdownMenuItem>
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>My Team</DropdownMenuItem>
+          <DropdownMenuItem>Billing</DropdownMenuItem>
+          <DropdownMenuItem>Settings</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <Form method="post" action="/logout">
-            <Button variant="ghost" type="submit">
+            <Button variant="ghost" type="submit" className="p-0">
               Log out
             </Button>
-            {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
           </Form>
         </DropdownMenuItem>
       </DropdownMenuContent>

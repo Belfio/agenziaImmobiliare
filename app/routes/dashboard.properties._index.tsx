@@ -1,6 +1,5 @@
 import {
   ActionFunctionArgs,
-  defer,
   HeadersFunction,
   type LoaderFunctionArgs,
   type MetaFunction,
@@ -24,7 +23,7 @@ export const meta: MetaFunction = () => {
     { title: "GL1 - Platform" },
     {
       name: "Green Lending 1 - Platform",
-      content: "GL1 suppoerts the green transition of your mortgage portfolio.",
+      content: "GL1 supports the green transition of your mortgage portfolio.",
     },
   ];
 };
@@ -59,8 +58,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
     failureRedirect: "/login",
   });
 
-  const propertyData: Promise<PropertyData> = pp.loadProperties(500);
-  return defer({ propertyData });
+  const propertyData: PropertyData = await pp.loadProperties(500);
+  return { propertyData };
 }
 
 export async function action({ request }: ActionFunctionArgs) {

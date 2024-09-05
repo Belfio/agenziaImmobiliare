@@ -13,19 +13,19 @@ import {
   TextSearch,
 } from "lucide-react";
 
-export default function DashboardLayout() {
+export default function DashboardLayout({ user }: { user: { email: string } }) {
   const isCollapsed = false;
+  console.log("user", user);
   return (
     <div>
       {/* Header */}
-      <DashHeader />
+      <DashHeader user={user} />
       {/* SideBar */}
-
       <div className="flex">
         {/* SideBar */}
-        <div className="w-1/6">
-          <div className="h-screen">
-            <div className="flex-1 flex-col">
+        <div className="w-1/6 min-w-64">
+          <div className="h-screen sticky top-16">
+            <div className="flex-1 flex-col ">
               <Nav
                 isCollapsed={false}
                 links={[
@@ -45,17 +45,17 @@ export default function DashboardLayout() {
                     icon: House,
                   },
                   {
-                    title: "Decarbonization Model",
+                    title: "Decarbonization Pathways",
                     url: "/dashboard/decarbonization",
                     icon: ChartNetwork,
                   },
                   {
-                    title: "Data and Reports",
-                    url: "/dashboard/data",
+                    title: "Reports (soon)",
+                    url: "/dashboard/reports",
                     icon: TextSearch,
                   },
                   {
-                    title: "Monitoring",
+                    title: "Monitoring (soon)",
                     url: "/dashboard/monitoring",
                     icon: Activity,
                   },
@@ -68,12 +68,12 @@ export default function DashboardLayout() {
                 isCollapsed={isCollapsed}
                 links={[
                   {
-                    title: "Settings",
+                    title: "Settings (soon)",
                     url: "/dashboard/settings",
                     icon: Settings,
                   },
                   {
-                    title: "Support",
+                    title: "Support (soon)",
                     url: "/dashboard/support",
                     icon: Headset,
                   },

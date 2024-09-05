@@ -1,15 +1,12 @@
+"use client";
 import {
   ActionFunctionArgs,
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
-
+import { useLoaderData } from "@remix-run/react";
 import { createContext } from "react";
-
-import { PropertyData } from "~/@/lib/types";
-
 import DashboardLayout from "~/pages/dashboardLayout";
-
 import { authenticator } from "~/services/auth.server";
 
 export const meta: MetaFunction = () => {
@@ -17,26 +14,33 @@ export const meta: MetaFunction = () => {
     { title: "GL1 - Platform" },
     {
       name: "Green Lending 1 - Platform",
-      content: "GL1 suppoerts the green transition of your mortgage portfolio.",
+      content: "GL1 supports the green transition of your mortgage portfolio.",
     },
   ];
 };
-export const PropContext = createContext<PropertyData | undefined>(undefined);
+
+export const UserContext = createContext<{ email: string } | undefined>(
+  undefined
+);
 
 export default function Index() {
+  const { user } = useLoaderData<typeof loader>() as {
+    user: { email: string };
+  };
+
   return (
-    <>
-      <DashboardLayout />
-    </>
+    <UserContext.Provider value={user}>
+      <DashboardLayout user={user} />
+    </UserContext.Provider>
   );
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
   console.log("loader in the dashboard");
-  await authenticator.isAuthenticated(request, {
+  const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
-  return {};
+  return { user };
 }
 
 export async function action({ request }: ActionFunctionArgs) {

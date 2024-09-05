@@ -1,7 +1,7 @@
-// import { Search } from "./SearchNav";
 import { UserNav } from "./UserNav";
 
-export default function DashHeader() {
+export default function DashHeader({ user }: { user: { email: string } }) {
+  console.log("user", user);
   return (
     <header className="bg-white border-b border-muted dark:border-muted  ">
       <div className="flex items-center justify-between h-16 px-4 pr-8">
@@ -10,7 +10,7 @@ export default function DashHeader() {
         </div>
         <div className="ml-auto flex items-center space-x-4">
           {/* <Search /> */}
-          <UserNav />
+          <UserNav user={user} />
         </div>
       </div>
     </header>
