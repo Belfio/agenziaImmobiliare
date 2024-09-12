@@ -2,7 +2,6 @@ import { useNavigate } from "@remix-run/react";
 import { useState } from "react";
 import { DataTable } from "~/@/components/DataTable";
 import { columns } from "~/@/components/DataTable/columns";
-import { SearchBar } from "~/@/components/SearchBar";
 import SearchCombo from "~/@/components/SearchCombo";
 import { PropertyData } from "~/@/lib/types";
 import { parsePropertyForTable } from "~/@/lib/utils";

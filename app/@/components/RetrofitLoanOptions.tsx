@@ -82,7 +82,7 @@ export function RetrofitLoanOptions() {
         Uncheck options here to exclude them from consideration.
       </p>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 mb-12">
         {potentialFeatures.map((feature, index) => (
           <div key={feature.name} className="flex items-center space-x-2">
             <Checkbox

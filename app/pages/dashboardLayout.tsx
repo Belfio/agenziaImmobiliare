@@ -21,7 +21,7 @@ export default function DashboardLayout({ user }: { user: { email: string } }) {
       {/* SideBar */}
       <div className="flex">
         {/* SideBar */}
-        <div className="w-1/6 min-w-64 h-screen border-r border-muted dark:border-muted">
+        <div className="w-1/6 min-w-64 h-screen border-r border-dark dark:border-muted">
           <div className="fixed ">
             <div className="flex items-center space-x-4 h-16 px-4">
               <h1 className="text-2xl font-black tracking-wide">GL1</h1>
