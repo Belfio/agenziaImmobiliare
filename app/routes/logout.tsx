@@ -1,6 +1,5 @@
-import { Button } from "~/@/components/ui/button";
-import type { ActionFunctionArgs } from "@remix-run/node";
-import { Form, MetaFunction } from "@remix-run/react";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { MetaFunction } from "@remix-run/react";
 import { authenticator } from "~/services/auth.server";
 
 export const meta: MetaFunction = () => {
@@ -15,18 +14,14 @@ export const meta: MetaFunction = () => {
 
 export default function Screen() {
   return (
-    <div>
-      Sad to see you leaaaavinggg
-      <Form method="post" className="bg-gray-200">
-        <Button>Login</Button>
-      </Form>
+    <div className="flex items-center justify-center h-screen">
+      Logging out...
     </div>
   );
 }
 
-export async function action({ request }: ActionFunctionArgs) {
-  return await authenticator.authenticate("user-pass", request, {
-    successRedirect: "/dashboard",
-    failureRedirect: "/login",
+export async function loader({ request }: LoaderFunctionArgs) {
+  return await authenticator.logout(request, {
+    redirectTo: "/login",
   });
 }

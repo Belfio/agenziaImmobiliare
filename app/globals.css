@@ -89,3 +89,8 @@ h5,
 h6 {
   font-family: "Poppins", sans-serif;
 }
+
+.gradient-background {
+  background: linear-gradient(50deg, #577c7c, #b0d3d6 50%, #b0d3d6, #8e8e8e);
+  height: 100vh; /* Adjust the height as needed */
+}

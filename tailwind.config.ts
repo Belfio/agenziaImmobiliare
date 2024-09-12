@@ -17,6 +17,8 @@ export default {
     },
     extend: {
       colors: {
+        black: "#131a1c", // Override the default black color
+        offwhite: "#fdfcf7",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

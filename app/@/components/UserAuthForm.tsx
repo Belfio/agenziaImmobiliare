@@ -9,11 +9,13 @@ import { Form } from "@remix-run/react";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   signup?: boolean;
+  dark?: boolean;
 }
 
 export function UserAuthForm({
   className,
   signup,
+  dark,
   ...props
 }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -58,7 +60,11 @@ export function UserAuthForm({
             />
             <input type="hidden" name="register" value="true" />
           </div>
-          <Button disabled={isLoading} onSubmit={onSubmit}>
+          <Button
+            disabled={isLoading}
+            onSubmit={onSubmit}
+            variant={dark ? "secondary" : "default"}
+          >
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}

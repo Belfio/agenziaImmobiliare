@@ -34,20 +34,29 @@ export default function DashboardLayout({ user }: { user: { email: string } }) {
                     url: "/dashboard",
                     icon: LayoutDashboard,
                   },
+                ]}
+              />
+            </div>
+            <Separator />
+
+            <div className="flex-1 flex-col ">
+              <Nav
+                isCollapsed={false}
+                links={[
                   {
                     title: "Portfolio",
                     url: "/dashboard/portfolio",
                     icon: ChartPie,
                   },
                   {
-                    title: "Properties",
-                    url: "/dashboard/properties",
-                    icon: House,
-                  },
-                  {
                     title: "Decarbonization Pathways",
                     url: "/dashboard/decarbonization",
                     icon: ChartNetwork,
+                  },
+                  {
+                    title: "Properties",
+                    url: "/dashboard/properties",
+                    icon: House,
                   },
                   {
                     title: "Reports (soon)",

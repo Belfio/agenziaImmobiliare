@@ -1,4 +1,4 @@
-import { Form } from "@remix-run/react";
+import { Link } from "@remix-run/react";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
@@ -35,23 +35,21 @@ export function UserNav({ user }: { user: { email: string } }) {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal my-2">
           <div className="flex flex-col space-y-1">
-            <p className="text-xs font-medium leading-none">{user.email}</p>
+            <p className="text-sm font-semi italic text-gray-900 leading-none">
+              {user.email}
+            </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-          <DropdownMenuItem>My Team</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-          <DropdownMenuItem>Settings</DropdownMenuItem>
+          <DropdownMenuItem>Profile (soon)</DropdownMenuItem>
+          <DropdownMenuItem>My Team (soon)</DropdownMenuItem>
+          <DropdownMenuItem>Billing (soon)</DropdownMenuItem>
+          <DropdownMenuItem>Settings (soon)</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Form method="post" action="/logout">
-            <Button variant="ghost" type="submit" className="p-0">
-              Log out
-            </Button>
-          </Form>
+          <Link to="/logout">Log out</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
