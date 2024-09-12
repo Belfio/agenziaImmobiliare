@@ -1,5 +1,5 @@
 import MainKpi from "~/@/components/MainKpi";
-import PortfolioOverviwew from "~/@/components/PortfolioOverview";
+
 import Tile from "~/@/components/Tiles";
 
 export default function OverviewPage() {
@@ -35,7 +35,6 @@ export default function OverviewPage() {
             variant="ghost"
           />
         </div>
-        <PortfolioOverviwew />
       </div>
     </div>
   );

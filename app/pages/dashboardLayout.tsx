@@ -15,17 +15,18 @@ import {
 
 export default function DashboardLayout({ user }: { user: { email: string } }) {
   const isCollapsed = false;
-  console.log("user", user);
   return (
     <div>
       {/* Header */}
-      <DashHeader user={user} />
       {/* SideBar */}
       <div className="flex">
         {/* SideBar */}
-        <div className="w-1/6 min-w-64">
-          <div className="h-screen sticky top-16">
-            <div className="flex-1 flex-col ">
+        <div className="w-1/6 min-w-64 h-screen border-r border-muted dark:border-muted">
+          <div className="fixed ">
+            <div className="flex items-center space-x-4 h-16 px-4">
+              <h1 className="text-2xl font-black tracking-wide">GL1</h1>
+            </div>
+            <div className="flex-1 flex-col w-full">
               <Nav
                 isCollapsed={false}
                 links={[
@@ -37,7 +38,7 @@ export default function DashboardLayout({ user }: { user: { email: string } }) {
                 ]}
               />
             </div>
-            <Separator />
+            {/* <Separator /> */}
 
             <div className="flex-1 flex-col ">
               <Nav
@@ -91,8 +92,10 @@ export default function DashboardLayout({ user }: { user: { email: string } }) {
             </div>
           </div>
         </div>
-        {/* Content */}
         <div className="w-5/6 bg-white">
+          <DashHeader user={user} />
+          {/* Content */}
+
           <Outlet />
         </div>
       </div>
