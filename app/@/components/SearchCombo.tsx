@@ -18,6 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Link } from "@remix-run/react";
 
 export default function SearchCombo<
   T extends { value: string; label: string }
@@ -60,27 +61,33 @@ export default function SearchCombo<
             <CommandEmpty>Not found</CommandEmpty>
             <CommandGroup>
               {list.map((element) => (
-                <CommandItem
+                <button
                   key={element.value}
-                  value={element.label}
-                  onSelect={(currentValue) => {
-                    setSearch(
-                      currentValue === search
-                        ? ""
-                        : list.find((element) => element.label === currentValue)
-                            ?.value || ""
-                    );
+                  onClick={() => {
+                    setSearch(element.value);
                     setOpen(false);
                   }}
+                  className="text-left capitalize"
                 >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      search === element.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {element.label}
-                </CommandItem>
+                  <CommandItem
+                    className="m-0 px-0"
+                    value={element.label}
+                    onSelect={(currentValue) => {
+                      setSearch(
+                        currentValue === search
+                          ? ""
+                          : list.find(
+                              (element) => element.label === currentValue
+                            )?.value || ""
+                      );
+                      setOpen(false);
+                    }}
+                  >
+                    <span className="capitalize px-2">
+                      {element.label.toLowerCase()}
+                    </span>
+                  </CommandItem>
+                </button>
               ))}
             </CommandGroup>
           </CommandList>
