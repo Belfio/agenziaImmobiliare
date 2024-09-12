@@ -36,7 +36,7 @@ const propDummy: PropertyData = {
 export default function Index() {
   const { propertyData } = useLoaderData<{ propertyData: PropertyData }>();
   return (
-    <div className="p-4">
+    <div className="px-4">
       <Suspense
         fallback={
           <>

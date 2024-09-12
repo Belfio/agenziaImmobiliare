@@ -25,7 +25,7 @@ export default function Index() {
     propertyData: PropertyData;
   };
   return (
-    <div className="p-4">
+    <div className="px-4">
       <PortfolioPage properties={propertyData} />
     </div>
   );

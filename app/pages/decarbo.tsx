@@ -15,8 +15,12 @@ export default function DecarboPage() {
 
   return (
     <div className="font-sans p-4">
+      <h1 className="text-3xl">Decarbonization Pathways </h1>
+      <p className="text-sm text-gray-500">
+        Plan your decarbonisation strategy and get insights on your properties.
+      </p>
       <>
-        <Card className="">
+        <Card className="mt-8">
           <CardHeader>
             <div className="flex justify-between items-center">
               <CardTitle> Model and progress </CardTitle>

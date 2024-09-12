@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -49,7 +49,7 @@ export default function SearchCombo<
           className={cn("justify-between", className, width)}
         >
           {search
-            ? list.find((element) => element.value === search)?.value
+            ? list.find((element) => element.value === search)?.label
             : placeholder || "Select..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>

@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div className="font-sans p-4">
+    <div className="font-sans px-4">
       <DecarboPage />
     </div>
   );
