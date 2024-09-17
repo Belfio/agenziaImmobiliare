@@ -23,9 +23,8 @@ export default function PropertiesPage({
       <div className="flex justify-between">
         <div>
           <h1 className="text-3xl">Properties</h1>
-          <p className="text-gray-500">
-            Search and filter through the properties in your portfolio and not
-            yet in your portfolio (?).
+          <p className="text-gray-500 text-sm">
+            Search and filter through the properties.
           </p>
         </div>
         <div>

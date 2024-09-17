@@ -29,7 +29,13 @@ export function parsePropertyForTable(
     postcode: property.propertyAttributes.postcode || "postcode",
     emission: property.propertyAttributes.current_co2_emissions || "N/A",
     emissionIntensity:
-      property.propertyAttributes.current_co2_emissions /
-        property.propertyAttributes.total_floor_area || "N/A",
+      parseFloat(
+        parseFloat(
+          String(
+            property.propertyAttributes.current_co2_emissions /
+              property.propertyAttributes.total_floor_area
+          )
+        ).toFixed(2)
+      ) || "N/A",
   }));
 }

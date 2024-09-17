@@ -67,10 +67,10 @@ export default function SearchCombo<
                     setSearch(element.value);
                     setOpen(false);
                   }}
-                  className="text-left capitalize"
+                  className="text-left capitalize w-full "
                 >
                   <CommandItem
-                    className="m-0 px-0"
+                    className="m-0 px-2"
                     value={element.label}
                     onSelect={(currentValue) => {
                       setSearch(
@@ -83,9 +83,7 @@ export default function SearchCombo<
                       setOpen(false);
                     }}
                   >
-                    <span className="capitalize px-2">
-                      {element.label.toLowerCase()}
-                    </span>
+                    {element.label.toLowerCase()}
                   </CommandItem>
                 </button>
               ))}

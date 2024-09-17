@@ -61,7 +61,7 @@ export const columns: ColumnDef<PropertyTableColumnsType>[] = [
     cell: ({ row }) => (
       <div className="w-[80px]">{row.getValue("postcode")}</div>
     ),
-    enableSorting: false,
+    enableSorting: true,
     enableHiding: false,
   },
   {
@@ -118,8 +118,8 @@ export const columns: ColumnDef<PropertyTableColumnsType>[] = [
       return value.includes(row.getValue(id));
     },
   },
-  {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
-  },
+  // {
+  //   id: "actions",
+  //   cell: ({ row }) => <DataTableRowActions row={row} />,
+  // },
 ];
