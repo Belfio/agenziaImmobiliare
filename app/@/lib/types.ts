@@ -29,7 +29,7 @@ export const PropertySchema = z.object({
     citytown: z.string(),
     BUILDING_REFERENCE_NUMBER: z.string(),
     potential_epc_band: z.string(),
-
+    postcode: z.string().optional(),
     current_epc_rating: z.string(),
   }),
   valueDetails: z.object({

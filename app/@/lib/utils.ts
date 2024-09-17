@@ -14,15 +14,22 @@ export function parsePropertyForTable(
     return [];
   }
   const { properties } = propertiesData;
-  return properties.map((property) => {
-    return {
-      id: property.propertyAttributes.BUILDING_REFERENCE_NUMBER || "id",
-      address: property.propertyAttributes.address || "address",
-      status:
-        String(property.propertyAttributes.current_co2_emissions) || "status",
-      label: property.propertyAttributes.built_form || "label",
-      priority: property.propertyAttributes.potential_epc_band || "priority",
-      EPC: property.propertyAttributes.current_epc_rating || "EPC",
-    };
-  });
+  return properties.map((property) => ({
+    id: property.propertyAttributes.BUILDING_REFERENCE_NUMBER || "id",
+    address:
+      String(property.propertyAttributes.address).toLowerCase() || "address",
+    status:
+      String(property.propertyAttributes.current_co2_emissions) || "status",
+    label: property.propertyAttributes.built_form || "label",
+    priority: property.propertyAttributes.potential_epc_band || "priority",
+    epc:
+      property.propertyAttributes.current_epc_rating ||
+      property.propertyAttributes.potential_epc_band + "*" ||
+      "N/A",
+    postcode: property.propertyAttributes.postcode || "postcode",
+    emission: property.propertyAttributes.current_co2_emissions || "N/A",
+    emissionIntensity:
+      property.propertyAttributes.current_co2_emissions /
+        property.propertyAttributes.total_floor_area || "N/A",
+  }));
 }

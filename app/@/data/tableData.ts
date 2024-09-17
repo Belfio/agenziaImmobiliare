@@ -18,7 +18,10 @@ export const PropertyTableColumnsSchema = z.object({
   status: z.string(),
   label: z.string(),
   priority: z.string(),
-  EPC: z.string(),
+  epc: z.string(),
+  emission: z.number().or(z.literal("N/A")),
+  emissionIntensity: z.number().or(z.literal("N/A")),
+  postcode: z.string(),
 });
 
 export type PropertyTableColumnsType = z.infer<

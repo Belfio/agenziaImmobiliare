@@ -271,7 +271,11 @@ function calculateMonthlyPayment(
 async function loadProperties(limit?: number) {
   const USE_SERVER = false;
   const SAVE_TO_FILE = false;
-
+  const propertyData: PropertyData = {
+    properties: [],
+    addressOptions: [],
+    propertiesWithLandRegistryData: [],
+  };
   // let addressOptions = [
   //     "159 Baldwins Lane B28 0PY",
   //     "10 Cranley Place SW7 3AB",
@@ -374,33 +378,34 @@ async function loadProperties(limit?: number) {
           : [LandRegistry],
       };
     });
-    console.log("properties", properties.length);
-
-    const propertiesWithLandRegistryData = properties.filter(
-      (property: Property) => property.landRegistryData?.[0]?.price_paid
-    );
-    console.log(
-      "propertiesWithLandRegistryData",
-      propertiesWithLandRegistryData.length
-    );
+    console.log("loadProperties(): Properties length", properties.length);
 
     // addressOptions = properties.filter(property => property.landRegistryData[0]?.price_paid).map(property => property.propertyAttributes.address)
   }
   if (limit) {
     properties = properties.slice(0, limit);
   }
+
   const addressOptions = properties.map((property: Property) =>
     formatAddress(property.propertyAttributes.address)
   );
-  console.log("addressOptions", addressOptions.length);
+  propertyData.properties = properties;
+  properties.forEach((property: Property, i: number) => {
+    propertyData.properties[i].propertyAttributes.postcode = getPostCode(
+      property.propertyAttributes.address
+    );
+    propertyData.properties[i].propertyAttributes.address = removePostCode(
+      property.propertyAttributes.address
+    );
+  });
 
   const propertiesWithLandRegistryData = properties.filter(
     (property: Property) => property.landRegistryData?.[0]?.price_paid
   );
 
-  propertyData.properties = properties;
   propertyData.addressOptions = addressOptions;
   propertyData.propertiesWithLandRegistryData = propertiesWithLandRegistryData;
+
   return propertyData;
 }
 
@@ -513,23 +518,15 @@ async function loadProperty(buildingRefNum: string) {
     });
     console.log("properties", properties.length);
 
-    const propertiesWithLandRegistryData = properties.filter(
-      (property: Property) => property.landRegistryData?.[0]?.price_paid
-    );
-    console.log(
-      "propertiesWithLandRegistryData",
-      propertiesWithLandRegistryData.length
-    );
-
     // addressOptions = properties.filter(property => property.landRegistryData[0]?.price_paid).map(property => property.propertyAttributes.address)
   }
+
   if (limit) {
     properties = properties.slice(0, limit);
   }
   const addressOptions = properties.map((property: Property) =>
     formatAddress(property.propertyAttributes.address)
   );
-  console.log("addressOptions", addressOptions.length);
 
   const propertiesWithLandRegistryData = properties.filter(
     (property: Property) => property.landRegistryData?.[0]?.price_paid
@@ -564,6 +561,18 @@ export function getEnergyRating(score: number) {
   } else {
     return "Invalid score";
   }
+}
+
+export function getPostCode(address: string) {
+  const addressParts = address.split(" ");
+  const postcode = addressParts.slice(-2).join(" ");
+  return postcode;
+}
+
+export function removePostCode(address: string) {
+  const addressParts = address.split(" ");
+
+  return addressParts.slice(0, -2).join(" ");
 }
 
 const pp = {

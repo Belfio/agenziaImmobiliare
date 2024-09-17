@@ -58,7 +58,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     failureRedirect: "/login",
   });
 
-  const propertyData: PropertyData = await pp.loadProperties(500);
+  const propertyData: PropertyData = await pp.loadProperties();
   return { propertyData };
 }
 
