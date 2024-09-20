@@ -3,6 +3,8 @@ import {
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import pp from "~/@/lib/propertyProcessing";
 import OverviewPage from "~/pages/overview";
 
 import { authenticator } from "~/services/auth.server";
@@ -18,9 +20,10 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const { propertyOverview } = useLoaderData<typeof loader>();
   return (
     <div className="font-sans p-4">
-      <OverviewPage />
+      <OverviewPage propertyOverview={propertyOverview} />
     </div>
   );
 }
@@ -30,8 +33,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
-
-  return {};
+  const propertyOverview = await pp.overviewProperties();
+  return { propertyOverview };
 }
 
 export async function action({ request }: ActionFunctionArgs) {

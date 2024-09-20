@@ -8,7 +8,12 @@ import Papa from "papaparse";
 import propertiesRawWithLandRegistryData from "@/data/demo_property_recommendations_leicester_cheapest500_toC_with_land_registry_data.json?raw";
 
 import JSON5 from "json5";
-import { Intervention, Property, PropertyData } from "./types";
+import {
+  Intervention,
+  OverviewPropertiesType,
+  Property,
+  PropertyData,
+} from "./types";
 
 // Then, update the propertyData declaration
 const propertyData: PropertyData = {
@@ -575,6 +580,39 @@ export function removePostCode(address: string) {
   return addressParts.slice(0, -2).join(" ");
 }
 
+async function overviewProperties(): Promise<OverviewPropertiesType> {
+  const data = await loadProperties();
+  const { properties } = data;
+  return {
+    numberProperties: properties.length,
+    totalCO2Emission: properties.reduce(
+      (acc, curr) =>
+        acc + Number(curr.propertyAttributes.current_co2_emissions),
+      0
+    ),
+    totalCO2EmissionPerSqMt: properties.reduce(
+      (acc, curr) =>
+        acc +
+        Number(curr.propertyAttributes.current_co2_emissions) /
+          Number(curr.propertyAttributes.total_floor_area),
+      0
+    ),
+    averageCO2EmissionPerSqMt:
+      properties.reduce(
+        (acc, curr) =>
+          acc +
+          Number(curr.propertyAttributes.current_co2_emissions) /
+            Number(curr.propertyAttributes.total_floor_area),
+        0
+      ) / properties.length,
+    numberOfPropertiesEPCCOrHigher: properties.filter(
+      (p: Property) =>
+        p.propertyAttributes.potential_epc_band === "C" ||
+        p.propertyAttributes.potential_epc_band === "B" ||
+        p.propertyAttributes.potential_epc_band === "A"
+    ).length,
+  };
+}
 const pp = {
   getEnergyRating,
   postProcessProperty,
@@ -582,5 +620,6 @@ const pp = {
   loadProperty,
   calculateMonthlyPayment,
   LOAN_DURATION_MONTHS: loanDurationMonths,
+  overviewProperties,
 };
 export default pp;

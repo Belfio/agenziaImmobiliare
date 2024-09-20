@@ -74,7 +74,7 @@ export function LineChartUI({
             }}
             stroke={s.name === "Trend" ? "#888" : "#000"}
             strokeDasharray={s.name === "Trend" ? "5 5" : ""}
-            isAnimationActive={s.name !== "Past data"}
+            isAnimationActive={false}
           />
         ))}
       </LineChart>

@@ -179,3 +179,11 @@ export const PropertyDataSchema = z.object({
 });
 
 export type PropertyData = z.infer<typeof PropertyDataSchema>;
+
+export type OverviewPropertiesType = {
+  numberProperties: number;
+  totalCO2Emission: number;
+  totalCO2EmissionPerSqMt: number;
+  averageCO2EmissionPerSqMt: number;
+  numberOfPropertiesEPCCOrHigher: number;
+};

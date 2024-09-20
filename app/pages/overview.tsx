@@ -1,8 +1,13 @@
 import MainKpi from "~/@/components/MainKpi";
 
 import Tile from "~/@/components/Tiles";
+import { OverviewPropertiesType } from "~/@/lib/types";
 
-export default function OverviewPage() {
+export default function OverviewPage({
+  propertyOverview,
+}: {
+  propertyOverview: OverviewPropertiesType;
+}) {
   return (
     <div className="font-sans p-4">
       {/* <h1 className="text-3xl">Overview </h1> */}
@@ -12,7 +17,7 @@ export default function OverviewPage() {
         <div className="flex justify-center gap-8 mt-8">
           <Tile
             title="Number of properties"
-            value="112.092"
+            value={String(propertyOverview.numberProperties)}
             description="Leicester"
             variant="ghost"
           />
@@ -24,14 +29,20 @@ export default function OverviewPage() {
           />
           <Tile
             title="Average emissions/property"
-            value="18"
+            value={String(
+              propertyOverview.averageCO2EmissionPerSqMt.toFixed(2)
+            )}
             description="tonneC02 /sq mt / year"
             variant="ghost"
           />
           <Tile
-            title="Average EPC rating"
-            value="C"
-            description="38% of the properties"
+            title="EPC rating"
+            value={`${(
+              (propertyOverview.numberOfPropertiesEPCCOrHigher /
+                propertyOverview.numberProperties) *
+              100
+            ).toFixed(2)}%`}
+            description={`${propertyOverview.numberOfPropertiesEPCCOrHigher}  properties with EPC C or higher`}
             variant="ghost"
           />
         </div>
