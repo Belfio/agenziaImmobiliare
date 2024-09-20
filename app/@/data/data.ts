@@ -18,14 +18,6 @@ export const Emissions = [
 
 export const EmissionsTrend = [
   {
-    name: "Past data",
-    data: [
-      { category: "2022", value: 12 },
-      { category: "2023", value: 12 },
-      { category: "2024", value: 12 },
-    ],
-  },
-  {
     name: "Trend",
     data: [
       { category: "2024", value: 12 },
@@ -39,10 +31,11 @@ export const EmissionsTrend = [
       { category: "2032", value: Math.random() * 10 + 8 },
       { category: "2033", value: Math.random() * 10 + 8 },
       { category: "2034", value: Math.random() * 10 + 8 },
+      { category: "2035", value: Math.random() * 10 + 8 },
     ],
   },
   {
-    name: "Trend with interventions",
+    name: "Optimal target",
     data: [
       { category: "2024", value: 12 },
       { category: "2025", value: Math.random() * 8 + 8 },
@@ -55,6 +48,7 @@ export const EmissionsTrend = [
       { category: "2032", value: Math.random() * 6 },
       { category: "2033", value: Math.random() * 5 },
       { category: "2034", value: Math.random() * 4 },
+      { category: "2035", value: Math.random() * 4 },
     ],
   },
 ];

@@ -8,6 +8,8 @@ import {
 import "./globals.css";
 import "@/assets/fonts/Arial_Nova/Arial_Nova.ttf";
 import "@/assets/fonts/Poppins/Poppins-Regular.ttf";
+import "@/assets/fonts/Poppins/Poppins-Light.ttf";
+import "@/assets/fonts/Poppins/Poppins-Bold.ttf";
 import { HeadersFunction } from "@remix-run/node";
 
 export const headers: HeadersFunction = () => {

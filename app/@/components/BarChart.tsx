@@ -51,28 +51,49 @@ const data = [
   },
 ];
 
-export function BarChartUI({ className }: { className: string }) {
+interface BarChartUIProps {
+  className?: string;
+  data?: BarChartData[];
+  height?: number;
+  width?: number;
+  yHide?: boolean;
+}
+
+interface BarChartData {
+  name: string;
+  total: number | [number, number];
+}
+
+export function BarChartUI({
+  height = 350,
+  width = 350,
+  className,
+  data = [],
+  yHide = false,
+}: BarChartUIProps) {
   return (
-    <ResponsiveContainer width="100%" height={350} className={className}>
+    <ResponsiveContainer height={height} width={width} className={className}>
       <BarChart data={data}>
         <XAxis
           dataKey="name"
           stroke="#888888"
           fontSize={12}
           tickLine={false}
-          axisLine={false}
+          axisLine={true}
         />
         <YAxis
+          hide={yHide}
           stroke="#888888"
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          tickFormatter={(value) => `$${value}`}
+          tickFormatter={(value) => `${value}`}
+          width={20}
         />
         <Bar
           dataKey="total"
           fill="currentColor"
-          radius={[4, 4, 0, 0]}
+          radius={[0, 0, 0, 0]}
           className="fill-primary"
         />
       </BarChart>

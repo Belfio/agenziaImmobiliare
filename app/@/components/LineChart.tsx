@@ -45,6 +45,8 @@ export function LineChartUI({
           fontSize={12}
           tickLine={false}
           axisLine={false}
+          label={{ value: "KgCO2 / sq mt", angle: -90, position: "insideLeft" }}
+          width={40}
         />
         <Tooltip
           cursor={{ stroke: "black", strokeWidth: 1 }}
@@ -60,11 +62,17 @@ export function LineChartUI({
             data={s.data}
             name={s.name}
             key={s.name}
-            fill="currentColor"
+            fill="white"
             className="fill-primary"
-            dot={{ stroke: "black", strokeWidth: 2 }}
-            activeDot={{ stroke: "black", strokeWidth: 2 }}
-            stroke="#000"
+            dot={{
+              stroke: s.name === "Trend" ? "white" : "black",
+              strokeWidth: 2,
+            }}
+            activeDot={{
+              stroke: s.name === "Trend" ? "white" : "black",
+              strokeWidth: 2,
+            }}
+            stroke={s.name === "Trend" ? "#888" : "#000"}
             strokeDasharray={s.name === "Trend" ? "5 5" : ""}
             isAnimationActive={s.name !== "Past data"}
           />
