@@ -31,6 +31,7 @@ export const PropertySchema = z.object({
     potential_epc_band: z.string(),
     postcode: z.string().optional(),
     current_epc_rating: z.string(),
+    construction_age_category: z.string(),
   }),
   valueDetails: z.object({
     latestValuation: z.number(),
@@ -41,6 +42,8 @@ export const PropertySchema = z.object({
   }),
   predictedEfficiency: z.object({
     predicted_eer: z.number(),
+    predicted_epc_band: z.string(),
+    predicted_emissions: z.number(),
   }),
   potentialSavingsFromEPC: z.object({
     "total potential savings": z.number(),

@@ -8,12 +8,14 @@ import { EmissionsTrend } from "~/@/data/data";
 import { Separator } from "./ui/separator";
 import { BarChartUI } from "./BarChart";
 
-export default function MainKpi() {
+export default function MainKpi({ className }: { className?: string }) {
   return (
-    <div className="pt-4 flex">
+    <div className={`pt-4 flex w-fit m-auto ${className}`}>
       <Card className="w-[900px] h-[580px]">
         <CardHeader>
-          <CardTitle>Absolute Emissions Forecast</CardTitle>
+          <CardTitle className="font-semibold">
+            Absolute Emissions Forecast
+          </CardTitle>
           <p className="text-sm text-gray-500">
             Projected CO2 emissions trend vs. reduction target
           </p>

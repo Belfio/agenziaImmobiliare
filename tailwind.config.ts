@@ -19,14 +19,7 @@ export default {
       colors: {
         black: "#131a1c", // Override the default black color
         offwhite: "#fdfcf7",
-        blue: "#B0D3D6",
-        darkblue: "#577C7C",
-        taupe: "#EADCCA",
-        darktaupe: "#A39C8D",
-        gray: "#D8D8D8",
-        darkgray: "#8E8E8E",
-        purple: "#A19FB7",
-        darkpurple: "#5F5E72",
+        white: "#fdfcf7",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

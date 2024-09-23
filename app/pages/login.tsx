@@ -48,7 +48,7 @@ export default function LoginPage() {
     <>
       <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-          <div className="absolute inset-0 gradient-background" />
+          <div className="absolute inset-0 h-screen gradient-background" />
           <div className="relative z-20 flex items-center text-lg font-medium">
             <img src={Logo} alt="GL1" className="w-[120px]" />
           </div>

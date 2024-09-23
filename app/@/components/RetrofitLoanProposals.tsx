@@ -1,3 +1,4 @@
+import { Property } from "../lib/types";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Slider } from "./ui/slider";
@@ -73,92 +74,93 @@ const loanOptions: LoanOption[] = [
   },
 ];
 
-export function RetrofitLoanProposals() {
+export function RetrofitLoanProposals({ property }: { property: Property }) {
   return (
-    <div className="space-y-6">
-      {loanOptions.map((option) => (
-        <Card key={option.id} className="bg-green-50">
-          <CardHeader>
-            <CardTitle className="text-lg">Option {option.id}</CardTitle>
-            <div className="flex justify-between items-center">
-              <div>Loan amount: £{option.loanAmount.toLocaleString()}</div>
-              <div className="flex items-center space-x-4">
-                <div>APR: {option.apr}%</div>
-                <Slider
-                  defaultValue={[option.apr]}
-                  max={20}
-                  step={0.1}
-                  className="w-[100px]"
-                />
+    <div className="">
+      <h2 className="text-2xl mb-6">Loan options</h2>
+      <div className="grid grid-cols-3 gap-4">
+        {loanOptions.map((option) => (
+          <Card
+            key={option.id}
+            className=" hover:bg-slate-100 border-[--darkblue]"
+          >
+            <CardHeader>
+              <CardTitle className="text-lg">Option {option.id}</CardTitle>
+              <div className="text-sm">
+                <p>Loan amount: £{option.loanAmount.toLocaleString()}</p>
+                <div className="flex items-center justify-between">
+                  <p>APR: {option.apr}%</p>
+                  <Slider
+                    defaultValue={[option.apr]}
+                    max={20}
+                    step={0.1}
+                    className="w-[100px]"
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <p>Cashback: £{option.cashback}</p>
+                  <Slider
+                    defaultValue={[option.cashback]}
+                    max={1000}
+                    step={10}
+                    className="w-[100px] "
+                  />
+                </div>
               </div>
-              <div className="flex items-center space-x-4">
-                <div>Cashback: £{option.cashback}</div>
-                <Slider
-                  defaultValue={[option.cashback]}
-                  max={1000}
-                  step={10}
-                  className="w-[100px]"
-                />
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-3 gap-4">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Retrofit items</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="list-disc list-inside text-sm">
-                    {option.retrofitItems.map((item, index) => (
-                      <li key={index}>{item}</li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Loan details</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm">
+            </CardHeader>
+            <CardContent>
+              <div className="">
+                <div className="bg-transparent h-[280px] border-none shadow-none">
+                  <h3 className="text-base">Retrofit items</h3>
+
+                  <div className="text-sm">
+                    <ul className="list-disc list-inside">
+                      {option.retrofitItems.map((item, index) => (
+                        <li key={index}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <div className="bg-transparent h-[160px] border-none shadow-none">
+                  <h3 className="text-base">Loan details</h3>
+
                   <p>Monthly payment: £{option.monthlyPayment}</p>
                   <p>Cashback: £{option.cashback}</p>
                   <p>Duration: {option.duration}</p>
                   <p className="text-xs text-gray-500">(same as mortgage)</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Loan impact</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm">
-                  <h4 className="font-semibold">Customer</h4>
-                  <p>
-                    Predicted energy savings: £{option.customerSavings} per year
-                    🟠
-                  </p>
-                  <p>
-                    Predicted value uplift: £{option.customerValueUplift} 🟠
-                  </p>
-                  <h4 className="font-semibold mt-2">Bank</h4>
-                  <p>
-                    Predicted EPC: {option.bankPredictedEPC} →{" "}
-                    {option.bankPredictedEPC}
-                  </p>
-                  <p>Predicted future LTV: {option.bankFutureLTV}% 🟠</p>
-                  <p>
-                    Carbon emissions reduction: {option.bankCarbonReduction} tn
-                    CO₂e/year 🟠
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-            <div className="mt-4 flex justify-end">
-              <Button>APPLY</Button>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+                </div>
+
+                <div className="bg-transparent h-[280px] border-none shadow-none overflow-hidden scroll-auto">
+                  <h3 className="text-base">Loan impact</h3>
+                  <div className="text-sm">
+                    <h4 className="">Customer</h4>
+                    <p>
+                      Predicted energy savings: £{option.customerSavings} per
+                      year 🟠
+                    </p>
+                    <p>
+                      Predicted value uplift: £{option.customerValueUplift} 🟠
+                    </p>
+                    <h4 className=" mt-2">Bank</h4>
+                    <p>
+                      Predicted EPC: {option.bankPredictedEPC} →{" "}
+                      {option.bankPredictedEPC}
+                    </p>
+                    <p>Predicted future LTV: {option.bankFutureLTV}% 🟠</p>
+                    <p>
+                      Carbon emissions reduction: {option.bankCarbonReduction}{" "}
+                      tn CO₂e/year 🟠
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 flex justify-end">
+                <Button>APPLY</Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }

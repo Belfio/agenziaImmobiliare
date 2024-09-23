@@ -22,6 +22,13 @@ export default $config({
       environment: {
         AUTH_SECRET: AUTH_SECRET,
       },
+      domain:
+        $app.stage === "prod"
+          ? {
+              name: "gl1.tech",
+              dns: sst.cloudflare.dns(),
+            }
+          : undefined,
     });
   },
 });

@@ -10,7 +10,8 @@
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 220.9 39.3% 11%;
+    /* --primary: 220.9 39.3% 11%; */
+    --primary: 184 16% 42%;
     --primary-foreground: 210 20% 98%;
     --secondary: 220 14.3% 95.9%;
     --secondary-foreground: 220.9 39.3% 11%;
@@ -29,6 +30,17 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --blue: #b0d3d6;
+    --darkblue: #577c7c;
+    --taupe: #eadcca;
+    --darktaupe: #a39c8d;
+    --gray: #d8d8d8;
+    --darkgray: #8e8e8e;
+    --purple: #a19fb7;
+    --darkpurple: #5f5e72;
+    --black: "#131a1c";
+    --offwhite: "#fdfcf7";
+    --white: "#fff";
   }
 
   .dark {
@@ -124,9 +136,49 @@ h4,
 h5,
 h6 {
   font-family: "Poppins", sans-serif;
+  color: var(--darkblue);
+  font-weight: 500;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  color: var(--black);
+  font-weight: 400;
+  font-size: 14px;
 }
 
 .gradient-background {
   background: linear-gradient(50deg, #577c7c, #b0d3d6 50%, #b0d3d6, #8e8e8e);
-  height: 100vh; /* Adjust the height as needed */
+}
+.gl1-darkblue {
+  color: var(--darkblue);
+}
+.bg-blue-light {
+  background-color: var(--blue);
+}
+.bg-blue-dark {
+  background-color: var(--darkblue);
+}
+.bg-taupe {
+  background-color: var(--taupe);
+}
+.bg-taupe-dark {
+  background-color: var(--darktaupe);
+}
+
+.bg-gray {
+  background-color: var(--gray);
+}
+.bg-gray-dark {
+  background-color: var(--darkgray);
+}
+.bg-purple {
+  background-color: var(--purple);
+}
+.bg-purple-dark {
+  background-color: var(--darkpurple);
+}
+
+.gradient-background-light {
+  background: linear-gradient(50deg, white, var(--taupe), var(--gray));
 }

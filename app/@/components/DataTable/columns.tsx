@@ -82,6 +82,14 @@ export const columns: ColumnDef<PropertyTableColumnsType>[] = [
     },
   },
   {
+    accessorKey: "id",
+    header: ({ column }) => <div className="w-0 display-none"></div>,
+    cell: ({ row }) => <div className="w-0 display-none"></div>,
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
     accessorKey: "epc",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="EPC" />
