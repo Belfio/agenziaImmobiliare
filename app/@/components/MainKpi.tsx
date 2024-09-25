@@ -25,7 +25,7 @@ export default function MainKpi({ className }: { className?: string }) {
         </CardContent>
       </Card>
       <div className="w-1/4 min-w-[364px]">
-        <Card className="h-[580px]">
+        <Card className="h-[580px] border-l-0">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg ">Monthly result</CardTitle>
           </CardHeader>

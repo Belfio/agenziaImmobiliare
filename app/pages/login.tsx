@@ -64,7 +64,10 @@ export default function LoginPage() {
             to="/register"
             className="absolute right-4 top-4 md:right-8 md:top-8 text-lg"
           >
-            Create new account
+            <blockquote className="space-y-2">
+              <p className="text-lg">Create new account</p>
+              {/* <footer className="text-sm">Green lending made simple</footer> */}
+            </blockquote>
           </Link>
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <div className="flex flex-col space-y-2 text-center">
