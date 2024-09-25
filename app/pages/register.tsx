@@ -4,19 +4,19 @@ import Logo from "~/@/assets/images/gl1-logo.svg";
 export default function RegisterPage() {
   return (
     <>
-      <div className=" relative  h-screen flex-col items-center justify-center bg-black w-screen">
-        <div className="relative  h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex bg-[#577c7c]">
+      <div className=" relative  h-screen flex-col items-center justify-center  w-screen">
+        <div className="relative  h-full flex-col p-10 text-white dark:border-r lg:flex  bg-[var(--darkblue)]">
           <div className="relative z-20 ">
             <img src={Logo} alt="GL1" className="w-[120px]" />
           </div>
-          <div className="h-full flex flex-col justify-center items-center">
-            <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] z-20 pb-[120px]">
+          <div className="h-full flex flex-col justify-center items-center ">
+            <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px] z-20 mb-[120px] bg-primary px-12 ">
               <div className="flex flex-col space-y-2 text-center">
                 <h1 className="text-2xl font-semibold tracking-tight text-white">
-                  Create an account
+                  Create a new account
                 </h1>
                 <p className="text-sm text-white">
-                  Enter your email below to create your account
+                  Enter your email below to create a new account
                 </p>
               </div>
               <UserAuthForm signup={true} dark={true} />
@@ -49,7 +49,10 @@ export default function RegisterPage() {
             to="/login"
             className="absolute right-4 top-4 md:right-8 md:top-8 z-20 text-lg"
           >
-            Login
+            <blockquote className="space-y-2">
+              <p className="text-lg">Login</p>
+              {/* <footer className="text-sm">Green lending made simple</footer> */}
+            </blockquote>
           </Link>
         </div>
       </div>
