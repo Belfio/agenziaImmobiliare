@@ -400,7 +400,8 @@ async function loadProperties(limit?: number) {
       property.propertyAttributes.address
     );
     propertyData.properties[i].propertyAttributes.address = removePostCode(
-      property.propertyAttributes.address
+      property.propertyAttributes.address,
+      propertyData.properties[i].propertyAttributes.postcode
     );
   });
 
@@ -538,6 +539,16 @@ async function loadProperty(buildingRefNum: string) {
   );
 
   propertyData.properties = properties;
+  properties.forEach((property: Property, i: number) => {
+    propertyData.properties[i].propertyAttributes.postcode = getPostCode(
+      property.propertyAttributes.address
+    );
+    propertyData.properties[i].propertyAttributes.address = removePostCode(
+      property.propertyAttributes.address,
+      propertyData.properties[i].propertyAttributes.postcode
+    );
+  });
+
   propertyData.addressOptions = addressOptions;
   propertyData.propertiesWithLandRegistryData = propertiesWithLandRegistryData;
 
@@ -574,10 +585,11 @@ export function getPostCode(address: string) {
   return postcode;
 }
 
-export function removePostCode(address: string) {
-  const addressParts = address.split(" ");
+export function removePostCode(address: string, postcode: string) {
+  // const addressParts = address.split(" ");
+  const addressWithoutPostcode = address.replace(postcode, "");
 
-  return addressParts.slice(0, -2).join(" ");
+  return addressWithoutPostcode.split(",")[0].trim();
 }
 
 async function overviewProperties(): Promise<OverviewPropertiesType> {

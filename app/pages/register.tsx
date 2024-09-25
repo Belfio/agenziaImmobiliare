@@ -50,7 +50,7 @@ export default function RegisterPage() {
             className="absolute right-4 top-4 md:right-8 md:top-8 z-20 text-lg"
           >
             <blockquote className="space-y-2">
-              <p className="text-lg">Login</p>
+              <p className="text-lg">Go to login</p>
               {/* <footer className="text-sm">Green lending made simple</footer> */}
             </blockquote>
           </Link>

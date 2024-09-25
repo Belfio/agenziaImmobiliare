@@ -152,34 +152,6 @@ p {
 .gradient-background {
   background: linear-gradient(50deg, #577c7c, #b0d3d6 50%, #b0d3d6, #8e8e8e);
 }
-.gl1-darkblue {
-  color: var(--darkblue);
-}
-.bg-blue-light {
-  background-color: var(--blue);
-}
-.bg-blue-dark {
-  background-color: var(--darkblue);
-}
-.bg-taupe {
-  background-color: var(--taupe);
-}
-.bg-taupe-dark {
-  background-color: var(--darktaupe);
-}
-
-.bg-gray {
-  background-color: var(--gray);
-}
-.bg-gray-dark {
-  background-color: var(--darkgray);
-}
-.bg-purple {
-  background-color: var(--purple);
-}
-.bg-purple-dark {
-  background-color: var(--darkpurple);
-}
 
 .gradient-background-light {
   background: linear-gradient(50deg, white, var(--taupe), var(--gray));

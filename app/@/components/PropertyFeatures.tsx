@@ -57,7 +57,13 @@ const potentialFeaturesState: PropertyFeature[] = [
   })),
 ];
 
-export function PropertyFeatures({ property }: { property: Property }) {
+export function PropertyFeatures({
+  property,
+  isOperational = false,
+}: {
+  property: Property;
+  isOperational?: boolean;
+}) {
   const [currentFeatures, setCurrentFeatures] =
     useState<PropertyFeature[]>(featuresState);
   const [potentialFeatures, setPotentialFeatures] = useState<PropertyFeature[]>(
@@ -115,21 +121,29 @@ export function PropertyFeatures({ property }: { property: Property }) {
             .filter((feature) => feature.type === "fabric")
             .map((feature, index) => (
               <div key={feature.name} className="flex items-center space-x-2">
-                <Checkbox
-                  id={`current-${feature.name}`}
-                  checked={feature.checked}
-                  onCheckedChange={() =>
-                    handleCurrentFeatureChange(feature.name)
-                  }
-                />
-                <Checkbox
-                  id={`potential-${feature.name}`}
-                  checked={potentialFeatures[index].checked}
-                  onCheckedChange={() =>
-                    handlePotentialFeatureChange(feature.name)
-                  }
-                  className="data-[state=checked]:bg-[--blue]"
-                />
+                {isOperational ? (
+                  <Checkbox
+                    id={`current-${feature.name}`}
+                    checked={feature.checked}
+                    onCheckedChange={() =>
+                      handleCurrentFeatureChange(feature.name)
+                    }
+                  />
+                ) : (
+                  <div className="w-4 h-4 bg-[--darkblue]"></div>
+                )}
+                {isOperational ? (
+                  <Checkbox
+                    id={`potential-${feature.name}`}
+                    checked={potentialFeatures[index].checked}
+                    onCheckedChange={() =>
+                      handlePotentialFeatureChange(feature.name)
+                    }
+                    className="data-[state=checked]:bg-[--blue]"
+                  />
+                ) : (
+                  <div className="w-4 h-4 bg-[--blue]"></div>
+                )}
                 <Label htmlFor={`current-${feature.name}`}>
                   {feature.name}
                 </Label>
@@ -145,21 +159,29 @@ export function PropertyFeatures({ property }: { property: Property }) {
             .filter((feature) => feature.type === "heating")
             .map((feature, index) => (
               <div key={feature.name} className="flex items-center space-x-2">
-                <Checkbox
-                  id={`current-${feature.name}`}
-                  checked={feature.checked}
-                  onCheckedChange={() =>
-                    handleCurrentFeatureChange(feature.name)
-                  }
-                />
-                <Checkbox
-                  id={`potential-${feature.name}`}
-                  // checked={potentialFeatures[index].checked}
-                  onCheckedChange={() =>
-                    handlePotentialFeatureChange(feature.name)
-                  }
-                  className="data-[state=checked]:bg-[--blue]"
-                />
+                {isOperational ? (
+                  <Checkbox
+                    id={`current-${feature.name}`}
+                    checked={feature.checked}
+                    onCheckedChange={() =>
+                      handleCurrentFeatureChange(feature.name)
+                    }
+                  />
+                ) : (
+                  <div className="w-4 h-4 bg-[--darkblue]"></div>
+                )}
+                {isOperational ? (
+                  <Checkbox
+                    id={`potential-${feature.name}`}
+                    // checked={potentialFeatures[index].checked}
+                    onCheckedChange={() =>
+                      handlePotentialFeatureChange(feature.name)
+                    }
+                    className="data-[state=checked]:bg-[--blue]"
+                  />
+                ) : (
+                  <div className="w-4 h-4 bg-[--blue]"></div>
+                )}
                 <Label htmlFor={`current-${feature.name}`}>
                   {feature.name}
                 </Label>

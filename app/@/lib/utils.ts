@@ -23,9 +23,8 @@ export function parsePropertyForTable(
     label: property.propertyAttributes.built_form || "label",
     priority: property.propertyAttributes.potential_epc_band || "priority",
     epc:
-      property.propertyAttributes.current_epc_rating ||
-      property.propertyAttributes.potential_epc_band + "*" ||
-      "N/A",
+      property.propertyAttributes.current_epc_band ||
+      property.predictedEfficiency.predicted_epc_band + "(predicted)",
     postcode: property.propertyAttributes.postcode || "postcode",
     emission: property.propertyAttributes.current_co2_emissions || "N/A",
     emissionIntensity:

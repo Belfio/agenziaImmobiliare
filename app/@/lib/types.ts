@@ -30,7 +30,7 @@ export const PropertySchema = z.object({
     BUILDING_REFERENCE_NUMBER: z.string(),
     potential_epc_band: z.string(),
     postcode: z.string().optional(),
-    current_epc_rating: z.string(),
+    current_epc_band: z.string(),
     construction_age_category: z.string(),
   }),
   valueDetails: z.object({
