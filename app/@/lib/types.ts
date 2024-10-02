@@ -190,3 +190,12 @@ export type OverviewPropertiesType = {
   averageCO2EmissionPerSqMt: number;
   numberOfPropertiesEPCCOrHigher: number;
 };
+
+export const TargetSchema = z.object({
+  targetId: z.string(),
+  userId: z.string(),
+  region: z.string(),
+  propertyId: z.string(),
+});
+
+export type Target = z.infer<typeof TargetSchema>;

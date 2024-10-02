@@ -1,8 +1,10 @@
 import {
-  ActionFunctionArgs,
+  redirect,
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import db from "~/@/lib/db";
 import DecarboPage from "~/pages/decarbo";
 
 import { authenticator } from "~/services/auth.server";
@@ -18,24 +20,25 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const { targets } = useLoaderData<typeof loader>();
   return (
     <div className="font-sans px-4">
-      <DecarboPage />
+      <DecarboPage targets={targets} />
     </div>
   );
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
   console.log("loader in the dashboard");
-  await authenticator.isAuthenticated(request, {
+  const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
 
-  return {};
-}
+  if (!user) {
+    return redirect("/login");
+  }
 
-export async function action({ request }: ActionFunctionArgs) {
-  return await authenticator.logout(request, {
-    redirectTo: "/logout",
-  });
+  const targets = await db.target.getAll(user.userId);
+
+  return { targets };
 }

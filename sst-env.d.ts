@@ -11,6 +11,14 @@ declare module "sst" {
       type: "sst.aws.Remix"
       url: string
     }
+    Properties: {
+      name: string
+      type: "sst.aws.Dynamo"
+    }
+    Targets: {
+      name: string
+      type: "sst.aws.Dynamo"
+    }
   }
 }
 export {}

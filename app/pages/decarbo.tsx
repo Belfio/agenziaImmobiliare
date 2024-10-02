@@ -1,5 +1,7 @@
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { useNavigate } from "@remix-run/react";
+import { DecarboFlow } from "~/@/components/DecarboFlow";
+
 import { LineChartUI } from "~/@/components/LineChart";
 import { Button } from "~/@/components/ui/button";
 import {
@@ -9,10 +11,13 @@ import {
   CardTitle,
 } from "~/@/components/ui/card";
 import { EmissionsTrend } from "~/@/data/data";
+import { Target } from "~/@/lib/types";
 
-export default function DecarboPage() {
+export default function DecarboPage({ targets }: { targets: Target[] }) {
   const navigate = useNavigate();
-
+  if (!targets || targets.length === 0) {
+    return <DecarboFlow />;
+  }
   return (
     <div className="font-sans p-4">
       <h1 className="text-3xl">Decarbonization Pathways </h1>

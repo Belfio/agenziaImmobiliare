@@ -17,9 +17,33 @@ export default $config({
       },
       primaryIndex: { hashKey: "email" },
     });
+    const tableProperties = new sst.aws.Dynamo("Properties", {
+      fields: {
+        propertyId: "string",
+        region: "string",
+      },
+      primaryIndex: { hashKey: "propertyId" },
+      globalIndexes: {
+        RegionIndex: {
+          hashKey: "region",
+        },
+      },
+    });
+    const tableTarget = new sst.aws.Dynamo("Targets", {
+      fields: {
+        targetId: "string",
+        userId: "string",
+      },
+      primaryIndex: { hashKey: "targetId" },
+      globalIndexes: {
+        UserIndex: {
+          hashKey: "userId",
+        },
+      },
+    });
 
     new sst.aws.Remix("GL1", {
-      link: [tableCreds],
+      link: [tableCreds, tableProperties, tableTarget],
       environment: {
         AUTH_SECRET: AUTH_SECRET,
       },
