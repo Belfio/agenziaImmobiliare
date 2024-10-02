@@ -11,6 +11,8 @@ import "@/assets/fonts/Poppins/Poppins-Regular.ttf";
 import "@/assets/fonts/Poppins/Poppins-Light.ttf";
 import "@/assets/fonts/Poppins/Poppins-Bold.ttf";
 import { HeadersFunction } from "@remix-run/node";
+import DashboardLayout from "./pages/dashboardLayout";
+import { UserProvider } from "./providers/userContext";
 
 export const headers: HeadersFunction = () => {
   return {
@@ -18,7 +20,7 @@ export const headers: HeadersFunction = () => {
   };
 };
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout() {
   return (
     <html lang="en">
       <head>
@@ -28,7 +30,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <UserProvider>
+          <DashboardLayout />
+        </UserProvider>
+
         <ScrollRestoration />
         <Scripts />
       </body>

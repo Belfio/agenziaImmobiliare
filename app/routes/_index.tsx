@@ -1,4 +1,16 @@
-import { type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
+import {
+  ActionFunctionArgs,
+  redirect,
+  type LoaderFunctionArgs,
+  type MetaFunction,
+} from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { useContext, useEffect } from "react";
+import pp from "~/@/lib/propertyProcessing";
+import { User } from "~/@/lib/types";
+import OverviewPage from "~/pages/overview";
+import { UserContext } from "~/providers/userContext";
+
 import { authenticator } from "~/services/auth.server";
 
 export const meta: MetaFunction = () => {
@@ -12,17 +24,41 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  const { propertyOverview, userProfile } = useLoaderData<typeof loader>();
+  const { setUser } = useContext(UserContext);
+  useEffect(() => {
+    setUser(userProfile);
+  }, [userProfile, setUser]);
   return (
     <div className="font-sans p-4">
-      <h1 className="text-3xl">GL1</h1>
+      <OverviewPage propertyOverview={propertyOverview} />
     </div>
   );
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  console.log("loader in the index");
-  await authenticator.isAuthenticated(request, {
+  console.log("loader in the dashboard");
+  const user = await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
-    successRedirect: "/dashboard",
+  });
+  if (!user) {
+    return redirect("/login");
+  }
+  const propertyOverview = await pp.overviewProperties();
+  const userProfile: User = {
+    email: user.email,
+    name: "name",
+    id: "id",
+    roles: ["user"],
+    createdAt: user.createdAt,
+    avatar: "img",
+    surname: "surname",
+  };
+  return { propertyOverview, userProfile };
+}
+
+export async function action({ request }: ActionFunctionArgs) {
+  return await authenticator.logout(request, {
+    redirectTo: "/logout",
   });
 }

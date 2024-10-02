@@ -72,7 +72,7 @@ export const columns: ColumnDef<PropertyTableColumnsType>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <Link to={`/dashboard/properties/${row.getValue("id")}`}>
+          <Link to={`/properties/${row.getValue("id")}`}>
             <span className="max-w-[500px] truncate font-medium underline capitalize">
               {row.getValue("address")}
             </span>{" "}

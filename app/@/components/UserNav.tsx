@@ -11,8 +11,9 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { useEffect, useState } from "react";
+import { User } from "../lib/types";
 
-export function UserNav({ user }: { user: { email: string } }) {
+export function UserNav({ user }: { user: User | null }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {

@@ -2,6 +2,7 @@ import db from "~/@/lib/db";
 import { Cred, LoginForm } from "~/@/lib/types";
 
 import bcryptjs from "bcryptjs";
+import { randomUUID } from "node:crypto";
 
 export async function login(
   email: string,
@@ -9,12 +10,15 @@ export async function login(
 ): Promise<Cred | null> {
   console.log("logging in user");
   const user = await db.cred.get(email);
-  if (!user) return null;
-  // const isCorrectPassword = true;
+  if (!user) {
+    console.log("no user");
+    throw new Error("User not found");
+    return null;
+  }
   const isCorrectPassword = await bcryptjs.compare(password, user.passwordHash);
   if (!isCorrectPassword) {
     console.log("password incorrect");
-    return null;
+    throw new Error("Password incorrect");
   }
   return user;
 }
@@ -31,9 +35,7 @@ export async function register({
       email,
       passwordHash,
       createdAt: new Date().toISOString(),
-      userId:
-        Math.random().toString(36).substring(2, 15) +
-        Math.random().toString(36).substring(2, 15),
+      userId: randomUUID(),
     });
     return { status: "ok" };
   } catch (error) {

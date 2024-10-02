@@ -1,6 +1,7 @@
+import { User } from "../lib/types";
 import { UserNav } from "./UserNav";
 
-export default function DashHeader({ user }: { user: { email: string } }) {
+export default function DashHeader({ user }: { user: User | null }) {
   console.log("user", user);
   return (
     <header className=" w-full py-0">

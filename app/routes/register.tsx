@@ -21,9 +21,7 @@ export async function action({ request }: ActionFunctionArgs) {
   console.log("action in the register");
 
   return await authenticator.authenticate("user-pass", request, {
-    successRedirect: "/dashboard",
-    failureRedirect: "/",
+    successRedirect: "/",
+    failureRedirect: "/logout",
   });
-
-  return {};
 }

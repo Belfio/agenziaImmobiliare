@@ -16,7 +16,7 @@ export default function PropertiesPage({
   const navigate = useNavigate();
   const handleSearch = (search: string) => {
     setSearch(search);
-    navigate(`/dashboard/properties/${search}`);
+    navigate(`/properties/${search}`);
   };
   console.log(propertyTableParsed);
   return (

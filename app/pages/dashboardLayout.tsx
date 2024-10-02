@@ -1,7 +1,7 @@
 import DashHeader from "~/@/components/DashHeader";
 import { Nav } from "~/@/components/DashNav";
 import { Separator } from "~/@/components/ui/separator";
-import { Outlet } from "@remix-run/react";
+import { Outlet, useLocation } from "@remix-run/react";
 import {
   Activity,
   ChartNetwork,
@@ -12,8 +12,18 @@ import {
   Settings,
   TextSearch,
 } from "lucide-react";
+import { useContext } from "react";
+import { UserContext } from "~/providers/userContext";
 
-export default function DashboardLayout({ user }: { user: { email: string } }) {
+export default function DashboardLayout() {
+  const { user } = useContext(UserContext);
+  const location = useLocation();
+  const hideHeader =
+    location.pathname.includes("login") ||
+    location.pathname.includes("register");
+  if (hideHeader) {
+    return <Outlet />;
+  }
   const isCollapsed = false;
   return (
     <div className="">
@@ -32,7 +42,7 @@ export default function DashboardLayout({ user }: { user: { email: string } }) {
                 links={[
                   {
                     title: "Overview",
-                    url: "/dashboard",
+                    url: "/",
                     icon: LayoutDashboard,
                   },
                 ]}
@@ -46,27 +56,27 @@ export default function DashboardLayout({ user }: { user: { email: string } }) {
                 links={[
                   {
                     title: "Portfolio",
-                    url: "/dashboard/portfolio",
+                    url: "/portfolio",
                     icon: ChartPie,
                   },
                   {
                     title: "Decarbonization Pathways",
-                    url: "/dashboard/decarbonization",
+                    url: "/decarbonization",
                     icon: ChartNetwork,
                   },
                   {
                     title: "Properties",
-                    url: "/dashboard/properties",
+                    url: "/properties",
                     icon: House,
                   },
                   {
                     title: "Reports (soon)",
-                    url: "/dashboard/reports",
+                    url: "/reports",
                     icon: TextSearch,
                   },
                   {
                     title: "Monitoring (soon)",
-                    url: "/dashboard/monitoring",
+                    url: "/monitoring",
                     icon: Activity,
                   },
                 ]}
@@ -79,12 +89,12 @@ export default function DashboardLayout({ user }: { user: { email: string } }) {
                 links={[
                   {
                     title: "Settings (soon)",
-                    url: "/dashboard/settings",
+                    url: "/settings",
                     icon: Settings,
                   },
                   {
                     title: "Support (soon)",
-                    url: "/dashboard/support",
+                    url: "/support",
                     icon: Headset,
                   },
                 ]}
