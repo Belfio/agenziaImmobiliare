@@ -60,8 +60,8 @@ export default function DashboardLayout() {
                     icon: ChartPie,
                   },
                   {
-                    title: "Decarbonization Pathways",
-                    url: "/decarbonization",
+                    title: "Decarbonisation Pathways",
+                    url: "/decarbonisation",
                     icon: ChartNetwork,
                   },
                   {

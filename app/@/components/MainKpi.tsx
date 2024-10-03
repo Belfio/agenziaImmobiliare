@@ -41,7 +41,7 @@ export default function MainKpi({ className }: { className?: string }) {
               <Separator className="my-8" />
               <div className="bottom-8 flex justify-start gap-4 items-center">
                 <h1 className="text-lg font-semibold">Annual target gap</h1>
-                <Link to="/dashboard/decarbonization">
+                <Link to="/dashboard/decarbonisation">
                   <Button>Review targets</Button>
                 </Link>
               </div>

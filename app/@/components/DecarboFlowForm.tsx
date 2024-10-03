@@ -1,5 +1,4 @@
 import * as React from "react";
-import { cn } from "~/@/lib/utils";
 import { Label } from "./ui/label";
 import { Form, useNavigate } from "@remix-run/react";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
@@ -28,14 +27,14 @@ export function DecarboFlowForm({
       const nextQuestionId =
         currentQuestion.options.find((o: OptionType) => o.value === value)
           ?.target || "submit";
-      navigate(`/dashboard/decarbonization/${nextQuestionId}`);
+      navigate(`/dashboard/decarbonisation/${nextQuestionId}`);
     }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     console.log(responses);
-    navigate("/dashboard/decarbonization/");
+    navigate("/dashboard/decarbonisation/");
     // Process the responses here
   };
 

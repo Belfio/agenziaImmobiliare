@@ -20,7 +20,7 @@ export default function DecarboPage({ targets }: { targets: Target[] }) {
   }
   return (
     <div className="font-sans p-4">
-      <h1 className="text-3xl">Decarbonization Pathways </h1>
+      <h1 className="text-3xl">Decarbonisation Pathways </h1>
       <p className="text-sm text-gray-500">
         Plan your decarbonisation strategy and get insights on your properties.
       </p>
@@ -40,7 +40,7 @@ export default function DecarboPage({ targets }: { targets: Target[] }) {
             <div className="col-span-3 relative pl-8">
               <div className="absolute ">
                 <Button
-                  onClick={() => navigate("/dashboard/decarbonization/start")}
+                  onClick={() => navigate("/dashboard/decarbonisation/start")}
                 >
                   Explore new target
                 </Button>
