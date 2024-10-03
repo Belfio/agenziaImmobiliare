@@ -1,5 +1,5 @@
 import { UserAuthForm } from "~/@/components/UserAuthForm";
-import { Link } from "@remix-run/react";
+import { Link, useSearchParams } from "@remix-run/react";
 import Logo from "~/@/assets/images/gl1-logo.svg";
 // import {
 //   Card,
@@ -44,6 +44,8 @@ import Logo from "~/@/assets/images/gl1-logo.svg";
 // }
 
 export default function LoginPage() {
+  const [searchParams] = useSearchParams();
+  const error = searchParams.get("error");
   return (
     <>
       <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -79,6 +81,11 @@ export default function LoginPage() {
               </p>
             </div>
             <UserAuthForm />
+            {error && (
+              <p className="text-red-500 text-center">
+                Invalid email or password
+              </p>
+            )}
             {/* <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link

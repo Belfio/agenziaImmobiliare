@@ -10,12 +10,12 @@ export function Summary({ setPath }: { setPath: (path: FlowSteps) => void }) {
   return (
     <DialogHeader className="h-full">
       <DialogTitle>
-        <h1 className="text-3xl">Decarbonisation pathway summary</h1>
+        <h1 className="text-3xl">Summary</h1>
       </DialogTitle>
       <DialogDescription className="mt-2 h-full flex flex-col justify-between">
         <p className="text-sm text-gray-500">
-          GL1 Decarbonisation is a tool that helps you plan your decarbonisation
-          strategy and get insights on your properties.
+          Review your decarbonisation pathway. Click &quot;Back&quot; to modify
+          or &quot;Confirm&quot; to make your decarbonisation pathway active.
         </p>
         <div className="justify-end flex items-center gap-4 ">
           <Button
@@ -26,7 +26,7 @@ export function Summary({ setPath }: { setPath: (path: FlowSteps) => void }) {
             Back
           </Button>
           <Button className="mt-4 w-fit" onClick={() => setPath("end")}>
-            Get started
+            Confirm
           </Button>
         </div>
       </DialogDescription>

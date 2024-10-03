@@ -31,6 +31,10 @@ export async function register({
 
   const passwordHash = await bcryptjs.hash(password, 10);
   try {
+    const user = await db.cred.get(email);
+    if (user) {
+      throw new Error("User already exists");
+    }
     await db.cred.create({
       email,
       passwordHash,
@@ -40,6 +44,8 @@ export async function register({
     return { status: "ok" };
   } catch (error) {
     console.log("Error", error);
-    return { status: "error", error: JSON.stringify(error) || "Error" };
+    throw new Error("User already exists");
+
+    // return { status: "error", error: JSON.stringify(error) || "Error" };
   }
 }

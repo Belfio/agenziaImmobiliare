@@ -47,6 +47,7 @@ export function UserAuthForm({
               autoComplete="email"
               autoCorrect="off"
               disabled={isLoading}
+              className={cn(signup ? "text-gray-800" : "")}
             />
             <Input
               id="password"
@@ -57,8 +58,13 @@ export function UserAuthForm({
               autoComplete="current-password"
               autoCorrect="off"
               disabled={isLoading}
+              className={cn(signup ? "text-gray-800" : "")}
             />
-            <input type="hidden" name="register" value="true" />
+            <input
+              type="hidden"
+              name="register"
+              value={signup ? "true" : "false"}
+            />
           </div>
           <Button
             disabled={isLoading}

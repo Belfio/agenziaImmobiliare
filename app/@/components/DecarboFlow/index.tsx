@@ -15,7 +15,11 @@ export type FlowSteps =
   | "summary"
   | "end";
 
-export function DecarboFlow() {
+export function DecarboFlow({
+  setIsFlowOpen,
+}: {
+  setIsFlowOpen: (isOpen: boolean) => void;
+}) {
   const [path, setPath] = useState<FlowSteps>("welcome");
 
   const pathSlides = (path: FlowSteps) => {
@@ -30,6 +34,9 @@ export function DecarboFlow() {
         return <Target setPath={setPath} />;
       case "summary":
         return <Summary setPath={setPath} />;
+      case "end":
+        setIsFlowOpen(false);
+        return null;
     }
   };
   return (

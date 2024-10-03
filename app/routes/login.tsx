@@ -28,7 +28,7 @@ export default function Screen() {
 export async function action({ request }: ActionFunctionArgs) {
   return await authenticator.authenticate("user-pass", request, {
     successRedirect: "/",
-    failureRedirect: "/login",
+    failureRedirect: "/login?error=true",
   });
 }
 export async function loader({ request }: LoaderFunctionArgs) {

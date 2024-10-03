@@ -26,12 +26,13 @@ authenticator.use(
     if (!isPassword(password)) {
       return;
     }
+    console.log("Registering", isRegistering);
     if (isRegistering) {
       try {
         await register({ email, password });
       } catch (e) {
         console.log("Error registering", e);
-        return;
+        throw e;
       }
     }
     const user = await login(email, password);

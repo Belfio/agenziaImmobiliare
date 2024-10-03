@@ -1,5 +1,6 @@
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { useNavigate } from "@remix-run/react";
+import { useState } from "react";
 import { DecarboFlow } from "~/@/components/DecarboFlow";
 
 import { LineChartUI } from "~/@/components/LineChart";
@@ -15,8 +16,10 @@ import { Target } from "~/@/lib/types";
 
 export default function DecarboPage({ targets }: { targets: Target[] }) {
   const navigate = useNavigate();
-  if (!targets || targets.length === 0) {
-    return <DecarboFlow />;
+  const [isFlowOpen, setIsFlowOpen] = useState(true);
+  // if (!targets || targets.length === 0) {
+  if (isFlowOpen) {
+    return <DecarboFlow setIsFlowOpen={setIsFlowOpen} />;
   }
   return (
     <div className="font-sans p-4">

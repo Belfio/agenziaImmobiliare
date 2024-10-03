@@ -18,19 +18,33 @@ const REGIONS = [
     value: "Leicester",
     label: "Leicester",
   },
+  {
+    value: "London",
+    label: "London",
+  },
+  {
+    value: "Birmingham",
+    label: "Birmingham",
+  },
+  {
+    value: "Manchester",
+    label: "Manchester",
+  },
 ];
-export type Regions = "Portfolio | Leicester" | undefined;
+export type Regions =
+  | "Portfolio | Leicester | London | Birmingham | Manchester"
+  | undefined;
 export function Region({ setPath }: { setPath: (path: FlowSteps) => void }) {
   const [regions, setRegions] = useState<Regions[]>([]);
   return (
     <DialogHeader className="h-full">
       <DialogTitle>
-        <h1 className="text-3xl">Select the regions</h1>
+        <h1 className="text-3xl">Target regions</h1>
       </DialogTitle>
       <DialogDescription className="mt-2 h-full flex flex-col justify-between">
         <p className="text-sm text-gray-500">
-          Create a decarbonisation pathway for one or more regions in your
-          portfolio.
+          Select the regions you want to target with your new decarbonisation
+          pathway.
         </p>
 
         {/* <MultiSelectorComplete
@@ -50,7 +64,7 @@ export function Region({ setPath }: { setPath: (path: FlowSteps) => void }) {
               ]}
             />
             */}
-        <div className="flex flex-col gap-2 my-8">
+        <div className="flex flex-col gap-2 my-4 mx-4">
           {REGIONS.map((region) => (
             <div key={region.value} className="flex items-center gap-2">
               <Checkbox

@@ -1,7 +1,9 @@
 import { UserAuthForm } from "~/@/components/UserAuthForm";
-import { Link } from "@remix-run/react";
+import { Link, useSearchParams } from "@remix-run/react";
 import Logo from "~/@/assets/images/gl1-logo.svg";
 export default function RegisterPage() {
+  const [searchParams] = useSearchParams();
+  const error = searchParams.get("error");
   return (
     <>
       <div className=" relative  h-screen flex-col items-center justify-center  w-screen">
@@ -20,6 +22,9 @@ export default function RegisterPage() {
                 </p>
               </div>
               <UserAuthForm signup={true} dark={true} />
+              {error && (
+                <p className="text-red-500 text-center">User already exists</p>
+              )}
               {/* <p className="px-8 text-center text-sm text-muted-foreground">
               By clicking continue, you agree to our{" "}
               <Link

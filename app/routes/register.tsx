@@ -22,6 +22,6 @@ export async function action({ request }: ActionFunctionArgs) {
 
   return await authenticator.authenticate("user-pass", request, {
     successRedirect: "/",
-    failureRedirect: "/logout",
+    failureRedirect: "/register?error=true",
   });
 }
