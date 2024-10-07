@@ -6,7 +6,7 @@ import {
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { useCallback, useContext, useEffect } from "react";
-import pp from "~/@/lib/propertyProcessing";
+
 import { User } from "~/@/lib/types";
 import { useProperties } from "~/hooks/useProperties";
 import OverviewPage from "~/pages/overview";
@@ -25,10 +25,9 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const { propertyOverview, userProfile } = useLoaderData<typeof loader>();
+  const { userProfile } = useLoaderData<typeof loader>();
   const { setUser } = useContext(UserContext);
-
-  const { loadPropsAsync } = useProperties();
+  const { propertyOverview, loadPropsAsync } = useProperties();
 
   useCallback(() => {
     loadPropsAsync();
@@ -39,7 +38,7 @@ export default function Index() {
   }, [userProfile, setUser]);
   return (
     <div className="font-sans p-4">
-      <OverviewPage propertyOverview={propertyOverview} />
+      {propertyOverview && <OverviewPage propertyOverview={propertyOverview} />}
     </div>
   );
 }
@@ -52,7 +51,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   if (!user) {
     return redirect("/login");
   }
-  const propertyOverview = await pp.overviewProperties();
+
   const userProfile: User = {
     email: user.email,
     name: "name",
@@ -62,7 +61,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     avatar: "img",
     surname: "surname",
   };
-  return { propertyOverview, userProfile };
+  return { userProfile };
 }
 
 export async function action({ request }: ActionFunctionArgs) {
