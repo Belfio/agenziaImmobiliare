@@ -38,6 +38,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "isbot": "^4.1.0",
+    "localforage": "^1.10.0",
     "lucide-react": "^0.417.0",
     "mock-aws-s3": "^4.0.2",
     "nock": "^13.5.4",

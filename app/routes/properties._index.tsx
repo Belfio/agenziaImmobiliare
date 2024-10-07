@@ -12,6 +12,7 @@ import PropertiesPage from "~/pages/properties";
 import { authenticator } from "~/services/auth.server";
 
 import { Suspense } from "react";
+import { useProperties } from "~/hooks/useProperties";
 export const headers: HeadersFunction = () => {
   return {
     "Cache-Control": `max-age=3600`,
@@ -34,7 +35,7 @@ const propDummy: PropertyData = {
   propertiesWithLandRegistryData: [],
 };
 export default function Index() {
-  const { propertyData } = useLoaderData<{ propertyData: PropertyData }>();
+  const { propertyData, isLoading } = useProperties();
   return (
     <div className="px-4">
       <Suspense
@@ -57,9 +58,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
-
-  const propertyData: PropertyData = await pp.loadProperties();
-  return { propertyData };
+  return "";
 }
 
 export async function action({ request }: ActionFunctionArgs) {

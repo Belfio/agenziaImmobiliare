@@ -3,9 +3,9 @@ import {
   type LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import pp from "~/@/lib/propertyProcessing";
+
 import { PropertyData } from "~/@/lib/types";
+import { useProperties } from "~/hooks/useProperties";
 import PortfolioPage from "~/pages/portfolio";
 
 import { authenticator } from "~/services/auth.server";
@@ -21,12 +21,18 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const { propertyData } = useLoaderData<typeof loader>() as {
+  const { propertyData, isLoading } = useProperties() as {
     propertyData: PropertyData;
+    isLoading: boolean;
   };
+
   return (
     <div className="px-4">
-      <PortfolioPage properties={propertyData} />
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <PortfolioPage properties={propertyData} />
+      )}
     </div>
   );
 }
@@ -37,16 +43,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     failureRedirect: "/login",
   });
 
-  const propertyData: PropertyData = await pp.loadProperties(500);
-  if (!propertyData) {
-    return {};
-  }
-  console.log(propertyData.properties[0]);
-
-  return {
-    propertyData,
-    addressOptions: propertyData.addressOptions,
-  };
+  return {};
 }
 
 export async function action({ request }: ActionFunctionArgs) {

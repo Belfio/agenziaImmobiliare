@@ -5,9 +5,10 @@ import {
   type MetaFunction,
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import pp from "~/@/lib/propertyProcessing";
 import { User } from "~/@/lib/types";
+import { useProperties } from "~/hooks/useProperties";
 import OverviewPage from "~/pages/overview";
 import { UserContext } from "~/providers/userContext";
 
@@ -26,6 +27,13 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   const { propertyOverview, userProfile } = useLoaderData<typeof loader>();
   const { setUser } = useContext(UserContext);
+
+  const { loadPropsAsync } = useProperties();
+
+  useCallback(() => {
+    loadPropsAsync();
+  }, [loadPropsAsync]);
+
   useEffect(() => {
     setUser(userProfile);
   }, [userProfile, setUser]);
