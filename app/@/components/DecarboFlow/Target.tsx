@@ -105,20 +105,20 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
   return (
     <DialogHeader className="h-full">
       <DialogTitle>
-        <h1 className="text-3xl">Select your Target</h1>
+        <h1 className="text-3xl">Climate target settings</h1>
       </DialogTitle>
       <DialogDescription className="mt-2 h-full flex flex-col justify-between">
         <div className="flex my-8 items-center space-x-4 px-8">
           <p className="text-md text-gray-500 font-semibold">By</p>
           <Input
-            type="text"
+            type="number"
             placeholder="Year"
             defaultValue="2035"
-            className="max-w-[64px]"
-            pattern="\d{4}"
-            title="Please enter a valid year in the format yyyy"
-            min="2024"
-            max="2135"
+            className="max-w-[86px]"
+            pattern="20\d{2}"
+            title="Please enter a valid year in the format 20nn"
+            min="2025"
+            max="2099"
           />
           <p className="text-md text-gray-500 font-semibold">we want to</p>
 

@@ -403,6 +403,7 @@ async function loadProperties(limit?: number) {
       property.propertyAttributes.address,
       propertyData.properties[i].propertyAttributes.postcode
     );
+    propertyData.properties[i].propertyAttributes.citytown = "Leicester";
   });
 
   const propertiesWithLandRegistryData = properties.filter(
