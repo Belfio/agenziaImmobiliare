@@ -151,7 +151,7 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
         <div className="flex justify-end gap-4 ">
           <Button
             className="mt-4 w-fit"
-            onClick={() => setPath("welcome")}
+            onClick={() => setPath("region")}
             variant="secondary"
           >
             Back

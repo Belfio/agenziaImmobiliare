@@ -20,7 +20,7 @@ export function Summary({ setPath }: { setPath: (path: FlowSteps) => void }) {
         <div className="justify-end flex items-center gap-4 ">
           <Button
             className="mt-4 w-fit"
-            onClick={() => setPath("welcome")}
+            onClick={() => setPath("target")}
             variant="secondary"
           >
             Back
