@@ -12,7 +12,7 @@ import { Label } from "../ui/label";
 const REGIONS = [
   {
     value: "Portfolio",
-    label: "Whole portfolio",
+    label: "All regions",
   },
   {
     value: "Leicester",
@@ -39,31 +39,13 @@ export function Region({ setPath }: { setPath: (path: FlowSteps) => void }) {
   return (
     <DialogHeader className="h-full">
       <DialogTitle>
-        <h1 className="text-3xl">Target regions</h1>
+        <h1 className="text-3xl">Target regions/cities</h1>
       </DialogTitle>
       <DialogDescription className="mt-2 h-full flex flex-col justify-between">
         <p className="text-sm text-gray-500">
-          Select the regions you want to target with your new decarbonisation
-          pathway.
+          Select the regions or cities you want to analyse in terms of
+          decarbonisation.
         </p>
-
-        {/* <MultiSelectorComplete
-              placeholder="Select a region or the whole portfolio"
-              values={regions}
-              onValuesChange={(values) => setRegions(values as Regions[])}
-              arrow={true}
-              options={[
-                {
-                  value: "Portfolio",
-                  label: "Portfolio",
-                },
-                {
-                  value: "Leicester",
-                  label: "Leicester",
-                },
-              ]}
-            />
-            */}
         <div className="flex flex-col gap-2 my-4 mx-4">
           {REGIONS.map((region) => (
             <div key={region.value} className="flex items-center gap-2">

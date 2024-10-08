@@ -19,7 +19,7 @@ export function Welcome({ setPath }: { setPath: (path: FlowSteps) => void }) {
         <div className="flex items-center space-x-12 m-auto">
           <div className="">
             <div className="flex space-x-2 items-center mt-4">
-              <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 ">
+              <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 font-semibold ">
                 1
               </div>
               <h3 className="text-lg ">Select the regions/cities</h3>
@@ -29,7 +29,7 @@ export function Welcome({ setPath }: { setPath: (path: FlowSteps) => void }) {
               specific regions/cities in relation to climate goals.
             </p>
             <div className="flex space-x-2 items-center mt-4">
-              <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 ">
+              <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 font-semibold ">
                 2
               </div>
               <h3 className="text-lg ">Set your targets</h3>
@@ -39,7 +39,7 @@ export function Welcome({ setPath }: { setPath: (path: FlowSteps) => void }) {
               relevant metrics, and the desired target values.
             </p>
             <div className="flex space-x-2 items-center mt-4">
-              <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 ">
+              <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 font-semibold ">
                 3
               </div>
               <h3 className="text-lg ">Review the impact</h3>

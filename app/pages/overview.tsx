@@ -19,13 +19,13 @@ export default function OverviewPage({
             title="Number of properties"
             value={String(propertyOverview.numberProperties)}
             description="Leicester"
-            variant="ghost"
+            // variant="ghost"
           />
           <Tile
             title="Total mortgage value"
             value="£ 1.2B"
             description="Leicester"
-            variant="ghost"
+            // variant="ghost"
           />
           <Tile
             title="Average emissions/property"
@@ -33,7 +33,7 @@ export default function OverviewPage({
               propertyOverview.averageCO2EmissionPerSqMt.toFixed(2)
             )}
             description="tonneC02 /sq mt / year"
-            variant="ghost"
+            // variant="ghost"
           />
           <Tile
             title="EPC rating"
@@ -43,7 +43,7 @@ export default function OverviewPage({
               100
             ).toFixed(2)}%`}
             description={`${propertyOverview.numberOfPropertiesEPCCOrHigher}  properties with EPC C or higher`}
-            variant="ghost"
+            // variant="ghost"
           />
         </div>
       </div>

@@ -63,6 +63,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 }),
                 link.url === path &&
                   "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
+                link.url !== path && "text-white",
                 "justify-start w-full p-4"
               )}
             >
