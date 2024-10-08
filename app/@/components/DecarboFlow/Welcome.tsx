@@ -12,27 +12,41 @@ export function Welcome({ setPath }: { setPath: (path: FlowSteps) => void }) {
       <DialogTitle className="relative z-10">
         <h1 className="text-3xl">Welcome to GL1 Decarbonisation</h1>
         <p className="text-sm text-gray-500">
-          GL1 Decarbonisation is a tool that helps you plan your decarbonisation
-          strategy and get insights on your properties.
+          GL1 Decarbonisation Planning helps you reach specific climate targets.
         </p>
       </DialogTitle>
       <DialogDescription className=" z-10 mt-2 h-full flex flex-col justify-between">
         <div className="flex items-center space-x-12 m-auto">
           <div className="">
-            <h3 className="text-lg mt-4">1 - Select the regions</h3>
-            <p className="text-sm text-gray-500">
-              We will use this information to get the properties in the selected
-              regions.
+            <div className="flex space-x-2 items-center mt-4">
+              <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 ">
+                1
+              </div>
+              <h3 className="text-lg ">Select the regions/cities</h3>
+            </div>
+            <p className="text-sm text-gray-500 pl-12">
+              You can choose to analyse either the entire portfolio or focus on
+              specific regions/cities in relation to climate goals.
             </p>
-            <h3 className="text-lg mt-4">2 - Select the properties</h3>
-            <p className="text-sm text-gray-500">
-              We will use this information to get the properties in the selected
-              regions.
+            <div className="flex space-x-2 items-center mt-4">
+              <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 ">
+                2
+              </div>
+              <h3 className="text-lg ">Set your targets</h3>
+            </div>
+            <p className="text-sm text-gray-500 pl-12">
+              You can define your climate targets by choosing a specific date,
+              relevant metrics, and the desired target values.
             </p>
-            <h3 className="text-lg mt-4">3 - Select the properties</h3>
-            <p className="text-sm text-gray-500">
-              We will use this information to get the properties in the selected
-              regions.
+            <div className="flex space-x-2 items-center mt-4">
+              <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 ">
+                3
+              </div>
+              <h3 className="text-lg ">Review the impact</h3>
+            </div>
+            <p className="text-sm text-gray-500 pl-12">
+              Explore what’s needed to achieve your targets based on your
+              current portfolio.
             </p>
           </div>
           <img src={Top} alt="Building" className="w-[280px]" />

@@ -58,7 +58,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
               prefetch="intent"
               className={cn(
                 buttonVariants({
-                  variant: link.url === path ? "default" : "ghost",
+                  variant: link.url === path ? "outline" : "ghost",
                   size: "icon",
                 }),
                 link.url === path &&
