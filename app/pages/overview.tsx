@@ -1,4 +1,5 @@
 import MainKpi from "~/@/components/MainKpi";
+import TargetEPC from "~/@/components/TargetEPC";
 
 import Tile from "~/@/components/Tiles";
 import { OverviewPropertiesType } from "~/@/lib/types";
@@ -13,7 +14,7 @@ export default function OverviewPage({
       {/* <h1 className="text-3xl">Overview </h1> */}
 
       <div className="mt-0 ">
-        <MainKpi />
+        <TargetEPC />
         <div className="flex justify-center gap-8 mt-8">
           <Tile
             title="Number of properties"

@@ -9,22 +9,34 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ReferenceLine,
 } from "recharts";
 
 type LineDataType = {
   name: string;
+  colour?: string;
   data: {
     category: string;
     value: number;
   }[];
 }[];
 
+type ReferenceLineType = {
+  x?: string;
+  y?: number;
+  label?: string;
+  colour?: string;
+};
 export function LineChartUI({
   className,
   series,
+  yLabel,
+  referenceLine,
 }: {
   className: string;
   series: LineDataType;
+  yLabel?: string;
+  referenceLine?: ReferenceLineType;
 }) {
   return (
     <ResponsiveContainer width="100%" height={350} className={className}>
@@ -45,7 +57,11 @@ export function LineChartUI({
           fontSize={12}
           tickLine={false}
           axisLine={false}
-          label={{ value: "KgCO2 / sq mt", angle: -90, position: "insideLeft" }}
+          label={{
+            value: yLabel || "KgCO2 / sq mt",
+            angle: -90,
+            position: "insideLeft",
+          }}
           width={40}
         />
         <Tooltip
@@ -56,6 +72,14 @@ export function LineChartUI({
           }}
         />
         <Legend verticalAlign="top" align="right" height={36} stroke="#000" />
+        {referenceLine && (
+          <ReferenceLine
+            x={referenceLine.x}
+            y={referenceLine.y}
+            label={referenceLine.label}
+            stroke={referenceLine.colour}
+          />
+        )}
         {series.map((s) => (
           <Line
             dataKey="value"
@@ -65,14 +89,14 @@ export function LineChartUI({
             fill="white"
             className="fill-primary"
             dot={{
-              stroke: s.name === "Trend" ? "white" : "black",
+              stroke: s.colour,
               strokeWidth: 2,
             }}
             activeDot={{
-              stroke: s.name === "Trend" ? "white" : "black",
+              stroke: s.colour,
               strokeWidth: 2,
             }}
-            stroke={s.name === "Trend" ? "#888" : "#000"}
+            stroke={s.colour}
             strokeDasharray={s.name === "Trend" ? "5 5" : ""}
             isAnimationActive={false}
           />
