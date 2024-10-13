@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { OverviewPropertiesType, PropertyData } from "~/@/lib/types";
 import localforage from "localforage";
 
-export function useProperties() {
+export function useProperties(): {
+  propertyData: PropertyData | null;
+  isLoading: boolean;
+  loadPropsAsync: () => void;
+  propertyOverview: OverviewPropertiesType | null;
+} {
   const [isLoading, setIsLoading] = useState(true);
   const [propertyData, setPropertyData] = useState<PropertyData | null>(null);
   const [propertyOverview, setPropertyOverview] =

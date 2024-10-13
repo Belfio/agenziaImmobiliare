@@ -32,6 +32,7 @@ const TARGETS = [
   },
 ];
 
+export type TargetType = "EPCmin" | "Emission" | "EmissionIntensity";
 const TARGET_DETAIL_INPUT = {
   EPCmin: (setValue: (value: string) => void) => (
     <div className="flex items-center space-x-2">
@@ -104,6 +105,7 @@ const TARGET_DETAIL_INPUT = {
     </div>
   ),
 };
+
 export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
   const [targetSelected, setTarget] = useState<string | undefined>(undefined);
   const [targetValue, setTargetValue] = useState<string | undefined>(undefined);
@@ -119,57 +121,74 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
         </p>
       </DialogTitle>
       <DialogDescription className="mt-2 h-full flex flex-col justify-between ">
-        <div className="flex flex-col p-6 bg-[var(--darkblue)] my-8 w-1/2 h-full justify-between">
-          <div className="h-10 flex items-baseline space-x-4 px-4 ">
-            <Select onValueChange={(value) => setTarget(value)}>
-              <SelectTrigger className="w-full focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:ring-offset-0 text-left">
-                <SelectValue
-                  placeholder="Select a target"
-                  className="text-primary text-left"
-                />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {TARGETS.map((t) => (
-                    <SelectItem value={t.value} key={t.value}>
-                      <Label
-                        className="text-gray-700 text-left w-fill m-0"
-                        // className={`text-gray-300 hover:text-gray-700 ${
-                        //   targetSelected === t.value && "text-gray-700"
-                        // }`}
-                        onClick={() => setTarget(t.value)}
-                      >
-                        {t.label}
-                      </Label>
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="h-10 flex items-baseline space-x-4 px-4 ">
-            {" "}
-            {targetSelected &&
-              TARGET_DETAIL_INPUT[
-                targetSelected as keyof typeof TARGET_DETAIL_INPUT
-              ](setTargetValue)}
-          </div>
-          <div className="h-10 flex items-baseline space-x-4 px-4">
-            {targetValue && (
-              <>
-                <p className="text-md text-gray-200 font-regular">By</p>
+        <div className="flex justify-center">
+          <div className="flex flex-col py-6 px-2 bg-[var(--darkblue)] my-8 w-1/2 h-full justify-between">
+            <div className="h-10 flex items-baseline space-x-4 px-4 ">
+              <Select onValueChange={(value) => setTarget(value)}>
+                <SelectTrigger className="w-full focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:ring-offset-0 text-left">
+                  <SelectValue
+                    placeholder="Select a target"
+                    className="text-primary text-left"
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {TARGETS.map((t) => (
+                      <SelectItem value={t.value} key={t.value}>
+                        <Label
+                          className="text-gray-700 text-left w-fill m-0"
+                          // className={`text-gray-300 hover:text-gray-700 ${
+                          //   targetSelected === t.value && "text-gray-700"
+                          // }`}
+                          onClick={() => setTarget(t.value)}
+                        >
+                          {t.label}
+                        </Label>
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="h-10 flex items-baseline space-x-4 px-4 ">
+              {" "}
+              {targetSelected &&
+                TARGET_DETAIL_INPUT[
+                  targetSelected as keyof typeof TARGET_DETAIL_INPUT
+                ](setTargetValue)}
+            </div>
+            <div className="h-10 flex items-baseline space-x-4 px-4">
+              {targetValue && (
+                <>
+                  <p className="text-md text-gray-200 font-regular">By</p>
 
-                <Input
-                  type="date"
-                  placeholder="dd/mm/yyyy"
-                  className="max-w-fit h-fit border-none text-gray-700 font-regular  "
-                  pattern="\d{2}/\d{2}/\d{4}"
-                  title="Please enter a valid year in the format 20nn"
-                  min="2025"
-                  max="2099"
-                />
-              </>
-            )}
+                  <Input
+                    type="date"
+                    placeholder="dd/mm/yyyy"
+                    className="max-w-fit h-fit border-none text-gray-700 font-regular  "
+                    pattern="\d{2}/\d{2}/\d{4}"
+                    title="Please enter a valid year in the format 20nn"
+                    min="2025"
+                    max="2099"
+                  />
+                </>
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col py-6 px-2 w-1/2 h-full justify-between my-12">
+            <div className="h-10 flex items-baseline space-x-4 px-4 ">
+              New stuff
+            </div>
+            <div className="h-10 flex items-baseline space-x-4 px-4 ">
+              <p className="text-gray-200 font-regular">
+                Total number of houses to achieve target
+              </p>
+            </div>
+            <div className="h-10 flex items-baseline space-x-4 px-4 ">
+              <p className="text-gray-200 font-regular">
+                Total number of houses to achieve target
+              </p>
+            </div>
           </div>
         </div>
         <div className="flex justify-end gap-4 ">

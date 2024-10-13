@@ -66,23 +66,15 @@ const REGIONS = [
     label: "South West",
   },
 ];
-export type Regions =
-  | "Portfolio | Leicester | London | Birmingham | Manchester"
-  | undefined;
 
-const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-];
 export function Region({ setPath }: { setPath: (path: FlowSteps) => void }) {
   const [regions, setRegions] = useState<Regions[]>([]);
   const { propertyData } = useProperties();
-  const total = propertyData?.properties.length;
-  const selected = propertyData?.properties
-    .map((p) => p.propertyAttributes.citytown)
-    .filter((r) => regions.includes(r)).length;
+  const total = propertyData?.properties.length || 0;
+  const selected =
+    propertyData?.properties
+      .map((p) => p.propertyAttributes.citytown)
+      .filter((r) => regions.includes(r)).length || 0;
   const remaining = total - selected;
   const data = [
     { name: "Selected", value: selected },

@@ -50,7 +50,6 @@ type ReferenceLineType = {
 export function ChartComposedUI({
   className,
   series,
-
   referenceLine,
 }: {
   className: string;
@@ -99,15 +98,19 @@ export function ChartComposedUI({
           fontSize={12}
           tickLine={false}
           axisLine={false}
+          domain={[0, 200]}
           orientation="right"
           label={{
             value: series.y2Label,
-            angle: -90,
+            angle: 90,
             position: "insideBottomRight",
+            // offset: 100,
+            // content: <div className="bg-red w-8 h-8">}</div>,
           }}
           width={40}
           yAxisId="bar"
         />
+
         <Tooltip
           cursor={{ stroke: "black", strokeWidth: 1 }}
           contentStyle={{
@@ -154,7 +157,7 @@ export function ChartComposedUI({
             isAnimationActive={false}
           />
         )}
-        {series.isLine2 && (
+        {!series.isLine2 && (
           <Line
             dataKey="line2"
             data={series.data}
@@ -175,6 +178,15 @@ export function ChartComposedUI({
             isAnimationActive={false}
           />
         )}
+        <ReferenceLine
+          x={series.data[series.data.length - 1].name}
+          y={series.data[series.data.length - 1].line2}
+          stroke="var(--blue)"
+          label={{
+            value: "Target",
+            position: "top",
+          }}
+        />
       </ComposedChart>
     </ResponsiveContainer>
   );
