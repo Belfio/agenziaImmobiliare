@@ -6,14 +6,17 @@ import { useState, useEffect } from "react";
 export default function TargetPreview({
   target,
   targetValue,
+  calendarValue,
 }: {
   target: TargetType;
   targetValue: number;
+  calendarValue?: string;
 }) {
   const { propertyData } = useProperties();
   const [props, setProps] = useState<Property[]>([]);
 
   useEffect(() => {
+    if (!propertyData?.properties) return setProps([]);
     switch (target) {
       case "EPCmin":
         {
@@ -23,7 +26,9 @@ export default function TargetPreview({
                 p.propertyAttributes.current_epc_band
               )
             ) || [];
-          const numProps = ((all.length * targetValue) / 100).toFixed(0);
+          const numProps = Number(
+            ((all.length * targetValue) / 100).toFixed(0)
+          );
           const targetProps = all.slice(0, numProps);
           setProps(targetProps);
         }
@@ -81,8 +86,18 @@ export default function TargetPreview({
     )
     .toFixed(0);
 
+  const monthsToDate = calendarValue
+    ? (
+        (new Date(calendarValue).getTime() - new Date().getTime()) /
+        (1000 * 60 * 60 * 24 * 30)
+      ).toFixed(0)
+    : 0;
+  const propertiesPerMonth = monthsToDate
+    ? (propsNumber / Number(monthsToDate)).toFixed(0)
+    : 0;
+
   const getEstimatedCost = 0;
-  console.log(props[0]);
+
   return (
     <table className="table-auto border-collapse border border-gray-400 w-full">
       <tbody>
@@ -115,7 +130,7 @@ export default function TargetPreview({
             Emission saved:
           </td>
           <td className="border border-gray-400 px-4 py-2 w-1/2">
-            {potentialC02Saving} tnCO2, ({potentialC02SavingPercent}%)
+            {potentialC02Saving} tnCO2 ({potentialC02SavingPercent}%)
           </td>
         </tr>
         <tr className="border border-gray-400">
@@ -132,6 +147,14 @@ export default function TargetPreview({
           </td>
           <td className="border border-gray-400 px-4 py-2 w-1/2">
             {getEstimatedCost}
+          </td>
+        </tr>
+        <tr className="border border-gray-400">
+          <td className="border border-gray-400 px-4 py-2 w-1/2">
+            Properties per month:
+          </td>
+          <td className="border border-gray-400 px-4 py-2 w-1/2">
+            {propertiesPerMonth} ({monthsToDate} months)
           </td>
         </tr>
       </tbody>

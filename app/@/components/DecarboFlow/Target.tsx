@@ -137,7 +137,9 @@ const TARGET_DETAIL_INPUT = {
 export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
   const [targetSelected, setTarget] = useState<string | undefined>(undefined);
   const [targetValue, setTargetValue] = useState<string | undefined>(undefined);
-
+  const [calendarValue, setCalendarValue] = useState<string | undefined>(
+    undefined
+  );
   return (
     <DialogHeader className="h-full">
       <DialogTitle>
@@ -149,9 +151,9 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
         </p>
       </DialogTitle>
       <DialogDescription className="mt-2 h-full flex flex-col justify-between ">
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center items-center mt-8">
           <div className="flex flex-col py-6 px-2 bg-[var(--darkblue)]  w-1/2 h-full justify-between">
-            <div className="h-8 flex items-baseline space-x-4 px-4 ">
+            <div className="h-16 flex items-center space-x-4 px-4 ">
               <Select onValueChange={(value) => setTarget(value)}>
                 <SelectTrigger className="w-full focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:ring-offset-0 text-left">
                   <SelectValue
@@ -178,13 +180,13 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
                 </SelectContent>
               </Select>
             </div>
-            <div className="h-8 flex items-baseline space-x-4 px-4 ">
+            <div className="h-16 flex items-center space-x-4 px-4 ">
               {targetSelected &&
                 TARGET_DETAIL_INPUT[
                   targetSelected as keyof typeof TARGET_DETAIL_INPUT
                 ](setTargetValue)}
             </div>
-            <div className="h-8 flex items-baseline space-x-4 px-4">
+            <div className="h-16 flex items-center space-x-4 px-4">
               {targetValue && (
                 <>
                   <p className="text-md text-gray-200 font-regular">By</p>
@@ -197,16 +199,18 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
                     title="Please enter a valid year in the format 20nn"
                     min="2025"
                     max="2099"
+                    onChange={(e) => setCalendarValue(e.target.value)}
                   />
                 </>
               )}
             </div>
           </div>
-          <div className="flex flex-col  px-2 w-1/2 h-full justify-between ">
+          <div className="flex flex-col  px-2 w-1/2 justify-between ">
             {targetValue && (
               <TargetPreview
                 target={targetSelected as TargetType}
                 targetValue={Number(targetValue)}
+                calendarValue={calendarValue}
               />
             )}
           </div>
