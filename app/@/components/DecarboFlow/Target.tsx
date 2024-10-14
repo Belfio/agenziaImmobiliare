@@ -16,23 +16,41 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import TargetPreview from "./TargetPreview";
 
-const TARGETS = [
+type TargetObjType = {
+  value: TargetType;
+  label: string;
+};
+const TARGETS: TargetObjType[] = [
   {
     value: "EPCmin",
     label: "Improve to EPC C or above",
   },
   {
     value: "Emission",
-    label: "Decrease total emissions by",
+    label: "Decrease tnC02 by",
+  },
+  {
+    value: "EmissionPercent",
+    label: "Decrease emissions by a percentage",
   },
   {
     value: "EmissionIntensity",
-    label: "Decrease average emissions to",
+    label: "Decrease average emissions per sqmt",
+  },
+  {
+    value: "EmissionIntensityPercent",
+    label: "Decrease emissions per sqmt by a percentage",
   },
 ];
 
-export type TargetType = "EPCmin" | "Emission" | "EmissionIntensity";
+export type TargetType =
+  | "EPCmin"
+  | "Emission"
+  | "EmissionPercent"
+  | "EmissionIntensity"
+  | "EmissionIntensityPercent";
 const TARGET_DETAIL_INPUT = {
   EPCmin: (setValue: (value: string) => void) => (
     <div className="flex items-center space-x-2">
@@ -56,52 +74,62 @@ const TARGET_DETAIL_INPUT = {
   ),
   Emission: (setValue: (value: string) => void) => (
     <div className="flex items-center space-x-2 ">
+      <Input
+        type="number"
+        placeholder="0"
+        min="0"
+        max="100"
+        onChange={(e) => setValue(e.target.value)}
+        className="max-w-[64px]"
+      />{" "}
+      <p className="font-regular text-gray-200">tnCO2</p>
+    </div>
+  ),
+  EmissionPercent: (setValue: (value: string) => void) => (
+    <div className="flex items-center space-x-2 ">
       <div className="relative">
         <Input
           type="number"
-          placeholder=""
+          placeholder="0"
           min="0"
           max="100"
           className="pr-5 max-w-[84px]"
           onChange={(e) => setValue(e.target.value)}
         />
-        <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500">
+        <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-700">
           %
         </span>
       </div>
-      <p className="pl-4 font-semibold text-gray-500">or of</p>
-      <Input
-        type="number"
-        placeholder="50"
-        min="0"
-        max="100"
-        className="max-w-[64px]"
-      />{" "}
-      <p className="font-semibold text-gray-500">tnCO2</p>
     </div>
   ),
   EmissionIntensity: (setValue: (value: string) => void) => (
     <div className="flex items-center space-x-2 ">
-      <div className="relative">
-        <Input
-          type="number"
-          placeholder="50"
-          min={0}
-          max={100}
-          className="pr-5 max-w-[84px]"
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </div>
-      <p className="pl-4 font-semibold text-gray-500">or of</p>
       <Input
         type="number"
-        placeholder="50"
+        placeholder="0"
         min="0"
         max="100"
         className="max-w-[64px]"
         onChange={(e) => setValue(e.target.value)}
       />{" "}
-      <p className="font-semibold text-gray-500">tnCO2/sqmt</p>
+      <p className="font-regular text-gray-200">tnCO2/sqmt</p>
+    </div>
+  ),
+  EmissionIntensityPercent: (setValue: (value: string) => void) => (
+    <div className="flex items-center space-x-2 ">
+      <div className="relative">
+        <Input
+          type="number"
+          placeholder="0"
+          min="0"
+          max="100"
+          className="pr-5 max-w-[84px]"
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <span className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-700">
+          %
+        </span>
+      </div>
     </div>
   ),
 };
@@ -114,16 +142,16 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
     <DialogHeader className="h-full">
       <DialogTitle>
         <h1 className="text-3xl">Climate target settings</h1>
-        <p className="text-gray-500 mt-2">
+        <p className="text-gray-500 mt-2 line-clamp-2">
           Set the climate target for your portfolio. You can choose to improve
           the EPC rating of your properties, reduce the total emissions or the
           emissions intensity.
         </p>
       </DialogTitle>
       <DialogDescription className="mt-2 h-full flex flex-col justify-between ">
-        <div className="flex justify-center">
-          <div className="flex flex-col py-6 px-2 bg-[var(--darkblue)] my-8 w-1/2 h-full justify-between">
-            <div className="h-10 flex items-baseline space-x-4 px-4 ">
+        <div className="flex justify-center mt-8">
+          <div className="flex flex-col py-6 px-2 bg-[var(--darkblue)]  w-1/2 h-full justify-between">
+            <div className="h-8 flex items-baseline space-x-4 px-4 ">
               <Select onValueChange={(value) => setTarget(value)}>
                 <SelectTrigger className="w-full focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:ring-offset-0 text-left">
                   <SelectValue
@@ -150,14 +178,13 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
                 </SelectContent>
               </Select>
             </div>
-            <div className="h-10 flex items-baseline space-x-4 px-4 ">
-              {" "}
+            <div className="h-8 flex items-baseline space-x-4 px-4 ">
               {targetSelected &&
                 TARGET_DETAIL_INPUT[
                   targetSelected as keyof typeof TARGET_DETAIL_INPUT
                 ](setTargetValue)}
             </div>
-            <div className="h-10 flex items-baseline space-x-4 px-4">
+            <div className="h-8 flex items-baseline space-x-4 px-4">
               {targetValue && (
                 <>
                   <p className="text-md text-gray-200 font-regular">By</p>
@@ -175,20 +202,13 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
               )}
             </div>
           </div>
-          <div className="flex flex-col py-6 px-2 w-1/2 h-full justify-between my-12">
-            <div className="h-10 flex items-baseline space-x-4 px-4 ">
-              New stuff
-            </div>
-            <div className="h-10 flex items-baseline space-x-4 px-4 ">
-              <p className="text-gray-200 font-regular">
-                Total number of houses to achieve target
-              </p>
-            </div>
-            <div className="h-10 flex items-baseline space-x-4 px-4 ">
-              <p className="text-gray-200 font-regular">
-                Total number of houses to achieve target
-              </p>
-            </div>
+          <div className="flex flex-col  px-2 w-1/2 h-full justify-between ">
+            {targetValue && (
+              <TargetPreview
+                target={targetSelected as TargetType}
+                targetValue={Number(targetValue)}
+              />
+            )}
           </div>
         </div>
         <div className="flex justify-end gap-4 ">
