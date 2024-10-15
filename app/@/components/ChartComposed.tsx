@@ -11,6 +11,7 @@ import {
   ReferenceLine,
   ComposedChart,
   Bar,
+  TooltipProps,
 } from "recharts";
 
 export type ComposedDataType = {
@@ -46,6 +47,41 @@ type ReferenceLineType = {
   y?: number;
   label?: string;
   colour?: string;
+};
+
+const CustomTooltip = ({
+  active,
+  payload,
+  label,
+  data,
+}: TooltipProps<ComposedDataType>) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        className="custom-tooltip"
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.9)",
+          border: "1px solid #000",
+          padding: "10px",
+        }}
+      >
+        <p className="label">{`${label}`}</p>
+        {payload.map((entry, index) => (
+          <>
+            <p key={`item-${index}`} style={{ color: entry.color }}>
+              {`${entry.name} : ${entry.value}`}
+            </p>
+
+            <p key={`item-${index}`} style={{ color: entry.color }}>
+              {`Properties improved : ${data[label - 2025].bar}`}
+            </p>
+          </>
+        ))}
+      </div>
+    );
+  }
+
+  return null;
 };
 export function ChartComposedUI({
   className,
@@ -188,13 +224,14 @@ export function ChartComposedUI({
             fill: "rgb(120,120,120)",
           }}
         />
-        <Tooltip
+        {/* <Tooltip
           cursor={{ stroke: "black", strokeWidth: 1 }}
           contentStyle={{
             backgroundColor: "rgba(255, 255, 255, 0.9)",
             border: "1px solid #000",
           }}
-        />
+        /> */}
+        <Tooltip content={<CustomTooltip data={series.data} />} />
       </ComposedChart>
     </ResponsiveContainer>
   );

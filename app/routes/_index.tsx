@@ -5,7 +5,7 @@ import {
   type MetaFunction,
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 import { User } from "~/@/lib/types";
 import { useProperties } from "~/hooks/useProperties";
@@ -48,6 +48,15 @@ export default function Index() {
   const { setUser } = useContext(UserContext);
   const { propertyOverview, loadPropsAsync } = useProperties();
 
+  // I want to redirect to /decarbonisation if it is the first time in this sessioni. It refreshes at each refresh
+  // useEffect(() => {
+  //   const firstTime = sessionStorage.getItem("firstTime");
+  //   if (!firstTime) {
+  //     sessionStorage.setItem("firstTime", "true");
+  //     redirect("/decarbonisation");
+  //   }
+  // }, []);
+
   useCallback(() => {
     loadPropsAsync();
   }, [loadPropsAsync]);
@@ -55,6 +64,7 @@ export default function Index() {
   useEffect(() => {
     setUser(userProfile);
   }, [userProfile, setUser]);
+
   return (
     <div className="font-sans p-4">
       {propertyOverview && <OverviewPage propertyOverview={propertyOverview} />}

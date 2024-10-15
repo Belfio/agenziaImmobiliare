@@ -1,10 +1,7 @@
 import { Separator } from "@radix-ui/react-dropdown-menu";
-import { useNavigate } from "@remix-run/react";
-import { useState } from "react";
-import { DecarboFlow } from "~/@/components/DecarboFlow";
 
 import { LineChartUI } from "~/@/components/LineChart";
-import TargetEPC from "~/@/components/TargetEPC";
+
 import { Button } from "~/@/components/ui/button";
 import {
   Card,
@@ -13,15 +10,8 @@ import {
   CardTitle,
 } from "~/@/components/ui/card";
 import { EmissionsTrend } from "~/@/data/data";
-import { Target } from "~/@/lib/types";
 
-export default function DecarboPage({ targets }: { targets: Target[] }) {
-  const navigate = useNavigate();
-  const [isFlowOpen, setIsFlowOpen] = useState(true);
-  // if (!targets || targets.length === 0) {
-  if (isFlowOpen) {
-    return <DecarboFlow setIsFlowOpen={setIsFlowOpen} />;
-  }
+export default function DecarboPage() {
   return (
     <div className="font-sans p-4">
       <h1 className="text-3xl">Decarbonisation Pathways </h1>
@@ -29,7 +19,7 @@ export default function DecarboPage({ targets }: { targets: Target[] }) {
         Plan your decarbonisation strategy and get insights on your properties.
       </p>
       <>
-        {/* <Card className="mt-8">
+        <Card className="mt-8">
           <CardHeader>
             <div className="flex justify-between items-center">
               <CardTitle> Model and progress </CardTitle>
@@ -43,9 +33,7 @@ export default function DecarboPage({ targets }: { targets: Target[] }) {
             <LineChartUI className="col-span-4" series={EmissionsTrend} />
             <div className="col-span-3 relative pl-8">
               <div className="absolute ">
-                <Button
-                  onClick={() => navigate("/dashboard/decarbonisation/start")}
-                >
+                <Button onClick={() => setIsFlowOpen(true)}>
                   Explore new target
                 </Button>
               </div>
@@ -65,9 +53,9 @@ export default function DecarboPage({ targets }: { targets: Target[] }) {
               <div className="absolute bottom-8">{}</div>
             </div>
           </CardContent>
-        </Card> */}
-        <TargetEPC className="w-full" />
-        {/* <Card className="my-8">
+        </Card>
+        {/* <TargetEPC className="w-full" /> */}
+        <Card className="my-8">
           <CardHeader>
             <div className="flex justify-between items-center">
               <CardTitle> Priority actions </CardTitle>
@@ -91,7 +79,7 @@ export default function DecarboPage({ targets }: { targets: Target[] }) {
               portfolio.
             </p>
           </CardContent>
-        </Card> */}
+        </Card>
       </>
     </div>
   );

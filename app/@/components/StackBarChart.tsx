@@ -58,13 +58,18 @@ export function StackBarChartUI({
         />
         <Tooltip />
         <Legend />
-        <Bar dataKey="A" stackId="a" fill="#000" />
-        <Bar dataKey="B" stackId="a" fill="#333" />
-        <Bar dataKey="C" stackId="a" fill="#555" />
-        <Bar dataKey="D" stackId="a" fill="#777" />
-        <Bar dataKey="E" stackId="a" fill="#999" />
-        <Bar dataKey="F" stackId="a" fill="#AAA" />
-        <Bar dataKey="G" stackId="a" fill="#CCC" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="A" stackId="a" fill="rgb(87, 124, 124)" />
+        <Bar dataKey="B" stackId="a" fill="rgb(99, 141, 141)" />
+        <Bar dataKey="C" stackId="a" fill="rgb(111, 158, 158)" />
+        <Bar dataKey="D" stackId="a" fill="rgb(123, 175, 175)" />
+        <Bar dataKey="E" stackId="a" fill="rgb(135, 192, 192)" />
+        <Bar dataKey="F" stackId="a" fill="rgb(147, 209, 209)" />
+        <Bar
+          dataKey="G"
+          stackId="a"
+          fill="rgb(159, 226, 226)"
+          radius={[4, 4, 0, 0]}
+        />
       </BarChart>
     </ResponsiveContainer>
   );
