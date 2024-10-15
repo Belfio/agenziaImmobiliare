@@ -1,10 +1,11 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Welcome } from "./Welcome";
 import { LoadProps } from "./LoadProps";
-import { Target } from "./Target";
+import { Target, TargetType } from "./Target";
 import { useState } from "react";
 import { Region } from "./Region";
 import { Summary } from "./Summary";
+import { useNavigate } from "@remix-run/react";
 
 export type FlowSteps =
   | "welcome"
@@ -21,19 +22,36 @@ export function DecarboFlow({
   setIsFlowOpen: (isOpen: boolean) => void;
 }) {
   const [path, setPath] = useState<FlowSteps>("welcome");
+  const [regions, setRegions] = useState<string[]>([]);
+  const [target, setTarget] = useState<TargetType | undefined>(undefined);
+  const navigate = useNavigate();
 
+  const submitTarget = () => {
+    console.log("submit", target);
+    navigate("/decarbonisation");
+  };
   const pathSlides = (path: FlowSteps) => {
     switch (path) {
       case "welcome":
         return <Welcome setPath={setPath} />;
       case "region":
-        return <Region setPath={setPath} />;
+        return (
+          <Region setPath={setPath} setRegions={setRegions} regions={regions} />
+        );
       case "loadProps":
         return <LoadProps setPath={setPath} />;
       case "target":
-        return <Target setPath={setPath} />;
+        return (
+          <Target setPath={setPath} setTarget={setTarget} regions={regions} />
+        );
       case "summary":
-        return <Summary setPath={setPath} />;
+        return (
+          <Summary
+            setPath={setPath}
+            submitTarget={submitTarget}
+            target={target}
+          />
+        );
       case "end":
         setIsFlowOpen(false);
         return null;

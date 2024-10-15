@@ -6,12 +6,12 @@ import {
 } from "@/components/ui/dialog";
 import { FlowSteps } from ".";
 // import { MultiSelectorComplete } from "../ui/multicombo";
-import { useState } from "react";
 import { Checkbox } from "../ui/checkbox";
 import { Label } from "../ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { PieChartUI } from "../PieChart";
 import { useProperties } from "~/hooks/useProperties";
+
 const CITIES = [
   {
     value: "Portfolio",
@@ -78,8 +78,18 @@ type Regions =
   | "London"
   | "South East"
   | "South West";
-export function Region({ setPath }: { setPath: (path: FlowSteps) => void }) {
-  const [regions, setRegions] = useState<Regions[]>([]);
+export function Region({
+  setPath,
+  setRegions,
+  regions,
+}: {
+  setPath: (path: FlowSteps) => void;
+  setRegions: (regions: string[]) => void;
+  regions: string[];
+}) {
+  const isRegion =
+    regions.length > 0 && CITIES.some((city) => regions.includes(city.value));
+
   const { propertyData } = useProperties();
   const total = propertyData?.properties.length || 0;
   const selected =
@@ -91,10 +101,12 @@ export function Region({ setPath }: { setPath: (path: FlowSteps) => void }) {
     { name: "Selected", value: selected },
     { name: "Not selected", value: remaining },
   ];
+
   return (
     <DialogHeader className="h-full">
       <DialogTitle>
         <h1 className="text-3xl">Target regions/cities</h1>
+
         <p className="text-sm text-gray-500 mt-2">
           Identify the regions or cities for targeted decarbonisation
           assessment, aligning your selection with your organisation’s climate
@@ -103,7 +115,10 @@ export function Region({ setPath }: { setPath: (path: FlowSteps) => void }) {
       </DialogTitle>
       <DialogDescription className="mt-2 h-full flex flex-col justify-between">
         <div className="flex justify-between items-center">
-          <Tabs defaultValue="Regions" className="space-y-4 mt-12 h-[350px]">
+          <Tabs
+            defaultValue={!isRegion ? "Regions" : "Cities"}
+            className="space-y-4 mt-12 h-[350px]"
+          >
             <TabsList>
               <TabsTrigger value="Regions">Regions</TabsTrigger>
               <TabsTrigger value="Cities">Cities</TabsTrigger>

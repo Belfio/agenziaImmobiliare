@@ -20,8 +20,10 @@ import TargetPreview from "./TargetPreview";
 
 import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
 
+import { TargetSchema, TargetType } from "~/@/lib/types";
+
 type TargetObjType = {
-  value: TargetType;
+  value: TargetNameType;
   label: string;
 };
 const TARGETS: TargetObjType[] = [
@@ -47,12 +49,13 @@ const TARGETS: TargetObjType[] = [
   },
 ];
 
-export type TargetType =
+export type TargetNameType =
   | "EPCmin"
   | "Emission"
   | "EmissionPercent"
   | "EmissionIntensity"
   | "EmissionIntensityPercent";
+
 const TARGET_DETAIL_INPUT = {
   EPCmin: (setValue: (value: string) => void) => (
     <div className="flex items-center justify-between w-full">
@@ -148,12 +151,45 @@ const TARGET_DETAIL_INPUT = {
   ),
 };
 
-export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
-  const [targetSelected, setTarget] = useState<string | undefined>(undefined);
+export function Target({
+  setPath,
+  setTarget,
+  regions,
+}: {
+  setPath: (path: FlowSteps) => void;
+  setTarget: (target: TargetType) => void;
+  regions: string[];
+}) {
+  const [targetSelected, setTargetSelected] = useState<string | undefined>(
+    undefined
+  );
   const [targetValue, setTargetValue] = useState<string | undefined>(undefined);
+  const [benefitFilter, setBenefitFilter] = useState<string | undefined>("no");
+  const [loanAmount, setLoanAmount] = useState<string | undefined>("fixed");
+  const [subsidyAmount, setSubsidyAmount] = useState<string | undefined>("500");
   const [calendarValue, setCalendarValue] = useState<string | undefined>(
     undefined
   );
+
+  const handleSubmit = () => {
+    const newTarget: TargetType = {
+      region: regions,
+      target: targetSelected as TargetNameType,
+      targetValue: targetValue as string,
+      benefitFilter: benefitFilter as string,
+      loanAmount: loanAmount as string,
+      subsidyAmount: subsidyAmount as string,
+      calendarValue: calendarValue as string,
+      createdAt: new Date().toISOString(),
+      userId: "123",
+      targetId: "123",
+    };
+    console.log(newTarget);
+    const parsedTarget: TargetType = TargetSchema.parse(newTarget);
+    setTarget(parsedTarget);
+    setPath("summary");
+  };
+
   return (
     <DialogHeader className="h-full">
       <DialogTitle>
@@ -168,7 +204,10 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
         <div className="flex justify-center items-center mt-2">
           <div className="flex flex-col py-4 space-y-2 bg-[var(--darkblue)]  w-1/2 h-[360px] justify-between ">
             <div className=" flex items-center space-x-4 px-4 ">
-              <Select onValueChange={(value) => setTarget(value)}>
+              <Select
+                onValueChange={(value) => setTargetSelected(value)}
+                name="target"
+              >
                 <SelectTrigger className="w-full focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:ring-offset-0 text-left">
                   <SelectValue
                     placeholder="Select a target"
@@ -184,7 +223,7 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
                           // className={`text-gray-300 hover:text-gray-700 ${
                           //   targetSelected === t.value && "text-gray-700"
                           // }`}
-                          onClick={() => setTarget(t.value)}
+                          onClick={() => setTargetSelected(t.value)}
                         >
                           {t.label}
                         </Label>
@@ -201,7 +240,11 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
                     Filter homeowners that will see net benefits:{" "}
                   </span>
 
-                  <Tabs defaultValue="no" className="w-fit">
+                  <Tabs
+                    value={benefitFilter}
+                    className="w-fit"
+                    onChange={(value) => setBenefitFilter(String(value))}
+                  >
                     <TabsList className="grid w-full grid-cols-2">
                       <TabsTrigger value="yes">Yes</TabsTrigger>
                       <TabsTrigger value="no">No</TabsTrigger>
@@ -213,7 +256,11 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
                     Loan amount:{" "}
                   </span>
 
-                  <Tabs defaultValue="fixed" className="w-fit">
+                  <Tabs
+                    value={loanAmount}
+                    className="w-fit"
+                    onChange={(value) => setLoanAmount(String(value))}
+                  >
                     <TabsList className="grid w-full grid-cols-3">
                       <TabsTrigger value="fixed">Fixed</TabsTrigger>
                       <TabsTrigger value="retrofitCost">
@@ -228,7 +275,11 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
                   <span className="text-gray-200 font-regular">
                     Maximum subsidy amount:{" "}
                   </span>
-                  <Tabs defaultValue="500" className="w-fit">
+                  <Tabs
+                    value={subsidyAmount}
+                    className="w-fit"
+                    onChange={(value) => setSubsidyAmount(String(value))}
+                  >
                     <TabsList className="grid w-full grid-cols-2">
                       <TabsTrigger value="500">£500</TabsTrigger>
                       <TabsTrigger value="2000">£2000</TabsTrigger>
@@ -248,6 +299,7 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
 
                     <Input
                       type="date"
+                      name="calendar"
                       placeholder="dd/mm/yyyy"
                       className="max-w-fit h-fit border-none text-gray-700 font-regular  "
                       pattern="\d{2}/\d{2}/\d{4}"
@@ -264,7 +316,7 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
           <div className="flex flex-col  px-2 w-1/2 justify-between ">
             {targetValue && (
               <TargetPreview
-                target={targetSelected as TargetType}
+                target={targetSelected as TargetNameType}
                 targetValue={Number(targetValue)}
                 calendarValue={calendarValue}
               />
@@ -279,7 +331,8 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
           >
             Back
           </Button>
-          <Button className="mt-4 w-fit" onClick={() => setPath("summary")}>
+
+          <Button className="mt-4 w-fit" type="submit" onClick={handleSubmit}>
             Continue
           </Button>
         </div>

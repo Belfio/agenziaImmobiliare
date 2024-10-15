@@ -1,17 +1,31 @@
-import { Separator } from "@radix-ui/react-dropdown-menu";
+// import { Separator } from "@radix-ui/react-dropdown-menu";
 
-import { LineChartUI } from "~/@/components/LineChart";
+// import { LineChartUI } from "~/@/components/LineChart";
+import TargetEPC from "~/@/components/TargetEPC";
 
 import { Button } from "~/@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "~/@/components/ui/card";
-import { EmissionsTrend } from "~/@/data/data";
+// import {
+//   Card,
+//   CardContent,
+//   CardHeader,
+//   CardTitle,
+// } from "~/@/components/ui/card";
+// import { EmissionsTrend } from "~/@/data/data";
 
+const target = {
+  target: "Emission",
+  targetValue: "50",
+  calendarValue: "12/12/2034",
+};
+import TargetPreview from "~/@/components/DecarboFlow/TargetPreview";
+import { useState } from "react";
+import { DecarboFlow } from "~/@/components/DecarboFlow";
 export default function DecarboPage() {
+  const [isFlowOpen, setIsFlowOpen] = useState(false);
+
+  if (isFlowOpen) {
+    return <DecarboFlow setIsFlowOpen={setIsFlowOpen} />;
+  }
   return (
     <div className="font-sans p-4">
       <h1 className="text-3xl">Decarbonisation Pathways </h1>
@@ -19,7 +33,7 @@ export default function DecarboPage() {
         Plan your decarbonisation strategy and get insights on your properties.
       </p>
       <>
-        <Card className="mt-8">
+        {/* <Card className="mt-8">
           <CardHeader>
             <div className="flex justify-between items-center">
               <CardTitle> Model and progress </CardTitle>
@@ -53,9 +67,23 @@ export default function DecarboPage() {
               <div className="absolute bottom-8">{}</div>
             </div>
           </CardContent>
-        </Card>
-        {/* <TargetEPC className="w-full" /> */}
-        <Card className="my-8">
+        </Card> */}
+        <div className="w-full flex justify-center items-center mt-8">
+          <div className="w-2/3">
+            <TargetEPC className="w-full" />
+          </div>
+          <div className="w-1/3 p-4 space-y-4">
+            <Button onClick={() => setIsFlowOpen(true)}>
+              Explore new target
+            </Button>
+            <TargetPreview
+              target={target.target}
+              targetValue={Number(target.targetValue)}
+              calendarValue={target.calendarValue}
+            />
+          </div>
+        </div>
+        {/* <Card className="my-8">
           <CardHeader>
             <div className="flex justify-between items-center">
               <CardTitle> Priority actions </CardTitle>
@@ -79,7 +107,7 @@ export default function DecarboPage() {
               portfolio.
             </p>
           </CardContent>
-        </Card>
+        </Card> */}
       </>
     </div>
   );

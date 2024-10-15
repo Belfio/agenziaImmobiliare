@@ -205,8 +205,14 @@ export type OverviewPropertiesType = {
 export const TargetSchema = z.object({
   targetId: z.string(),
   userId: z.string(),
-  region: z.string(),
-  propertyId: z.string(),
+  region: z.array(z.string()),
+  target: z.string(),
+  targetValue: z.string(),
+  benefitFilter: z.string(),
+  loanAmount: z.string(),
+  subsidyAmount: z.string(),
+  calendarValue: z.string(),
+  createdAt: z.string(),
 });
 
-export type Target = z.infer<typeof TargetSchema>;
+export type TargetType = z.infer<typeof TargetSchema>;
