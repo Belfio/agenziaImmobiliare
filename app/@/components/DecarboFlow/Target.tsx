@@ -18,6 +18,8 @@ import {
 } from "../ui/select";
 import TargetPreview from "./TargetPreview";
 
+import { Tabs, TabsList, TabsTrigger } from "../ui/tabs";
+
 type TargetObjType = {
   value: TargetType;
   label: string;
@@ -25,23 +27,23 @@ type TargetObjType = {
 const TARGETS: TargetObjType[] = [
   {
     value: "EPCmin",
-    label: "Improve to EPC C or above",
+    label: "Improve EPC ratings in portfolio",
   },
-  {
-    value: "Emission",
-    label: "Decrease tnC02 by",
-  },
+  // {
+  //   value: "Emission",
+  //   label: "Decrease total financed emissions",
+  // },
   {
     value: "EmissionPercent",
-    label: "Decrease emissions by a percentage",
+    label: "Decrease total financed emissions (soon)",
   },
-  {
-    value: "EmissionIntensity",
-    label: "Decrease average emissions per sqmt",
-  },
+  // {
+  //   value: "EmissionIntensity",
+  //   label: "Reach target emissions intensity",
+  // },
   {
     value: "EmissionIntensityPercent",
-    label: "Decrease emissions per sqmt by a percentage",
+    label: "Reach target emissions intensity (soon)",
   },
 ];
 
@@ -53,7 +55,10 @@ export type TargetType =
   | "EmissionIntensityPercent";
 const TARGET_DETAIL_INPUT = {
   EPCmin: (setValue: (value: string) => void) => (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center justify-between w-full">
+      <p className="text-gray-200 min-w-[160px] font-regular">
+        Share of properties
+      </p>
       <div className="relative">
         <Input
           type="number"
@@ -67,26 +72,28 @@ const TARGET_DETAIL_INPUT = {
           %
         </span>
       </div>
-      <p className="text-gray-200 min-w-[160px] font-regular">
-        of the properties
-      </p>
     </div>
   ),
   Emission: (setValue: (value: string) => void) => (
-    <div className="flex items-center space-x-2 ">
+    <div className="flex items-center space-x-2 justify-between w-full">
+      <p className="font-regular text-gray-200">
+        Reduction from today’s baseline
+      </p>
       <Input
         type="number"
         placeholder="0"
         min="0"
         max="100"
+        className="pr-5 max-w-[84px] text-gray-700"
         onChange={(e) => setValue(e.target.value)}
-        className="max-w-[64px]"
-      />{" "}
-      <p className="font-regular text-gray-200">tnCO2</p>
+      />
     </div>
   ),
   EmissionPercent: (setValue: (value: string) => void) => (
-    <div className="flex items-center space-x-2 ">
+    <div className="flex items-center space-x-2 justify-between w-full">
+      <p className="font-regular text-gray-200">
+        Reduction from today’s baseline
+      </p>{" "}
       <div className="relative">
         <Input
           type="number"
@@ -103,7 +110,10 @@ const TARGET_DETAIL_INPUT = {
     </div>
   ),
   EmissionIntensity: (setValue: (value: string) => void) => (
-    <div className="flex items-center space-x-2 ">
+    <div className="flex items-center space-x-2 justify-between w-full">
+      <p className="font-regular text-gray-200">
+        Reduction in emissions intensity from today&apos;s baseline
+      </p>
       <Input
         type="number"
         placeholder="0"
@@ -112,11 +122,15 @@ const TARGET_DETAIL_INPUT = {
         className="max-w-[64px]"
         onChange={(e) => setValue(e.target.value)}
       />{" "}
-      <p className="font-regular text-gray-200">tnCO2/sqmt</p>
+      <p className="font-regular text-gray-200">tCO2/sqmt</p>
     </div>
   ),
   EmissionIntensityPercent: (setValue: (value: string) => void) => (
-    <div className="flex items-center space-x-2 ">
+    <div className="flex items-center space-x-2 justify-between w-full">
+      <p className="font-regular text-gray-200">
+        Reduction in emissions intensity from today&apos;s baseline
+      </p>
+
       <div className="relative">
         <Input
           type="number"
@@ -144,16 +158,16 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
     <DialogHeader className="h-full">
       <DialogTitle>
         <h1 className="text-3xl">Climate target settings</h1>
-        <p className="text-gray-500 mt-2 line-clamp-2">
-          Set the climate target for your portfolio. You can choose to improve
-          the EPC rating of your properties, reduce the total emissions or the
-          emissions intensity.
+        <p className="text-gray-500 mt-2 leading-relaxed">
+          Set specific climate targets for your portfolio. Choose to improve EPC
+          ratings for your properties, reduce overall emissions, or decrease
+          emissions intensity, in alignment with your decarbonisation strategy.
         </p>
       </DialogTitle>
-      <DialogDescription className="mt-2 h-full flex flex-col justify-between ">
-        <div className="flex justify-center items-center mt-8">
-          <div className="flex flex-col py-6 px-2 bg-[var(--darkblue)]  w-1/2 h-full justify-between">
-            <div className="h-16 flex items-center space-x-4 px-4 ">
+      <DialogDescription className=" h-full flex flex-col justify-between ">
+        <div className="flex justify-center items-center mt-2">
+          <div className="flex flex-col py-4 space-y-2 bg-[var(--darkblue)]  w-1/2 h-[360px] justify-between ">
+            <div className=" flex items-center space-x-4 px-4 ">
               <Select onValueChange={(value) => setTarget(value)}>
                 <SelectTrigger className="w-full focus-visible:ring-0 focus-visible:ring-offset-0 focus:ring-0 focus:ring-offset-0 text-left">
                   <SelectValue
@@ -180,30 +194,72 @@ export function Target({ setPath }: { setPath: (path: FlowSteps) => void }) {
                 </SelectContent>
               </Select>
             </div>
-            <div className="h-16 flex items-center space-x-4 px-4 ">
-              {targetSelected &&
-                TARGET_DETAIL_INPUT[
-                  targetSelected as keyof typeof TARGET_DETAIL_INPUT
-                ](setTargetValue)}
-            </div>
-            <div className="h-16 flex items-center space-x-4 px-4">
-              {targetValue && (
-                <>
-                  <p className="text-md text-gray-200 font-regular">By</p>
+            {targetSelected && (
+              <>
+                <div className=" flex justify-between items-center space-x-4 px-4 ">
+                  <span className="text-gray-200 font-regular">
+                    Filter homeowners that will see net benefits:{" "}
+                  </span>
 
-                  <Input
-                    type="date"
-                    placeholder="dd/mm/yyyy"
-                    className="max-w-fit h-fit border-none text-gray-700 font-regular  "
-                    pattern="\d{2}/\d{2}/\d{4}"
-                    title="Please enter a valid year in the format 20nn"
-                    min="2025"
-                    max="2099"
-                    onChange={(e) => setCalendarValue(e.target.value)}
-                  />
-                </>
-              )}
-            </div>
+                  <Tabs defaultValue="no" className="w-fit">
+                    <TabsList className="grid w-full grid-cols-2">
+                      <TabsTrigger value="yes">Yes</TabsTrigger>
+                      <TabsTrigger value="no">No</TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                </div>
+                <div className=" flex justify-between items-center space-x-4 px-4 ">
+                  <span className="text-gray-200 font-regular">
+                    Loan amount:{" "}
+                  </span>
+
+                  <Tabs defaultValue="fixed" className="w-fit">
+                    <TabsList className="grid w-full grid-cols-3">
+                      <TabsTrigger value="fixed">Fixed</TabsTrigger>
+                      <TabsTrigger value="retrofitCost">
+                        Retrofit cost
+                      </TabsTrigger>
+                      <TabsTrigger value="breakeven">Breakeven</TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                </div>
+
+                <div className="flex items-center justify-between space-x-4 px-4 ">
+                  <span className="text-gray-200 font-regular">
+                    Maximum subsidy amount:{" "}
+                  </span>
+                  <Tabs defaultValue="500" className="w-fit">
+                    <TabsList className="grid w-full grid-cols-2">
+                      <TabsTrigger value="500">£500</TabsTrigger>
+                      <TabsTrigger value="2000">£2000</TabsTrigger>
+                    </TabsList>
+                  </Tabs>
+                </div>
+
+                <div className=" flex items-center justify-between px-4 ">
+                  {TARGET_DETAIL_INPUT[
+                    targetSelected as keyof typeof TARGET_DETAIL_INPUT
+                  ](setTargetValue)}
+                </div>
+
+                <div className="flex items-center justify-between space-x-4 px-4">
+                  <>
+                    <p className="text-md text-gray-200 font-regular">By</p>
+
+                    <Input
+                      type="date"
+                      placeholder="dd/mm/yyyy"
+                      className="max-w-fit h-fit border-none text-gray-700 font-regular  "
+                      pattern="\d{2}/\d{2}/\d{4}"
+                      title="Please enter a valid year in the format 20nn"
+                      min="2025"
+                      max="2099"
+                      onChange={(e) => setCalendarValue(e.target.value)}
+                    />
+                  </>
+                </div>
+              </>
+            )}
           </div>
           <div className="flex flex-col  px-2 w-1/2 justify-between ">
             {targetValue && (

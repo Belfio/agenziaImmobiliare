@@ -1,11 +1,13 @@
 import propertiesRaw from "@/data/demo_property_recommendations_leicester_cheapest500_toC_old.json?raw";
+import propertiesRawWithLandRegistryData from "@/data/demo_property_recommendations_leicester_sorted_improvable_properties_lump-sum_GBP500_include_all.json?raw";
+
 import fs from "fs";
 // import propertiesRaw from '/properties.json?raw'
 // import propertiesRaw from './src/data/demo_property_recommendations_leicester_highestCO2reduction_100.json?raw'
 import Papa from "papaparse";
 
 // import propertiesRawWithLandRegistryData from './src/data/demo_property_recommendations_leicester_highestCO2reduction_100_with_land_registry_data.json?raw'
-import propertiesRawWithLandRegistryData from "@/data/demo_property_recommendations_leicester_cheapest500_toC_with_land_registry_data.json?raw";
+// import propertiesRawWithLandRegistryData from "@/data/demo_property_recommendations_leicester_cheapest500_toC_with_land_registry_data.json?raw";
 
 import JSON5 from "json5";
 import {
@@ -274,6 +276,7 @@ function calculateMonthlyPayment(
 }
 
 async function loadProperties(limit?: number) {
+  console.log("loadProperties()");
   const USE_SERVER = false;
   const SAVE_TO_FILE = false;
   const propertyData: PropertyData = {
@@ -322,7 +325,7 @@ async function loadProperties(limit?: number) {
         const address = property.propertyAttributes.address;
         // return fetch(`http://127.0.0.1:5000/epc_recommendations/${encodeURIComponent(address)}`)
         // .then(r => r.json()).then(async property => {
-        console.log(property);
+        // console.log(property);
 
         // split address into house number, street name and postcode
         const addressParts = address.split(" ");
@@ -340,16 +343,16 @@ async function loadProperties(limit?: number) {
         )}&ptype%5B%5D=lrcommon%3Adetached&ptype%5B%5D=lrcommon%3Asemi-detached&ptype%5B%5D=lrcommon%3Aterraced&ptype%5B%5D=lrcommon%3Aflat-maisonette&ptype%5B%5D=lrcommon%3AotherPropertyType&street=${encodeURIComponent(
           streetName
         )}&tc%5B%5D=ppd%3AstandardPricePaidTransaction&tc%5B%5D=ppd%3AadditionalPricePaidTransaction`;
-        console.log("landRegistryDataUrl", landRegistryDataUrl);
+        // console.log("landRegistryDataUrl", landRegistryDataUrl);
         const res = await fetch(landRegistryDataUrl);
         const data = await res.text();
-        console.log("ppd_data", data, "from", landRegistryDataUrl);
+        // console.log("ppd_data", data, "from", landRegistryDataUrl);
         // parse the csv
         const parsedData = Papa.parse(data, {
           header: true,
           skipEmptyLines: true,
         });
-        console.log(parsedData, "from", landRegistryDataUrl);
+        // console.log(parsedData, "from", landRegistryDataUrl);
 
         property.landRegistryData = parsedData.data;
 
@@ -358,7 +361,7 @@ async function loadProperties(limit?: number) {
         // })
         // }))
       }
-      console.log("writing output to file");
+      // console.log("writing output to file");
       fs.writeFileSync(
         "@/data/demo_property_recommendations_leicester_highestCO2reduction_1000_with_land_registry_data.json",
         JSON.stringify(properties, null, 2)
@@ -374,6 +377,7 @@ async function loadProperties(limit?: number) {
     // console.log("properties", propertiesRaw)
     // const properties = JSON.parse(propertiesRaw)
     properties = JSON5.parse(propertiesRawWithLandRegistryData);
+    console.log("properties.length", properties.length);
     properties = properties.map((property: Property) => {
       const { LandRegistry, ...rest } = property;
       return {
@@ -388,6 +392,7 @@ async function loadProperties(limit?: number) {
     // addressOptions = properties.filter(property => property.landRegistryData[0]?.price_paid).map(property => property.propertyAttributes.address)
   }
   if (limit) {
+    console.log("loadProperties(): Limiting to", limit);
     properties = properties.slice(0, limit);
   }
 
@@ -416,8 +421,7 @@ async function loadProperties(limit?: number) {
   return propertyData;
 }
 
-async function loadProperty(buildingRefNum: string) {
-  const limit = 500;
+async function loadProperty(buildingRefNum: string, limit?: number) {
   const USE_SERVER = false;
   const SAVE_TO_FILE = false;
 

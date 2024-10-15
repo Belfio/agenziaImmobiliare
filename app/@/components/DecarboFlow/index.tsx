@@ -40,9 +40,9 @@ export function DecarboFlow({
     }
   };
   return (
-    <Dialog open >
-      <DialogContent className="max-w-[1024px] h-[480px] overflow-hidden">
-        <div className="relative z-10 max-w-[1024px] h-full">
+    <Dialog open>
+      <DialogContent className="max-w-[1024px] h-[580px] w-[1024px] overflow-hidden">
+        <div className="relative z-10 max-w-[1024px] w-full h-full">
           {pathSlides(path)}
         </div>
       </DialogContent>

@@ -63,6 +63,17 @@ export const PropertySchema = z.object({
       currentValue: z.number(),
       checked: z.boolean(),
       retrofittable: z.boolean(),
+      option_num: z.string(),
+      interventions: z.array(z.string()),
+      expectedNewEER: z.number(),
+      increaseInEER: z.string(),
+      expectedNewEPCBand: z.string(),
+      expectedNewEmissions: z.number(),
+      decreaseInEmissions: z.number(),
+      expectedNewCost: z.string(),
+      changeInCost: z.number(),
+      indicative_costs: z.number(),
+      subsidy: z.number(),
     })
   ),
   retrofitVariables: z.object({

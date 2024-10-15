@@ -20,22 +20,20 @@ export const Emissions = [
 
 export const DataEPCComposedChart: ComposedDataType = {
   data: [
-    { name: "2024", line: 12, line2: 50, bar: 60 },
-    { name: "2025", line: 15.2, line2: 50, bar: 50 },
-    { name: "2026", line: 18.4, line2: 50, bar: 50 },
-    { name: "2027", line: 21.6, line2: 50, bar: 50 },
-    { name: "2028", line: 24.8, line2: 50, bar: 50 },
-    { name: "2029", line: 28, line2: 50, bar: 50 },
-    { name: "2030", line: 31.2, line2: 50, bar: 50 },
-    { name: "2031", line: 34.4, line2: 50, bar: 50 },
-    { name: "2032", line: 37.6, line2: 50, bar: 50 },
-    { name: "2033", line: 40.8, line2: 50, bar: 50 },
-    { name: "2034", line: 44, line2: 50, bar: 50 },
-    { name: "2035", line: 47.2, line2: 50, bar: 50 },
+    { name: "2025", line: 37.9, line2: 50, bar: 1 },
+    { name: "2026", line: 37.95, line2: 50, bar: 3 },
+    { name: "2027", line: 38.09, line2: 50, bar: 9 },
+    { name: "2028", line: 38.46, line2: 50, bar: 24 },
+    { name: "2029", line: 39.36, line2: 50, bar: 57 },
+    { name: "2030", line: 40.89, line2: 50, bar: 98 },
+    { name: "2031", line: 42.92, line2: 50, bar: 130 },
+    { name: "2032", line: 45.21, line2: 50, bar: 146 },
+    { name: "2033", line: 47.59, line2: 50, bar: 152 },
+    { name: "2034", line: 50.0, line2: 50, bar: 154 },
   ],
   line: {
-    name: "Trend",
-    colour: "pink",
+    name: "% properties EPC C+",
+    colour: "rgb(87, 124, 124)",
   },
   line2: {
     name: "Target",
@@ -43,14 +41,14 @@ export const DataEPCComposedChart: ComposedDataType = {
     dashed: "5 5",
   },
   bar: {
-    name: "Optimal target",
-    colour: "#888",
+    name: "Properties improved per year",
+    colour: "rgb(87, 124, 124)",
   },
   isLine: true,
   isBar: true,
   isLine2: true,
-  yLabel: "Share of properties",
-  y2Label: "Yearly properties",
+  yLabel: "% properties EPC C+",
+  y2Label: "Properties improved per year",
 };
 
 export const StackDataEmissionsVsEPC = [

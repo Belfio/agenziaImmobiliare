@@ -18,7 +18,6 @@ export default function PropertiesPage({
     setSearch(search);
     navigate(`/properties/${search}`);
   };
-  console.log(propertyTableParsed);
   return (
     <div className="font-sans p-4">
       <div className="flex justify-between">

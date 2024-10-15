@@ -57,11 +57,12 @@ export function ChartComposedUI({
   referenceLine?: ReferenceLineType;
 }) {
   return (
-    <ResponsiveContainer width="100%" height={350} className={className}>
+    <ResponsiveContainer width="100%" height={450} className={className}>
       <ComposedChart
         width={500}
-        height={300}
-        data={series.data}
+        height={400}
+        data={[...series.data]}
+        key={Math.random()}
         margin={{
           top: 20,
           right: 80,
@@ -80,7 +81,7 @@ export function ChartComposedUI({
           axisLine={false}
         />
         <YAxis
-          dataKey="line2"
+          dataKey="line"
           stroke="#888888"
           fontSize={12}
           tickLine={false}
@@ -111,13 +112,6 @@ export function ChartComposedUI({
           yAxisId="bar"
         />
 
-        <Tooltip
-          cursor={{ stroke: "black", strokeWidth: 1 }}
-          contentStyle={{
-            backgroundColor: "rgba(255, 255, 255, 0.9)",
-            border: "1px solid #000",
-          }}
-        />
         <Legend verticalAlign="top" align="right" height={36} stroke="#000" />
         {referenceLine && (
           <ReferenceLine
@@ -129,19 +123,25 @@ export function ChartComposedUI({
         )}
         {series.isBar && (
           <Bar
+            key={Math.random()}
             dataKey="bar"
             barSize={20}
             fill={series.bar.colour}
             name={series.bar.name}
             yAxisId="bar"
+            isAnimationActive={true}
+            activeBar={{
+              fill: "rgb(192, 217, 220)",
+            }}
           />
         )}
         {series.isLine && (
           <Line
+            key={Math.random()}
             dataKey="line"
             data={series.data}
             name={series.line.name}
-            key={series.line.name}
+            // key={series.line.name}
             fill="white"
             className="fill-primary"
             dot={{
@@ -154,7 +154,7 @@ export function ChartComposedUI({
             }}
             stroke={series.line.colour}
             strokeDasharray={series.line.dashed}
-            isAnimationActive={false}
+            isAnimationActive={true}
           />
         )}
         {!series.isLine2 && (
@@ -180,11 +180,19 @@ export function ChartComposedUI({
         )}
         <ReferenceLine
           x={series.data[series.data.length - 1].name}
-          y={series.data[series.data.length - 1].line2}
-          stroke="var(--blue)"
+          y={series.data[series.data.length - 1].line}
+          stroke="rgb(150,150,150)"
           label={{
-            value: "Target",
+            value: "Target 50%",
             position: "top",
+            fill: "rgb(120,120,120)",
+          }}
+        />
+        <Tooltip
+          cursor={{ stroke: "black", strokeWidth: 1 }}
+          contentStyle={{
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            border: "1px solid #000",
           }}
         />
       </ComposedChart>

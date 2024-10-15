@@ -26,6 +26,7 @@ export default function TargetPreview({
                 p.propertyAttributes.current_epc_band
               )
             ) || [];
+          // const all = propertyData?.properties || [];
           const numProps = Number(
             ((all.length * targetValue) / 100).toFixed(0)
           );
@@ -79,12 +80,11 @@ export default function TargetPreview({
     100
   ).toFixed(0);
 
-  const getEstimatedSaving = props
-    .reduce(
+  const getEstimatedSaving =
+    props.reduce(
       (acc, curr) => acc + curr.potentialSavingsFromEPC.total_potential_savings,
       0
-    )
-    .toFixed(0);
+    ) / propsNumber;
 
   const monthsToDate = calendarValue
     ? (
@@ -96,7 +96,20 @@ export default function TargetPreview({
     ? (propsNumber / Number(monthsToDate)).toFixed(0)
     : 0;
 
-  const getEstimatedCost = 0;
+  const estTotLoanCost = props.reduce(
+    (acc, curr) =>
+      acc +
+      (curr.retrofitOptions?.[curr.retrofitOptions.length - 1]
+        ?.indicative_costs || 0),
+    0
+  );
+
+  const estTotSubsidyCost = props.reduce(
+    (acc, curr) =>
+      acc +
+      (curr.retrofitOptions?.[curr.retrofitOptions.length - 1]?.subsidy || 0),
+    0
+  );
 
   return (
     <table className="table-auto border-collapse border border-gray-400 w-full">
@@ -111,47 +124,72 @@ export default function TargetPreview({
         </tr>
         <tr className="border border-gray-400">
           <td className="border border-gray-400 px-4 py-2 w-1/2">
-            Emission current:
+            Current Emissions:
           </td>
           <td className="border border-gray-400 px-4 py-2 w-1/2">
-            {currentC02} tnC02
-          </td>
-        </tr>
-        <tr className="border border-gray-400">
-          <td className="border border-gray-400 px-4 py-2 w-1/2">
-            Emission target:
-          </td>
-          <td className="border border-gray-400 px-4 py-2 w-1/2">
-            {potentialC02} tnCO2
+            {currentC02} tCO₂e
           </td>
         </tr>
         <tr className="border border-gray-400">
           <td className="border border-gray-400 px-4 py-2 w-1/2">
-            Emission saved:
+            Emission Outcome:
           </td>
           <td className="border border-gray-400 px-4 py-2 w-1/2">
-            {potentialC02Saving} tnCO2 ({potentialC02SavingPercent}%)
-          </td>
-        </tr>
-        <tr className="border border-gray-400">
-          <td className="border border-gray-400 px-4 py-2 w-1/2">
-            Estimated property saving:
-          </td>
-          <td className="border border-gray-400 px-4 py-2 w-1/2">
-            £{getEstimatedSaving}
+            {potentialC02} tCO₂e
           </td>
         </tr>
         <tr className="border border-gray-400">
           <td className="border border-gray-400 px-4 py-2 w-1/2">
-            Estimated total loan cost:
+            Emission reduction:
           </td>
           <td className="border border-gray-400 px-4 py-2 w-1/2">
-            {getEstimatedCost}
+            {potentialC02Saving} tCO₂e ({potentialC02SavingPercent}%)
           </td>
         </tr>
         <tr className="border border-gray-400">
           <td className="border border-gray-400 px-4 py-2 w-1/2">
-            Properties per month:
+            Estimated Homeowner Savings:
+          </td>
+          <td className="border border-gray-400 px-4 py-2 w-1/2">
+            {getEstimatedSaving.toLocaleString("en-GB", {
+              style: "currency",
+              currency: "GBP",
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}{" "}
+            per year
+          </td>
+        </tr>
+        <tr className="border border-gray-400">
+          <td className="border border-gray-400 px-4 py-2 w-1/2">
+            Estimated total subsidy amount:
+          </td>
+          <td className="border border-gray-400 px-4 py-2 w-1/2">
+            {estTotSubsidyCost.toLocaleString("en-GB", {
+              style: "currency",
+              currency: "GBP",
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
+          </td>
+        </tr>
+        <tr className="border border-gray-400">
+          <td className="border border-gray-400 px-4 py-2 w-1/2">
+            Estimated total loan amount:
+          </td>
+          <td className="border border-gray-400 px-4 py-2 w-1/2">
+            {estTotLoanCost.toLocaleString("en-GB", {
+              style: "currency",
+              currency: "GBP",
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
+          </td>
+        </tr>
+
+        <tr className="border border-gray-400">
+          <td className="border border-gray-400 px-4 py-2 w-1/2">
+            Retrofits per month:
           </td>
           <td className="border border-gray-400 px-4 py-2 w-1/2">
             {propertiesPerMonth} ({monthsToDate} months)

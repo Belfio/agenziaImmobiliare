@@ -10,9 +10,10 @@ export function Welcome({ setPath }: { setPath: (path: FlowSteps) => void }) {
   return (
     <DialogHeader className="h-full">
       <DialogTitle className="relative z-10">
-        <h1 className="text-3xl">Welcome to GL1 Decarbonisation</h1>
+        <h1 className="text-3xl">Welcome to GL1 Decarbonisation tool</h1>
         <p className="text-sm text-gray-500">
-          GL1 Decarbonisation Planning helps you reach specific climate targets.
+          GL1 Decarbonisation Planning enables you to strategically align your
+          portfolio with your climate commitments.
         </p>
       </DialogTitle>
       <DialogDescription className=" z-10 mt-2 h-full flex flex-col justify-between">
@@ -25,28 +26,29 @@ export function Welcome({ setPath }: { setPath: (path: FlowSteps) => void }) {
               <h3 className="text-lg ">Select the regions/cities</h3>
             </div>
             <p className="text-sm text-gray-500 pl-12">
-              You can choose to analyse either the entire portfolio or focus on
-              specific regions/cities in relation to climate goals.
+              Choose to assess your entire portfolio or focus on specific
+              regions or cities.
             </p>
             <div className="flex space-x-2 items-center mt-4">
               <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 font-semibold ">
                 2
               </div>
-              <h3 className="text-lg ">Set your targets</h3>
+              <h3 className="text-lg ">Define your targets</h3>
             </div>
             <p className="text-sm text-gray-500 pl-12">
-              You can define your climate targets by choosing a specific date,
-              relevant metrics, and the desired target values.
+              Establish climate goals by specifying key timelines, relevant
+              performance metrics, and desired decarbonisation outcomes.
             </p>
             <div className="flex space-x-2 items-center mt-4">
               <div className="rounded-full w-10 h-10 flex items-center justify-center bg-transparent border-2 font-semibold ">
                 3
               </div>
-              <h3 className="text-lg ">Review the impact</h3>
+              <h3 className="text-lg ">Assess impact</h3>
             </div>
             <p className="text-sm text-gray-500 pl-12">
-              Explore what’s needed to achieve your targets based on your
-              current portfolio.
+              Evaluate the necessary actions and interventions required to meet
+              your targets, based on a detailed analysis of your current
+              portfolio composition.
             </p>
           </div>
           <img src={Top} alt="Building" className="w-[280px]" loading="eager" />

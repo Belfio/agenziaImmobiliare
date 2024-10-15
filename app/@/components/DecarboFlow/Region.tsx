@@ -67,6 +67,17 @@ const REGIONS = [
   },
 ];
 
+type Regions =
+  | "Portfolio"
+  | "North East"
+  | "North West"
+  | "Yorkshire and The Humber"
+  | "East Midlands"
+  | "West Midlands"
+  | "East of England"
+  | "London"
+  | "South East"
+  | "South West";
 export function Region({ setPath }: { setPath: (path: FlowSteps) => void }) {
   const [regions, setRegions] = useState<Regions[]>([]);
   const { propertyData } = useProperties();
@@ -85,16 +96,17 @@ export function Region({ setPath }: { setPath: (path: FlowSteps) => void }) {
       <DialogTitle>
         <h1 className="text-3xl">Target regions/cities</h1>
         <p className="text-sm text-gray-500 mt-2">
-          Select the regions or cities you want to analyse in terms of
-          decarbonisation.
+          Identify the regions or cities for targeted decarbonisation
+          assessment, aligning your selection with your organisation’s climate
+          goals.
         </p>
       </DialogTitle>
       <DialogDescription className="mt-2 h-full flex flex-col justify-between">
-        <div className="flex justify-between">
-          <Tabs defaultValue="Cities" className="space-y-4 mt-8">
+        <div className="flex justify-between items-center">
+          <Tabs defaultValue="Regions" className="space-y-4 mt-12 h-[350px]">
             <TabsList>
-              <TabsTrigger value="Cities">Cities</TabsTrigger>
               <TabsTrigger value="Regions">Regions</TabsTrigger>
+              <TabsTrigger value="Cities">Cities</TabsTrigger>
             </TabsList>
             <TabsContent value="Cities" className="space-y-4">
               <div className="flex flex-col gap-2 my-4 mx-4">
@@ -134,7 +146,9 @@ export function Region({ setPath }: { setPath: (path: FlowSteps) => void }) {
                         console.log(region.value);
                         if (checked) {
                           if (region.value === "Portfolio")
-                            setRegions(CITIES.map((r) => r.value) as Regions[]);
+                            setRegions(
+                              REGIONS.map((r) => r.value) as Regions[]
+                            );
                           else
                             setRegions([...regions, region.value as Regions]);
                         } else {

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { DecarboFlow } from "~/@/components/DecarboFlow";
 
 import { LineChartUI } from "~/@/components/LineChart";
+import TargetEPC from "~/@/components/TargetEPC";
 import { Button } from "~/@/components/ui/button";
 import {
   Card,
@@ -28,7 +29,7 @@ export default function DecarboPage({ targets }: { targets: Target[] }) {
         Plan your decarbonisation strategy and get insights on your properties.
       </p>
       <>
-        <Card className="mt-8">
+        {/* <Card className="mt-8">
           <CardHeader>
             <div className="flex justify-between items-center">
               <CardTitle> Model and progress </CardTitle>
@@ -64,8 +65,9 @@ export default function DecarboPage({ targets }: { targets: Target[] }) {
               <div className="absolute bottom-8">{}</div>
             </div>
           </CardContent>
-        </Card>
-        <Card className="my-8">
+        </Card> */}
+        <TargetEPC className="w-full" />
+        {/* <Card className="my-8">
           <CardHeader>
             <div className="flex justify-between items-center">
               <CardTitle> Priority actions </CardTitle>
@@ -89,7 +91,7 @@ export default function DecarboPage({ targets }: { targets: Target[] }) {
               portfolio.
             </p>
           </CardContent>
-        </Card>
+        </Card> */}
       </>
     </div>
   );

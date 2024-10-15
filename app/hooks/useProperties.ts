@@ -13,12 +13,13 @@ export function useProperties(): {
   const [propertyOverview, setPropertyOverview] =
     useState<OverviewPropertiesType | null>(null);
   useEffect(() => {
+    console.log("Fetching properties...");
     const load = async () => {
       const cachedPropertyData = await localforage.getItem("propertyData");
       if (cachedPropertyData) {
         setPropertyData(cachedPropertyData as PropertyData);
       } else {
-        console.log("Fetching....");
+        console.log("Fetching fetching properties...");
         fetch("/api/properties").then((res) =>
           res.json().then((data) => {
             setPropertyData(data);
@@ -33,7 +34,7 @@ export function useProperties(): {
   }, []);
 
   const loadPropsAsync = async () => {
-    console.log("Fetching....");
+    console.log("Fetching propertiesOverview....");
     fetch("/api/properties").then((res) =>
       res.json().then((data) => {
         setPropertyData(data);
@@ -43,11 +44,12 @@ export function useProperties(): {
   };
   useEffect(() => {
     const loadPropsOverviewAsync = async () => {
-      console.log("Fetching....");
+      console.log("Fetching propertiesOverview...");
       const cachedPropertyData = await localforage.getItem("propertyOverview");
       if (cachedPropertyData) {
         setPropertyOverview(cachedPropertyData as OverviewPropertiesType);
       } else {
+        console.log("Fetching fetching propertiesOverview...");
         fetch("/api/propertiesOverview").then((res) =>
           res.json().then((data) => {
             setPropertyOverview(data);

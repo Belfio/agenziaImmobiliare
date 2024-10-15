@@ -8,7 +8,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   await authenticator.isAuthenticated(request, {
     failureRedirect: "/login",
   });
-
+  console.log("loadingProps");
   const propertyData: PropertyData = await pp.loadProperties();
   return json(propertyData, {
     headers: {
