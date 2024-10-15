@@ -130,9 +130,7 @@ export default function PropertyPage({
                 {property?.propertyAttributes.potential_epc_band}
               </span>
             </p>
-            <p>
-              EER: {Math.round(property?.predictedEfficiency.predicted_eer)}
-            </p>
+            <p>EER: {Math.round(property?.propertyAttributes.potential_eer)}</p>
             <p>
               Carbon emissions:{" "}
               {property?.propertyAttributes.potential_co2_emissions} tn of CO₂ (

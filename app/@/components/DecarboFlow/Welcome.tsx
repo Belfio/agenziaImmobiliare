@@ -49,7 +49,7 @@ export function Welcome({ setPath }: { setPath: (path: FlowSteps) => void }) {
               current portfolio.
             </p>
           </div>
-          <img src={Top} alt="Building" className="w-[280px]" />
+          <img src={Top} alt="Building" className="w-[280px]" loading="eager" />
         </div>
         <div className="flex justify-end mt-4">
           <Button className="mt-4 w-fit" onClick={() => setPath("region")}>

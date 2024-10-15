@@ -626,6 +626,7 @@ async function overviewProperties(): Promise<OverviewPropertiesType> {
     ).length,
   };
 }
+
 const pp = {
   getEnergyRating,
   postProcessProperty,
