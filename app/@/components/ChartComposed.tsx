@@ -49,12 +49,7 @@ type ReferenceLineType = {
   colour?: string;
 };
 
-const CustomTooltip = ({
-  active,
-  payload,
-  label,
-  data,
-}: TooltipProps<ComposedDataType>) => {
+const CustomTooltip = ({ active, payload, label, data }) => {
   if (active && payload && payload.length) {
     return (
       <div

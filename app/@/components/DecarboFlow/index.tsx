@@ -1,11 +1,12 @@
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Welcome } from "./Welcome";
 import { LoadProps } from "./LoadProps";
-import { Target, TargetType } from "./Target";
+import { Target } from "./Target";
 import { useState } from "react";
 import { Region } from "./Region";
 import { Summary } from "./Summary";
 import { useNavigate } from "@remix-run/react";
+import { TargetType } from "~/@/lib/types";
 
 export type FlowSteps =
   | "welcome"
@@ -49,7 +50,7 @@ export function DecarboFlow({
           <Summary
             setPath={setPath}
             submitTarget={submitTarget}
-            target={target}
+            target={target as TargetType}
           />
         );
       case "end":
