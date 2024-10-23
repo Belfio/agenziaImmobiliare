@@ -1,12 +1,14 @@
 // import MainKpi from "~/@/components/MainKpi";
 import { useState } from "react";
+import AddClient from "~/@/components/AddClient";
+import AddProperty from "~/@/components/AddProperty";
 import { DecarboFlow } from "~/@/components/DecarboFlow";
+import NextMeetings from "~/@/components/NextMeetings";
 import OverviewBar from "~/@/components/OverviewBar";
-import TargetEPC from "~/@/components/TargetEPC";
-import TargetTracking from "~/@/components/TargetTracking";
+import RecordMeeting from "~/@/components/RecordMeeting";
 
 export default function OverviewPage() {
-  const [isFlowOpen, setIsFlowOpen] = useState(true);
+  const [isFlowOpen, setIsFlowOpen] = useState(false);
 
   if (isFlowOpen) {
     return <DecarboFlow setIsFlowOpen={setIsFlowOpen} />;
@@ -16,13 +18,17 @@ export default function OverviewPage() {
       {/* <h1 className="text-3xl">Overview </h1> */}
 
       <div className="mt-0 ">
-        <div className={`pt-4 flex w-fit m-auto`}>
-          <TargetEPC />
-          <div className="w-1/4 min-w-[364px]">
-            <TargetTracking />
+        <OverviewBar />
+        <div className={`pt-4 flex m-auto w-full space-x-4`}>
+          <div className="w-2/3">
+            <NextMeetings />
+          </div>
+          <div className="flex flex-col w-1/3 space-y-4">
+            <RecordMeeting className="dark" />
+            <AddProperty className="dark" />
+            <AddClient className="dark" />
           </div>
         </div>
-        <OverviewBar />
       </div>
     </div>
   );

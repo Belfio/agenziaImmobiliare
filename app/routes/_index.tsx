@@ -74,22 +74,33 @@ export default function Index() {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   console.log("loader in the dashboard");
-  const user = await authenticator.isAuthenticated(request, {
-    failureRedirect: "/login",
-  });
-  if (!user) {
-    return redirect("/login");
-  }
+  // const user = await authenticator.isAuthenticated(request, {
+  //   failureRedirect: "/login",
+  // });
+  // if (!user) {
+  //   return redirect("/login");
+  // }
+
+  // const userProfile: User = {
+  //   email: user.email,
+  //   name: "name",
+  //   id: "id",
+  //   roles: ["user"],
+  //   createdAt: user.createdAt,
+  //   avatar: "img",
+  //   surname: "surname",
+  // };
 
   const userProfile: User = {
-    email: user.email,
+    email: "ciao",
     name: "name",
     id: "id",
     roles: ["user"],
-    createdAt: user.createdAt,
+    createdAt: "ciao",
     avatar: "img",
     surname: "surname",
   };
+
   return { userProfile };
 }
 

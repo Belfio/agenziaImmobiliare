@@ -2,7 +2,7 @@ import Tile from "./Tiles";
 
 export default function OverviewBar() {
   return (
-    <div className="flex justify-center gap-8 mt-8">
+    <div className="flex justify-left  gap-4 mt-8 w-full">
       <Tile
         title="Number of properties"
         value={"6388"}

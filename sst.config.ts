@@ -42,7 +42,7 @@ export default $config({
       },
     });
 
-    new sst.aws.Remix("GL1", {
+    new sst.aws.Remix("AGIM", {
       link: [tableCreds, tableProperties, tableTarget],
       environment: {
         AUTH_SECRET: AUTH_SECRET,
