@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { useContext } from "react";
 import { UserContext } from "~/providers/userContext";
-import GL1_logo from "~/@/assets/images/gl1-logo.svg";
 
 export default function DashboardLayout() {
   const { user } = useContext(UserContext);
@@ -35,7 +34,10 @@ export default function DashboardLayout() {
         <div className="w-1/6 min-w-64 h-screen agradient-background-light bg-[var(--darkblue)] text-[var(--blue)]">
           <div className="fixed bg-[var(--darkblue)] w-1/6 min-w-64 border-r border-dark dark:border-muted h-screen ">
             <div className="flex items-center h-[102px] px-2">
-              <img src={GL1_logo} alt="GL1" className="w-[84px] h-[84px]" />
+              {/* <img src={GL1_logo} alt="GL1" className="w-[84px] h-[84px]" /> */}
+              <h1 className="font-bold uppercase text-sm tracking-wide">
+                Agente Immobiliare.it
+              </h1>
             </div>
             <div className="flex-1 flex-col w-full">
               <Nav
