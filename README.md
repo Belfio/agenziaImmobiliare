@@ -5,7 +5,6 @@
 ## Tech Stack
 
 - **SST**: Serverless infrastructure for rapid deployment on AWS.
-- **ION**: Interactive data components for efficient user engagement.
 - **TypeScript**: Ensures type safety and cleaner code.
 - **React**: Builds fast, dynamic user interfaces.
 - **Tailwind CSS**: Utility-first styling framework.
@@ -27,3 +26,4 @@
    ```bash
    git clone https://github.com/yourusername/agenzia-immobiliare.git
    cd agenzia-immobiliare
+   ```
