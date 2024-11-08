@@ -4,6 +4,8 @@
 
 ## Why
 
+// what are the info tha tI still need?
+
 Estate agents often grapple with managing extensive data, from client information to property listings. Manual data entry and organization can be time-consuming and susceptible to errors, diverting attention away from building client relationships and closing deals. **Agenzia Immobiliare** leverages AI-powered Speech-to-Text technology to automate the transcription of meetings and streamline data management within the CMS. This automation not only enhances accuracy and efficiency but also empowers agents to focus more on strategic activities and client interactions, ultimately driving business growth and improving service quality.
 
 ## Tech Stack
